@@ -1,1 +1,2 @@
 # fjs-diplom
+автор ozkostay
