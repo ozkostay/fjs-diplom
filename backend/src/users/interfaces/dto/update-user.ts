@@ -1,6 +1,6 @@
 export interface IUpdateUserDto {
     email: 	string,
-    password: string,
+    passwordHash: string,
     name: string,
     contactPhone: string,
     role: string,

@@ -18,9 +18,9 @@ export class User {
     public contactPhone: string;
     
     @Prop({ required: true, default: 'client' })
-    public role: string;
+    public role: 'client' | 'admin' | 'manager';
  }
 
-export const BookSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
 
 
