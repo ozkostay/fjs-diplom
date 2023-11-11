@@ -5,5 +5,3 @@ export interface ICreateUserDto {
     contactPhone: string,
     role: string,
 }
-
-// password - hash
