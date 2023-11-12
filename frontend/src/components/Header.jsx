@@ -15,6 +15,9 @@ export default function Header() {
             <Link className="nav-link" to="/">
               <span className="link-span bb">Главная</span>
             </Link>
+            <Link className="nav-link" to="/redux">
+              <span className="link-span bb">redux</span>
+            </Link>
           </div>
           <div>
             <Link className="nav-link bb" to="/signup">
