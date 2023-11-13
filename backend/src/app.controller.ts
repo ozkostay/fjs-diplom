@@ -16,7 +16,7 @@ export class AppController {
   @Get('/token')
   getToken(): string {
     console.log('app.cont 222');
-    return this.authService.createToken({ username: 'Maria', sub: 2 });
+    return this.authService.createToken({ email: 'Maria', role: 'admin' });
   }
 
   // @UseGuards(JwtAuthGuard)
