@@ -7,8 +7,9 @@ export default function Login() {
   async function hendlerSubmit(event) {
     event.preventDefault();
     console.log('Yes SUBMIT', email, password);
-    const url = 'http://localhost:4000/api/users/signin';
-    const body = { email, password };
+    const url = `${process.env.REACT_APP_BACK_URL }/api/users/signin`;
+    console.log('=== url ===', url);
+    const body = { email, passwordHash: password };
     console.log('===BODY ===',body);
     const options = {
       method: 'POST',
@@ -24,8 +25,9 @@ export default function Login() {
         console.log('response STATUSCODE === ', response.statusCode);
         alert('Ошибка авторизации!!!');
       } else {
-        console.log('response YES === ', response);
+        console.log('response YES === ', response.user);
         localStorage.setItem("token", response.access_token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         alert('Успешная авторизация!!!');
       }
     } catch (err) {

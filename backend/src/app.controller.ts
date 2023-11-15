@@ -13,6 +13,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  // Для теста
   @Get('/token')
   getToken(): string {
     console.log('app.cont 222');

@@ -1,14 +1,14 @@
 import { takeLatest, put, spawn, debounce, retry } from "redux-saga/effects";
 
 import {
-  listProductsSuccess,
-  listProductsError,
-  categoriesSuccess,
-  categoriesError,
-  hitsSuccess,
-  hitsError,
-  productSuccess,
-  productError,
+  // listProductsSuccess,
+  // listProductsError,
+  // categoriesSuccess,
+  // categoriesError,
+  // hitsSuccess,
+  // hitsError,
+  // productSuccess,
+  // productError,
 } from "../actions/actionCreators";
 
 import {
@@ -24,68 +24,68 @@ import { searchHits } from "../api/searchHits";
 
 // worker;
 function* handleSearchProductsSaga(action) {
-  try {
-    const retryCount = 1;
-    const retryDelay = 1 * 1000;
-    const data = yield retry(
-      retryCount,
-      retryDelay,
-      searchProducts,
-      action.payload.param
-    );
-    yield put(listProductsSuccess(data));
-  } catch (e) {
-    yield put(listProductsError(e.massage));
-  }
+  // try {
+  //   const retryCount = 1;
+  //   const retryDelay = 1 * 1000;
+  //   const data = yield retry(
+  //     retryCount,
+  //     retryDelay,
+  //     searchProducts,
+  //     action.payload.param
+  //   );
+  //   yield put(listProductsSuccess(data));
+  // } catch (e) {
+  //   yield put(listProductsError(e.massage));
+  // }
 }
 
 function* handleSearchCategoriesSaga(action) {
-  try {
-    const retryCount = 1;
-    const retryDelay = 1 * 1000;
-    const data = yield retry(
-      retryCount,
-      retryDelay,
-      searchCategories,
-      action.payload.param
-    );
-    yield put(categoriesSuccess(data));
-  } catch (e) {
-    yield put(categoriesError(e.massage));
-  }
+  // try {
+  //   const retryCount = 1;
+  //   const retryDelay = 1 * 1000;
+  //   const data = yield retry(
+  //     retryCount,
+  //     retryDelay,
+  //     searchCategories,
+  //     action.payload.param
+  //   );
+  //   yield put(categoriesSuccess(data));
+  // } catch (e) {
+  //   yield put(categoriesError(e.massage));
+  // }
 }
 
 function* handleSearchHitsSaga(action) {
-  try {
-    const retryCount = 1;
-    const retryDelay = 1 * 1000;
-    const data = yield retry(
-      retryCount,
-      retryDelay,
-      searchHits,
-      action.payload.param
-    );
-    yield put(hitsSuccess(data));
-  } catch (e) {
-    yield put(hitsError(e.massage));
-  }
+  // try {
+  //   const retryCount = 1;
+  //   const retryDelay = 1 * 1000;
+  //   const data = yield retry(
+  //     retryCount,
+  //     retryDelay,
+  //     searchHits,
+  //     action.payload.param
+  //   );
+  //   yield put(hitsSuccess(data));
+  // } catch (e) {
+  //   yield put(hitsError(e.massage));
+  // }
 }
 
 function* handleSearchProductSaga(action) {
-  try {
-    const retryCount = 1;
-    const retryDelay = 1 * 1000;
-    const data = yield retry(
-      retryCount,
-      retryDelay,
-      searchProducts,
-      action.payload.param
-    );
-    // console.log('SAGA DATA', data);
-    yield put(productSuccess(data));
-  } catch (e) {
-    yield put(productError(e.massage));
-  }
+  // try {
+  //   const retryCount = 1;
+  //   const retryDelay = 1 * 1000;
+  //   const data = yield retry(
+  //     retryCount,
+  //     retryDelay,
+  //     searchProducts,
+  //     action.payload.param
+  //   );
+  //   // console.log('SAGA DATA', data);
+  //   yield put(productSuccess(data));
+  // } catch (e) {
+  //   yield put(productError(e.massage));
+  // }
 }
 
 // watcher

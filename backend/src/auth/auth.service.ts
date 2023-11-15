@@ -15,11 +15,18 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     console.log('auth.service.validateUser', email, pass);
     const user = await this.usersService.findOne(email);
+    console.log('auth.service.validateUser =3===', user);
     // Проверка хэша
     const isMatch = await bcrypt.compare(pass, user.passwordHash);
     if (user && isMatch) {
-      const { passwordHash, ...result } = user;
-      return result;
+      // console.log('result ================ ', );
+      return {
+        _id: user._id,
+        contactPhone: user.contactPhone,
+        mail: user.email,
+        name: user.name,
+        role: user.role,
+      };
     }
     return null;
   }
