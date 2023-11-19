@@ -4,32 +4,6 @@ import {
   USER_LOGOUT,
   USER_SIGNUP,
   USERS_LIST,
-  // HITS_REQUEST,
-  // HITS_SUCCESS,
-  // HITS_ERROR,
-  // CATEGORIES_REQUEST,
-  // CATEGORIES_SUCCESS,
-  // CATEGORIES_ERROR,
-  // CHANGE_CURRENT_CATEGORY,
-  // LIST_CATALOG_REQUEST,
-  // LIST_CATALOG_SUCCESS,
-  // LIST_CATALOG_ERROR,
-  // SET_OFFSET,
-  // SET_FINDSTRING,
-  // PRODUCT_REQUEST,
-  // PRODUCT_SUCCESS,
-  // PRODUCT_ERROR,
-  // CART_TOTALCOST,
-  // CART_ORDER,
-  // // ADD_CART_REQUEST,
-  // ADD_CART_SUCCESS,
-  // // ADD_CART_ERROR,
-  // // DELETE_CART_REQUEST,
-  // DELETE_CART_SUCCESS,
-  // // DELETE_CART_ERROR,
-  // ORDER_REQUEST,
-  // ORDER_SUCCESS,
-  // ORDER_ERROR,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -45,7 +19,7 @@ export function actUserLogout() {
   return { type: USER_LOGOUT, payload: {}} ;
 }
 export function actUserSignup(payload) {
-  console.log('actionCreater SIGNUP payoad', payload)
+  // console.log('actionCreater SIGNUP payoad', payload)
   return { type: USER_SIGNUP, payload: payload} ;
 }
 export function actUsersList(payload) {

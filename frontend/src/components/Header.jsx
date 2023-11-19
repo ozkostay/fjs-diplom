@@ -30,7 +30,7 @@ export default function Header() {
               <span className="link-span bb">Главная</span>
             </Link>
           </div>
-          <button onClick={testUser}>test USER</button>
+          {/* <button onClick={testUser}>test USER</button> */}
           {user ? (
             <div>
               <span className="link-span header-user">{user.name}</span>

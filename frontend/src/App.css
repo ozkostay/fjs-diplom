@@ -85,6 +85,22 @@ body {
   background-color: white;
 }
 
+.users-table {
+  margin: 20px 0 0 0 ;
+  border: 1px solid grey;
+}
+
+.users-table-th {
+  padding: 5px;
+  border: 1px solid grey;
+  background-color: #cccccc;
+}
+
+.users-table-td {
+  padding: 5px;
+  border: 1px solid grey;
+}
+
 
 
 

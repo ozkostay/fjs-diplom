@@ -24,7 +24,7 @@ export class AuthController {
     private readonly userService: UsersService,
   ) {}
 
-  @Get('')
+  @Get('/admin/users')
   async findAll() {
     return this.userService.findAll();
   }

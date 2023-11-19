@@ -6,6 +6,7 @@ import saga from "./sagas";
 // import hitsReducer from "./reducers/hits";
 // import cartReducer from './reducers/cart';
 import reducerUser from "./reducers/user";
+import reducerUsersList from "./reducers/users";
 
 const reducer = combineReducers({
   // products: productsReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   // hits: hitsReducer,
   // cart: cartReducer,
   crUser: reducerUser,
+  usersList: reducerUsersList,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();

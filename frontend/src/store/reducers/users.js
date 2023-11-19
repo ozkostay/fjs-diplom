@@ -6,10 +6,10 @@ const initialState = {
       error: null,
     };
 
-export default function reducerUser(state = initialState, action) {
+export default function reducerUsersList(state = initialState, action) {
   console.log('reducer USERS', action);
   switch (action.type) {
-    case USER_LOGIN:
+    case USERS_LIST:
       return {
         ...state,
         users: action.payload,
