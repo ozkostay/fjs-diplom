@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { ICreateUserDto } from 'src/users/interfaces/dto/create-user';
 import * as bcrypt from 'bcrypt';
+import { IUserFromFrontDto } from 'src/users/interfaces/dto/userFromFront';
 
 @Injectable()
 export class AuthService {
@@ -41,7 +42,7 @@ export class AuthService {
   }
 
   // ===========================================================
-  async register(userNew: ICreateUserDto) {
+  async register(userNew: IUserFromFrontDto) {
     const user = await this.usersService.createUser(userNew);
     if (!user) {
       return {

@@ -72,6 +72,11 @@ body {
   color: #8a92a6;
   margin: 0 10px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.header-user {
+  color: coral;
 }
 
 .outlet-container {

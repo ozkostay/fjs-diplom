@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionUserTest } from "../store/actions/actionCreators";
 // import { Link, Outlet } from "react-router-dom";
 
 export default function Redux() {
-  const { user, loading, error } = useSelector((state) => state.crUser);
+  const { user } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log('useEffect ', user);
-  }, []);
+  // useEffect(() => {
+  //   console.log('useEffect ', user);
+  // }, []);
 
   function consoleTest() {
     console.log('user: ', user);

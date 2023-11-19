@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Redux from "./components/Redux";
+import Users from "./components/Users";
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
 // import Contacts from "./components/Contacts";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/redux" element={<Redux />} />
+          <Route path="/users" element={<Users />} />
           {/* <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/catalog" element={<Catalog />} />

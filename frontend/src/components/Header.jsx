@@ -1,17 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
-// import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { actUserLogout } from "../store/actions/actionCreators";
 // import headerLogo from "./img/header-logo.png";
-// import { setFindString } from "../store/actions/actionCreators";
-// import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
-  const { user, loading, error } = useSelector((state) => state.crUser);
+  const { user } = useSelector((state) => state.crUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function testUser() {
-    console.log('redUSer: ', user);
+    console.log("reduserUSER: ", user);
+  }
+
+  function fnLogout(event) {
+    event.preventDefault();
+    console.log('Yes LOGOUT');
+    dispatch(actUserLogout());
+    navigate('/');
   }
 
   return (
@@ -23,19 +29,23 @@ export default function Header() {
             <Link className="nav-link" to="/">
               <span className="link-span bb">Главная</span>
             </Link>
-            <Link className="nav-link" to="/redux">
-              <span className="link-span bb">redux</span>
-            </Link>
           </div>
-          <button onClick={testUser}>redUser</button>
-          <div>
-            <Link className="nav-link bb" to="/signup">
-              <span className="link-span">Регистрация</span>
-            </Link>
-            <Link className="nav-link bb" to="/signin">
-              <span className="link-span">Войти</span>
-            </Link>
-          </div>
+          <button onClick={testUser}>test USER</button>
+          {user ? (
+            <div>
+              <span className="link-span header-user">{user.name}</span>
+              <span className="link-span" onClick={fnLogout}>Выйти</span>
+            </div>
+          ) : (
+            <div>
+              <Link className="nav-link bb" to="/signup">
+                <span className="link-span">Регистрация</span>
+              </Link>
+              <Link className="nav-link bb" to="/signin">
+                <span className="link-span">Войти</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </>

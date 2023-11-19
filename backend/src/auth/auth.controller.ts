@@ -14,8 +14,10 @@ import { JwtAuthGuard } from './jwt.auth.guard';
 import { IParamId } from 'src/users/interfaces/param-id';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
+import { ICreateUserDto } from 'src/users/interfaces/dto/create-user';
+import { IUserFromFrontDto } from 'src/users/interfaces/dto/userFromFront';
 
-@Controller('api/users')
+@Controller('api')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -27,18 +29,17 @@ export class AuthController {
     return this.userService.findAll();
   }
 
-  @Post('signup')
-  async register(@Body() body: any) {
+  @Post('/auth/signup')
+  async register(@Body() body: IUserFromFrontDto) {
     console.log('auth-CONTROLLER signup === ', body);
     return this.authService.register(body);
   }
 
-  @Post('signin')
+  @Post('/auth/login')
   @UseGuards(AuthGuard('local'))
   async login(@Request() req: any) {
     console.log('auth-CONTROLLER signin ', req.user);
     return this.authService.login(req.user)
-    // return 'LOGIN';
   }
   
   @Delete(':id')

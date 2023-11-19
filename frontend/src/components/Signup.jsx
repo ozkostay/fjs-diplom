@@ -1,79 +1,98 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actUserSignup } from "../store/actions/actionCreators";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ firstName, setFirstName ] = useState('');
-  const [ lastName, setLastName ] = useState('');
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("client");
+  const { user } = useSelector((state) => state.crUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   async function hendlerSubmit(event) {
     event.preventDefault();
-    // console.log('Yes SUBMIT', email, password);
-    const url = 'http://localhost:4000/api/users/signup';
-    const body = { email, password, firstName, lastName };
-    // console.log('===BODY ===',body);
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(body),
-    }; 
-    try {
-      const data = await fetch(url, options);
-      const response = await data.json();
-      if (response.statusCode) {
-        // console.log('response STATUSCODE === ', response.statusCode);
-        alert(response.message);
-      } else {
-        console.log('response YES === ', response);
-        localStorage.setItem("token", response.access_token);
-        alert('Вы зарегистрировались успешно!');
-      }
-    } catch (err) {
-      console.error(err);
+    const body = { email, passwordHash: password, name, phone, role };
+    dispatch(actUserSignup(body));
+    if (!user) {
+      navigate('/signin');
+    } else {
+      navigate('/');
     }
+    
   }
 
   return (
     <>
       <div className="home bb">
+        <div>контроль ROLE: {role}</div>
         <form>
           <div className="pol">
             <span className="input-span">email</span>
-            <input 
-              className="login-input" 
+            <input
+              className="login-input"
               type="email"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} />
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div>
             <span className="input-span">Пароль</span>
-            <input 
+            <input
               className="login-input"
               type="text"
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} />
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div>
             <span className="input-span">Имя</span>
-            <input 
+            <input
               className="login-input"
               type="text"
-              value={firstName} 
-              onChange={(e) => setFirstName(e.target.value)} />
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div>
-            <span className="input-span">Фамилия</span>
-            <input 
+            <span className="input-span">Телефон</span>
+            <input
               className="login-input"
               type="text"
-              value={lastName} 
-              onChange={(e) => setLastName(e.target.value)} />
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
-          <button style={{ 'width':'250px' }} onClick={hendlerSubmit} type="submit" className="form-button">Зарегистрироваться</button>
+          {user?.role === "admin" ? (
+            <div>
+              <span className="input-span">Роль</span>
+              <select
+                className="login-input"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="client">Клиент</option>
+                <option value="menager">Менеджер</option>
+                <option value="admin">Администратор</option>
+              </select>
+            </div>
+          ) : (
+            ""
+          )}
+
+          <button
+            style={{ width: "250px" }}
+            onClick={hendlerSubmit}
+            type="submit"
+            className="form-button"
+          >
+            Зарегистрироваться
+          </button>
         </form>
-      </div> 
+      </div>
     </>
   );
 }
