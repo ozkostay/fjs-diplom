@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actUserLogin } from "../store/actions/actionCreators";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const { user } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-  async function hendlerSubmit(event) {
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  },[user]);
+
+  function hendlerSubmit(event) {
     event.preventDefault();
-    // console.log('Yes SUBMIT', email, password);
     dispatch(actUserLogin({ email, password }));
   }
 

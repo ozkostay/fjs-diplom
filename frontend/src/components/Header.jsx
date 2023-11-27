@@ -15,26 +15,28 @@ export default function Header() {
 
   function fnLogout(event) {
     event.preventDefault();
-    console.log('Yes LOGOUT');
+    console.log("Yes LOGOUT");
     dispatch(actUserLogout());
-    navigate('/');
+    navigate("/");
   }
 
   return (
     <>
       <div className="header-container bb">
-        <div className="logo bb">LOGO</div>
+        <div className="logo bb">
+          <Link className="nav-link" to="/">
+            <span>LOGO</span>
+          </Link>
+        </div>
+
         <div className="header-main bb">
-          <div>
-            <Link className="nav-link" to="/">
-              <span className="link-span bb">Главная</span>
-            </Link>
-          </div>
-          {/* <button onClick={testUser}>test USER</button> */}
+          <div></div>
           {user ? (
             <div>
               <span className="link-span header-user">{user.name}</span>
-              <span className="link-span" onClick={fnLogout}>Выйти</span>
+              <span className="link-span" onClick={fnLogout}>
+                Выйти
+              </span>
             </div>
           ) : (
             <div>

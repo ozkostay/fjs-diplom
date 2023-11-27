@@ -17,19 +17,19 @@ export default function Layout() {
           <div className="left-nav bb">
             <ul>
               <li>
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/hotels">
                   <span className="link-span">Все гостиницы</span>
                 </Link>
               </li>
               <li>
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/room">
                   <span className="link-span">Поиск номера</span>
                 </Link>
               </li>
               {user?.role === "admin" ? (
                 <>
                   <li>
-                    <Link className="nav-link" to="#">
+                    <Link className="nav-link" to="addhotel">
                       <span className="link-span">Добавить гостиницу</span>
                     </Link>
                   </li>
