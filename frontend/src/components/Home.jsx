@@ -39,7 +39,7 @@ export default function Home() {
       <div className="mainpage">
         
         <div className="read">
-          Главная страница
+          &lt;Главная страница&gt;
         </div>
         {/* <button onClick={hendlerSubmit} type="submit" className="form-button">Отправить</button> */}
       </div> 

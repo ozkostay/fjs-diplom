@@ -88,6 +88,7 @@ body {
 .users-table {
   margin: 20px 0 0 0 ;
   border: 1px solid grey;
+  font-size: 0.8em;
 }
 
 .users-table-th {
@@ -101,12 +102,11 @@ body {
   border: 1px solid grey;
 }
 
-
-
-
-
-
-
+.users-icon {
+  width: 25px;
+  height: 25px;
+  margin: 0 8px;
+}
 
 .navbar-nav {
   display: flex;
@@ -160,7 +160,7 @@ body {
 }
 
 .mainpage {
-  margin: 60px;
+  margin: 20px;
   font-size: 22px;
 }
 
