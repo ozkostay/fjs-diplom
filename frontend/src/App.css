@@ -27,13 +27,16 @@ body {
 
 .logo {
   min-width: 257px;
-  background-color: #079aa2;
+  background-color: #ffffff;
+  border: 2px solid #686ab1;
   border-radius: 8px;
   margin: 0 37px 0 0;
-  color: #dee2e6;
   text-align: center;
   font-weight: 700;
-  padding-top: 25px;
+}
+
+.logo-img {
+  height: 100%;
 }
 
 .header-main {

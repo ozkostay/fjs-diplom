@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { actUserLogout } from "../store/actions/actionCreators";
+import logo from "../pics/logo.png";
 // import headerLogo from "./img/header-logo.png";
 
 export default function Header() {
@@ -25,7 +26,8 @@ export default function Header() {
       <div className="header-container bb">
         <div className="logo bb">
           <Link className="nav-link" to="/">
-            <span>LOGO</span>
+            {/* <span>LOGO</span> */}
+            <img className="logo-img" src={logo} />
           </Link>
         </div>
 

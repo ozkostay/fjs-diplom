@@ -19,11 +19,12 @@ export default function Users() {
   }
 
   function hendlerIcon(event, id) {
-    console.log("HENDLER USERS ", event.target?.alt);
+    console.log("HENDLER USERS ", event.target.getAttribute('data-title'));
     const action = event.target?.alt;
     switch (action) {
       case "view":
         console.log("Переход на страницу просмотра пользователя", id);
+        navigate(`/userview/${id}`);
         break;
       case "edit":
         console.log("Редактирование пользователя", id);
@@ -39,19 +40,9 @@ export default function Users() {
   return (
     <>
       <div className="mainpage">
-        {/* <button onClick={() => console.log("USERS", users)} type="submit">
-          USERS
-        </button> */}
         <button onClick={fnAddUser} type="submit" className="form-button">
           Добавить
         </button>
-        {/* <div className="read">
-          Список пользователей.
-        </div> */}
-        {/* <table>
-        <tr><th>текст заголовка</th><th>текст заголовка</th></tr> <!--ряд с ячейками заголовков-->
-        <tr><td>данные</td><td>данные</td></tr> <!--ряд с ячейками тела таблицы-->
-        </table> */}
         {users ? (
           <table className="users-table">
             <tr>
