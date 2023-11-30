@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actUsersList } from "../store/actions/actionCreators";
@@ -8,6 +8,7 @@ export default function Users() {
   const { users } = useSelector((state) => state.usersList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [trLimit, setTrLimit] = useState('3');
 
   useEffect(() => {
     dispatch(actUsersList());
@@ -37,12 +38,27 @@ export default function Users() {
     }
   }
 
+  function fnChangeLimit(event) {
+    setTrLimit(event.target.value);
+  }
+
   return (
     <>
       <div className="mainpage">
-        <button onClick={fnAddUser} type="submit" className="form-button">
-          Добавить
-        </button>
+        <div className="users-header">
+          <button onClick={fnAddUser} type="submit" className="form-button">
+            Добавить
+          </button>
+          <div>
+            <span className="span-limit">Показывать по</span>
+            <select value={trLimit} onChange={fnChangeLimit}>
+              <option value="3">3</option>
+              <option value="6">6</option>
+              <option value="12" >12</option>
+            </select>
+          </div>
+        </div>
+        
         {users ? (
           <table className="users-table">
             <tr>

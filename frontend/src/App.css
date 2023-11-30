@@ -88,10 +88,20 @@ body {
   background-color: white;
 }
 
+.users-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .users-table {
   margin: 20px 0 0 0 ;
   border: 1px solid grey;
-  font-size: 0.8em;
+  font-size: 0.7em;
+}
+
+.span-limit {
+  font-size: 0.7em;
+  margin: 0 5px 0 0;
 }
 
 .users-table-th {
