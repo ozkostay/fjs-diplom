@@ -1,24 +1,16 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { combineReducers, applyMiddleware, compose, legacy_createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import saga from "./sagas";
-// import productsReducer from "./reducers/products";
-// import categoriesReducer from "./reducers/categories";
-// import hitsReducer from "./reducers/hits";
-// import cartReducer from './reducers/cart';
 import reducerUser from "./reducers/user";
 import reducerUsersList from "./reducers/users";
 
 const reducer = combineReducers({
-  // products: productsReducer,
-  // categories: categoriesReducer,
-  // hits: hitsReducer,
-  // cart: cartReducer,
   crUser: reducerUser,
   usersList: reducerUsersList,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
+const store = legacy_createStore (
   reducer,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );

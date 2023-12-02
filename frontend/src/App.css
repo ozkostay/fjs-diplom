@@ -12,7 +12,7 @@ body {
 }
 
 .bb {
-  border: 0px solid black;
+  border: 1px solid black;
 }
 
 .app-container {
@@ -36,7 +36,8 @@ body {
 }
 
 .logo-img {
-  height: 100%;
+  margin-top: 2px;
+  height: 60px;
 }
 
 .header-main {
@@ -94,7 +95,7 @@ body {
 }
 
 .users-table {
-  margin: 20px 0 0 0 ;
+  margin: 20px auto ;
   border: 1px solid grey;
   font-size: 0.7em;
 }
@@ -119,7 +120,30 @@ body {
   width: 25px;
   height: 25px;
   margin: 0 8px;
+  cursor: pointer;
 }
+
+.paging {
+  display: flex;
+  margin: 0 auto;
+  width: 230px;
+}
+
+.paging-button {
+  margin: 0 10px;
+  height: 40px;
+  width: 40px;
+  border: 1px solid grey
+}
+
+.paging-span {
+  display: block;
+  width: 70px;
+  font-size: 18px;
+  padding: 10px;
+  text-align: center
+}
+
 
 .navbar-nav {
   display: flex;
