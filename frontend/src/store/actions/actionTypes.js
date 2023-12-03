@@ -6,6 +6,7 @@ export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_SIGNUP = "USER_SIGNUP";
 export const USERS_LIST = "USERS_LIST";
 export const USERS_LIST_ERROR = "USERS_LIST_ERROR";
+export const USERS_DELETE = "USERS_DELETE";
 
 // // Список хитов
 export const HITS_REQUEST = "HITS_REQUEST";

@@ -42,8 +42,9 @@ export class AuthController {
     return this.authService.login(req.user)
   }
   
-  @Delete(':id')
+  @Delete('/admin/users/:id')
   public delete(@Param() { id }: IParamId): Promise<UserDocument> {
+    console.log('USER DELETE', id);
     return this.userService.delete(id);
   }
 

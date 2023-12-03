@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actUsersList } from "../store/actions/actionCreators";
+import { actUsersDelete, actUsersList } from "../store/actions/actionCreators";
 import UsersItem from "./UsersItem";
 
 export default function Users() {
@@ -15,6 +15,7 @@ export default function Users() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('111111111111111111111111');
     dispatch(actUsersList());
   }, []);
 
@@ -33,9 +34,11 @@ export default function Users() {
         break;
       case "edit":
         console.log("Редактирование пользователя", id);
+        navigate(`/useredit/${id}`);
         break;
       case "delete":
         console.log("Удалние пользователя", id);
+        dispatch(actUsersDelete(id));
         break;
       default:
         break;
@@ -43,6 +46,7 @@ export default function Users() {
   }
 
   function fnChangeLimit(event) {
+    setOffset(0);
     setLimit(Number(event.target.value));
   }
   
@@ -57,9 +61,7 @@ export default function Users() {
     }
     
   }
-  // setOffset
-
-
+  
   return (
     <>
       <div className="mainpage">
@@ -80,11 +82,11 @@ export default function Users() {
         {users ? (
           <>
             <table className="users-table">
-              <tr>
-                <th className="users-table-th">ID</th>
-                <th className="users-table-th">name</th>
-                <th className="users-table-th">email</th>
-                <th className="users-table-th"></th>
+              <tr className="">
+                <th className="users-table-th users-table-npp">ID</th>
+                <th className="users-table-th users-table-name">name</th>
+                <th className="users-table-th users-table-mail">email</th>
+                <th className="users-table-th users-table-buttons"></th>
               </tr>
               {users.map((item, index) => (
                 <UsersItem

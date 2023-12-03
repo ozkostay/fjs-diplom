@@ -24,9 +24,10 @@ export default function Header() {
   return (
     <>
       <div className="header-container bb">
-        <Link className="logo bb" to="/">
-          <div className="bb">
-            <img className="logo-img" src={logo} />
+        <Link className="logo-link bb" to="/">
+          <div className="logo-img bb">
+            {/* <img className="logo-img" src={logo} /> */}
+            
           </div>
         </Link>
 

@@ -15,10 +15,10 @@ export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
   return (
     <>
       <tr>
-        <td className="users-table-td">{index + 1}</td>
-        <td className="users-table-td">{item.name}</td>
-        <td className="users-table-td">{item.email}</td>
-        <td className="users-table-td">
+        <td className="users-table-td users-table-npp">{index + 1}</td>
+        <td className="users-table-td users-table-name">{item.name}</td>
+        <td className="users-table-td users-table-mail">{item.email}</td>
+        <td className="users-table-td users-table-buttons">
           <img
             className="users-icon"
             src={viewIcon}

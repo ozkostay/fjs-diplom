@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 export default function UserView() {
   const { users } = useSelector((state) => state.usersList);
   const [user, setUser] = useState(null);
-  // const dispatch = useDispatch();
   let { id } = useParams();
 
   useEffect(() => {
@@ -13,22 +12,22 @@ export default function UserView() {
     if (userItem !== -1) {
       setUser(userItem);
     }
-    console.log('useEffect ', userItem);
+    // console.log('useEffect ', userItem);
   }, []);
-
-  // _id: "654f737d190fb81f8993fd36", email: "qwe8@qwe.ru", passwordHash: "$2b$10$.q49CYo1LTo8dmOsobSkHOeBSWR73QHH1m7zqv6rBT.XfCQ5RfGeW", name: "Konst", contactPhone: "+79518082130", role: "admin"
 
   return (
     <>
       {user && (
         <>
-          <div>Данные пользователя</div>
-          <div>ID: {user._id}</div>
+          <div className="user-view"><h1>Данные пользователя</h1></div>
+          <br />
+          <div className="user-view"><span className="bold">ID: </span>{user._id}</div>
+          <div className="user-view"><span className="bold">Имя: </span>{user.name}</div>
+          <div className="user-view"><span className="bold">Email: </span>{user.email}</div>
+          <div className="user-view"><span className="bold">Тел.: </span>{user.contactPhone}</div>
+          <div className="user-view"><span className="bold">Роль.: </span>{user.role}</div>
         </>
       )}
     </>
-    
-      
-    
   );
 }

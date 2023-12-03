@@ -1,6 +1,6 @@
 export const usersListSearch = async (param) => {
   // const url = `${process.env.REACT_APP_BACK_URL}/api/auth/login`;
-  const url = process.env.REACT_APP_BACK_URL + process.env.REACT_APP_POSTFIX_USERS_LIST;
+  const url = process.env.REACT_APP_BACK_URL + process.env.REACT_APP_POSTFIX_USERS;
   // console.log('== URL' ,url);
   // const { email, password } = param;
   // const body = { email, passwordHash: password };

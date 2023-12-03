@@ -12,7 +12,7 @@ body {
 }
 
 .bb {
-  border: 1px solid black;
+  border: 0px solid black;
 }
 
 .app-container {
@@ -21,27 +21,32 @@ body {
 }
 
 .header-container {
-  height: 67px;
+  height: 57px;
   display: flex;
 }
 
-.logo {
-  min-width: 257px;
-  background-color: #ffffff;
+.logo-link {
+  box-sizing: border-box;
+  width: 237px;
+  /* background-color: #ffffff; */
+  background-image: url(../src/pics/logo.png);
   border: 2px solid #686ab1;
   border-radius: 8px;
   margin: 0 37px 0 0;
   text-align: center;
-  font-weight: 700;
+  /* font-weight: 700; */
+  /* height: 57px; */
 }
 
 .logo-img {
-  margin-top: 2px;
-  height: 60px;
+  box-sizing: border-box;
 }
 
+
+
 .header-main {
-  width: 705px;
+  box-sizing: border-box;
+  width: 626px;
   border-radius: 8px;
   background-color: white;
   display: flex;
@@ -57,11 +62,11 @@ body {
 
 .left-nav {
   box-sizing: border-box;
-  min-width: 257px;
+  width: 237px;
   background-color: white;
   border-radius: 8px;
   margin: 0 37px 0 0;
-  padding: 23px;
+  padding: 15px;
   height: 208px;
   align-self: flex-star;
   font-size: 16px
@@ -84,7 +89,7 @@ body {
 }
 
 .outlet-container {
-  width: 705px;
+  width: 626px;
   border-radius: 8px;
   background-color: white;
 }
@@ -100,11 +105,6 @@ body {
   font-size: 0.7em;
 }
 
-.span-limit {
-  font-size: 0.7em;
-  margin: 0 5px 0 0;
-}
-
 .users-table-th {
   padding: 5px;
   border: 1px solid grey;
@@ -114,6 +114,27 @@ body {
 .users-table-td {
   padding: 5px;
   border: 1px solid grey;
+}
+
+.users-table-npp {
+  width: 27px;
+}
+
+.users-table-name {
+  width: 230px;
+}
+
+.users-table-mail {
+  width: 230px;
+}
+
+.users-table-buttons {
+  width: 170px;
+}
+
+.span-limit {
+  font-size: 0.7em;
+  margin: 0 5px 0 0;
 }
 
 .users-icon {
@@ -161,8 +182,6 @@ body {
   text-decoration: none;
 }
 
-
-
 .home {
   margin: 0 60px;
   padding: 20px;
@@ -203,4 +222,37 @@ body {
 
 .read {
   margin-bottom: 20px;
+}
+
+.user-view {
+  margin: 20px;
+}
+
+.user-view h1{
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.edit-fields {
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: right;
+  width: 80px;
+  margin-right: 20px;
+}
+
+.user-edit-input {
+  
+  width: 300px;
+  height: 30px;
+  font-size: 1em;
+}
+
+.user-edit-button {
+  margin-left: 121px;
+  margin-bottom: 30px;
 }

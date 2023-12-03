@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actUserSignup } from "../store/actions/actionCreators";
+import { actUserSignup, actUsersList } from "../store/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -13,16 +13,16 @@ export default function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  async function hendlerSubmit(event) {
+  function hendlerSubmit(event) {
     event.preventDefault();
     const body = { email, passwordHash: password, name, phone, role };
     dispatch(actUserSignup(body));
     if (!user) {
-      navigate('/signin');
+      navigate("/signin");
     } else {
-      navigate('/');
+      dispatch(actUsersList());
+      navigate("/users");
     }
-    
   }
 
   return (

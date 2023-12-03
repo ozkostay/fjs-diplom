@@ -4,6 +4,7 @@ import {
   USER_LOGOUT,
   USER_SIGNUP,
   USERS_LIST,
+  USERS_DELETE,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -25,6 +26,10 @@ export function actUserSignup(payload) {
 export function actUsersList(payload) {
   console.log('actionCreater USERSLIST payoad', payload)
   return { type: USERS_LIST, payload: payload} ;
+}
+export function actUsersDelete(id) {
+  console.log('actionCreater USERSDELETE id', id)
+  return { type: USERS_DELETE, payload: id} ;
 }
 
 // ===========================

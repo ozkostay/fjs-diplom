@@ -1,18 +1,27 @@
-import { USERS_LIST } from "../actions/actionTypes";
+import { USERS_LIST, USERS_DELETE } from "../actions/actionTypes";
 
 const initialState = {
-      users: [],
-      loading: false,
-      error: null,
-    };
+  users: [],
+  loading: false,
+  error: null,
+};
 
 export default function reducerUsersList(state = initialState, action) {
-  console.log('reducer USERS', action);
+  console.log("reducer USERS", action);
   switch (action.type) {
     case USERS_LIST:
       return {
         ...state,
         users: action.payload,
+        loading: false,
+        error: null,
+      };
+    case USERS_DELETE:
+      const tempUsers = state.users.filter((i) => i._id !== action.payload);
+      console.log('action.payload', action.payload);
+      return {
+        ...state,
+        users: tempUsers,
         loading: false,
         error: null,
       };
