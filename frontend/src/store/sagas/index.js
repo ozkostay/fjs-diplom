@@ -19,7 +19,9 @@ function* watchUserSignup() {
   yield takeLatest(USER_SIGNUP, WorkerUserSignup);
 }
 function* watchUsersList() {
+  console.log('SAGA WATCHER');
   yield takeLatest(USERS_LIST, WorkerUsersList);
+  console.log('SAGA WATCHER 2');
 }
 function* watchUsersDelete() {
   console.log('SAGA Watcher DELETE');

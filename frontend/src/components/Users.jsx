@@ -8,36 +8,32 @@ export default function Users() {
   const { users } = useSelector((state) => state.usersList);
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
-
-  // offset: 0;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('111111111111111111111111');
     dispatch(actUsersList());
   }, []);
 
   function fnAddUser() {
-    console.log("Добавляем пользователя");
+    // console.log("Добавляем пользователя");
     navigate("/signup");
   }
 
   function hendlerIcon(event, id) {
-    console.log("HENDLER USERS ", event.target.getAttribute("data-title"));
+    // console.log("HENDLER USERS ", event.target.getAttribute("data-title"));
     const action = event.target?.alt;
     switch (action) {
       case "view":
-        console.log("Переход на страницу просмотра пользователя", id);
+        // console.log("Переход на страницу просмотра пользователя", id);
         navigate(`/userview/${id}`);
         break;
       case "edit":
-        console.log("Редактирование пользователя", id);
+        // console.log("Редактирование пользователя", id);
         navigate(`/useredit/${id}`);
         break;
       case "delete":
-        console.log("Удалние пользователя", id);
+        // console.log("Удалние пользователя", id);
         dispatch(actUsersDelete(id));
         break;
       default:
@@ -57,7 +53,7 @@ export default function Users() {
       }
       setOffset(offset + 1);
     } else {
-      setOffset(offset === 0 ? 0 : offset -1);
+      setOffset(offset === 0 ? 0 : offset - 1);
     }
     
   }
@@ -82,7 +78,7 @@ export default function Users() {
         {users ? (
           <>
             <table className="users-table">
-              <tr className="">
+              <tr className="" key='0'>
                 <th className="users-table-th users-table-npp">ID</th>
                 <th className="users-table-th users-table-name">name</th>
                 <th className="users-table-th users-table-mail">email</th>

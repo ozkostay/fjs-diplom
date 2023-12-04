@@ -14,7 +14,7 @@ export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
 
   return (
     <>
-      <tr>
+      <tr key={item._id}>
         <td className="users-table-td users-table-npp">{index + 1}</td>
         <td className="users-table-td users-table-name">{item.name}</td>
         <td className="users-table-td users-table-mail">{item.email}</td>

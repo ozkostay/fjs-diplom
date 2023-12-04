@@ -1,5 +1,6 @@
 export const usersListSearch = async (param) => {
   // const url = `${process.env.REACT_APP_BACK_URL}/api/auth/login`;
+  console.log('SAGA API USER LIST');
   const url = process.env.REACT_APP_BACK_URL + process.env.REACT_APP_POSTFIX_USERS;
   // console.log('== URL' ,url);
   // const { email, password } = param;
@@ -17,7 +18,7 @@ export const usersListSearch = async (param) => {
     console.log('ERR');
     throw new Error(response.statusText);
   } else {
-    console.log('GOOD');
+    console.log('API USERS LIST наконец-то GOOD');
   }
   return await response.json();
 };

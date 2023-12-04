@@ -4,7 +4,7 @@ import { usersListSearch } from "../../api/usersListSearch";
 
 
 export default function* WorkerUsersList(action) {
-  // console.log('WorkerUsersList', action);
+  console.log('SAGA WORKER UsersList', action);
   if (action.payload) {
     return;
   }
