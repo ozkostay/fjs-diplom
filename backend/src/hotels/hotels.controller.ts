@@ -19,7 +19,6 @@ export class HotelsController {
 
   @Put('/admin/hotels/:id')
   public update(@Param('id') id: string, @Body() data: IUpdateHotelDto): any {
-    console.log('USER DELETE', id);
     return this.hotelsService.update(id, data);
   }
 

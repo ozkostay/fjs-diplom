@@ -14,8 +14,7 @@ export class HotelsService {
   }
 
   public create(hotel: ICreateHotelDto): Promise<HotelDocument> {
-    const newHotel = this.HotelModel.create(hotel)
-    return newHotel;
+    return this.HotelModel.create(hotel);
   }
 
   public update(id: string, data: IUpdateHotelDto): Promise<HotelDocument> {
