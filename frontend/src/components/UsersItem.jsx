@@ -8,7 +8,7 @@ export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
   //   console.log("FFFFFFFFFFFFFFFFFFF", event.target.getAttribute("data-title"));
   // }
   const indexStart = offset * limit;
-  if((index < indexStart) || (index > indexStart + limit - 1)) {
+  if (index < indexStart || index > indexStart + limit - 1) {
     return;
   }
 
@@ -16,7 +16,9 @@ export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
     <>
       <tr key={item._id}>
         <td className="users-table-td users-table-npp">{index + 1}</td>
-        <td className="users-table-td users-table-name">{item.name}</td>
+        <td className="users-table-td users-table-name">
+          {item.name.length > 18 ? `${item.name.substr(0, 18)}...` : item.name}
+        </td>
         <td className="users-table-td users-table-mail">{item.email}</td>
         <td className="users-table-td users-table-buttons">
           <img
