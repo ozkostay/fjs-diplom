@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actHotelsList } from "../store/actions/actionCreators";
+import { actHotelsList } from "../../store/actions/actionCreators";
 
 export default function Hotels() {
   const { hotels } = useSelector((state) => state.hotelsList);

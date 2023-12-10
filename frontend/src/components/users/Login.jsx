@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actUserLogin } from "../store/actions/actionCreators";
+import { actUserLogin } from "../../store/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {

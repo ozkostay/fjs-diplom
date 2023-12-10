@@ -16,8 +16,16 @@ export class UsersService {
   constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {}
 
   // ===========================================================
-  public findAll(): Promise<UserDocument[]> {
-    return this.UserModel.find().exec();
+  public async findAll(params: any): Promise<UserDocument[]> {
+    console.log(params);
+    const { offset, limit, search } = params;
+    const searchString = new RegExp(search, 'i');
+    return await this.UserModel.find({
+      $or: [{ name: searchString }, { email: searchString }, { contactPhone: searchString }],
+    })
+      .skip(offset * limit)
+      .limit(limit)
+      .exec();
   }
 
   // ===========================================================

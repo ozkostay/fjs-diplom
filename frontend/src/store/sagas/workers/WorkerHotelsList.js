@@ -1,6 +1,6 @@
 import { put, retry } from "redux-saga/effects";
 import { actHotelsList, actionUserTest } from "../../actions/actionCreators";
-import { hotelsListSearch } from "../../api/hotelsListSearch";
+import { hotelsListSearch } from "../../api/hotels/hotelsListSearch";
 
 
 export default function* WorkerHotelsList(action) {

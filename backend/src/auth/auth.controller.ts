@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -25,8 +26,8 @@ export class AuthController {
   ) {}
 
   @Get('/admin/users')
-  async findAll() {
-    return this.userService.findAll();
+  findAll(@Query() params :any) {
+    return this.userService.findAll(params);
   }
 
   @Post('/auth/signup')

@@ -1,6 +1,6 @@
 import { put, retry } from "redux-saga/effects";
 import { actUsersDelete, actUsersList, actionUserTest } from "../../actions/actionCreators";
-import { usersDelete } from "../../api/usersDelete";
+import { usersDelete } from "../../api/users/usersDelete";
 
 
 export default function* WorkerUsersDelete(action) {

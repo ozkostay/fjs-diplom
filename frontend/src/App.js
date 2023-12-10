@@ -2,15 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
-import Redux from "./components/Redux";
-import Users from "./components/Users";
-import Hotels from "./components/Hotels";
+import Signup from "./components/users/Signup";
+import Login from "./components/users/Login";
+import Users from "./components/users/Users";
+import UserView from "./components/users/UserView";
+import UserEdit from "./components/users/UserEdit";
+import Hotels from "./components/hotels/Hotels";
+import AddHotel from "./components/hotels/AddHotel";
 import Room from "./components/Room";
-import AddHotel from "./components/AddHotel";
-import UserView from "./components/UserView";
-import UserEdit from "./components/UserEdit";
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
 // import Contacts from "./components/Contacts";
@@ -27,9 +26,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Login />} />
-          <Route path="/redux" element={<Redux />} />
           <Route path="/users" element={<Users />} />
-
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/room" element={<Room />} />
           <Route path="/addhotel" element={<AddHotel />} />

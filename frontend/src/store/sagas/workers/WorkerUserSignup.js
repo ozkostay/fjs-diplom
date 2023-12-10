@@ -1,6 +1,6 @@
 import { put, retry } from "redux-saga/effects";
 import { actUserSignup, actionUserTest } from "../../actions/actionCreators";
-import { userSignup } from "../../api/userSignup";
+import { userSignup } from "../../api/users/userSignup";
 
 
 export default function* WorkerUserSignup(action) {

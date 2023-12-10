@@ -11,6 +11,9 @@ export default function reducerUsersList(state = initialState, action) {
   switch (action.type) {
     case USERS_LIST:
       console.log('REDUCER USER LIST', action.payload);
+      if(action.payload.limit) {
+        return state;
+      }
       return {
         ...state,
         users: action.payload,

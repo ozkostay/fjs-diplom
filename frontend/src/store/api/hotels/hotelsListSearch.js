@@ -6,7 +6,7 @@ export const hotelsListSearch = async (param) => {
     console.log('ERR');
     throw new Error(response.statusText);
   } else {
-    console.log('API USERS LIST наконец-то GOOD');
+    console.log('API HOTELS LIST наконец-то GOOD');
   }
   return await response.json();
 };

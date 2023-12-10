@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actUsersDelete, actUsersList } from "../store/actions/actionCreators";
+import {
+  actUsersDelete,
+  actUsersList,
+} from "../../store/actions/actionCreators";
 import UsersItem from "./UsersItem";
 
 export default function Users() {
   const { users } = useSelector((state) => state.usersList);
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actUsersList());
-  }, []);
+    findUsers();
+  }, [offset, limit]);
+
+  function findUsers() {
+    const params = {
+      offset,
+      limit,
+      search,
+    };
+    console.log("PARAMSSSSSS", params);
+    dispatch(actUsersList(params));
+  }
 
   function fnAddUser() {
-    // console.log("Добавляем пользователя");
     navigate("/signup");
   }
 
@@ -42,22 +55,22 @@ export default function Users() {
   }
 
   function fnChangeLimit(event) {
+    const numLimit = Number(event.target.value);
     setOffset(0);
-    setLimit(Number(event.target.value));
+    setLimit(numLimit);
   }
-  
+
   function fnSetOffset(type) {
-    if (type === 'incr') {
-      if(users.length <= offset * limit + limit) {
-        return
-      }
+    if (type === "incr") {
+      // if(users.length <= offset * limit + limit) {
+      //   return
+      // }
       setOffset(offset + 1);
     } else {
       setOffset(offset === 0 ? 0 : offset - 1);
     }
-    
   }
-  
+
   return (
     <>
       <div className="mainpage">
@@ -74,11 +87,15 @@ export default function Users() {
             </select>
           </div>
         </div>
+        <input value={search} onChange={(e) => setSearch(e.target.value)} />
+        <button className="form-button" onClick={findUsers}>
+          Найти
+        </button>
 
         {users ? (
           <>
             <table className="users-table">
-              <tr className="" key='0'>
+              <tr className="" key="0">
                 <th className="users-table-th users-table-npp">ID</th>
                 <th className="users-table-th users-table-name">name</th>
                 <th className="users-table-th users-table-mail">email</th>
@@ -86,8 +103,6 @@ export default function Users() {
               </tr>
               {users.map((item, index) => (
                 <UsersItem
-                  offset={offset}
-                  limit={limit}
                   key={item._id}
                   index={index}
                   item={item}
@@ -96,9 +111,19 @@ export default function Users() {
               ))}
             </table>
             <div className="paging">
-              <button className="paging-button" onClick={() => fnSetOffset('decr')}>&lt;</button>
+              <button
+                className="paging-button"
+                onClick={() => fnSetOffset("decr")}
+              >
+                &lt;
+              </button>
               <span className="paging-span">{offset + 1}</span>
-              <button className="paging-button" onClick={() => fnSetOffset('incr')}>&gt;</button>
+              <button
+                className="paging-button"
+                onClick={() => fnSetOffset("incr")}
+              >
+                &gt;
+              </button>
             </div>
           </>
         ) : (

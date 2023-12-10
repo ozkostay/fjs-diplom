@@ -1,13 +1,15 @@
 import { put, retry } from "redux-saga/effects";
 import { actUsersList, actionUserTest } from "../../actions/actionCreators";
-import { usersListSearch } from "../../api/usersListSearch";
+import { usersListSearch } from "../../api/users/usersListSearch";
 
 
 export default function* WorkerUsersList(action) {
   console.log('SAGA WORKER UsersList', action);
-  if (action.payload) {
+  if (!action.payload.limit) {
+    console.log('NONONO');
     return;
   }
+  console.log('YESYESYES');
   try {
     const retryCount = 0;
     const retryDelay = 0 * 1000;

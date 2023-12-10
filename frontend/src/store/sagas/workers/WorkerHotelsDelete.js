@@ -1,6 +1,6 @@
 import { put, retry } from "redux-saga/effects";
 import { actHotelsDelete, actionUserTest } from "../../actions/actionCreators";
-import { hotelsDelete } from "../../api/hotelsDelete";
+import { hotelsDelete } from "../../api/hotels/hotelsDelete";
 
 
 export default function* WorkerHotelsDelete(action) {

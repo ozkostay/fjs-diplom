@@ -1,16 +1,16 @@
 import React from "react";
-import viewIcon from "../pics/eye.png";
-import editIcon from "../pics/pen.png";
-import deleteIcon from "../pics/remove.png";
+import viewIcon from "../../pics/eye.png";
+import editIcon from "../../pics/pen.png";
+import deleteIcon from "../../pics/remove.png";
 
 export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
   // function fnHover(event) {
   //   console.log("FFFFFFFFFFFFFFFFFFF", event.target.getAttribute("data-title"));
   // }
-  const indexStart = offset * limit;
-  if (index < indexStart || index > indexStart + limit - 1) {
-    return;
-  }
+  // const indexStart = offset * limit;
+  // if (index < indexStart || index > indexStart + limit - 1) {
+  //   return;
+  // }
 
   return (
     <>

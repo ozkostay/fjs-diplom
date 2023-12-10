@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actUserSignup, actUsersList } from "../store/actions/actionCreators";
+import { actUserSignup, actUsersList } from "../../store/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
