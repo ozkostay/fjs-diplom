@@ -5,6 +5,8 @@ import {
   USER_SIGNUP,
   USERS_LIST,
   USERS_DELETE,
+  HOTELS_LIST,
+  HOTELS_DELETE,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -30,6 +32,14 @@ export function actUsersList(payload) {
 export function actUsersDelete(id) {
   console.log('actionCreater USERSDELETE id', id)
   return { type: USERS_DELETE, payload: id} ;
+}
+export function actHotelsList(payload) {
+  console.log('actionCreater HOTELSLIST payoad', payload)
+  return { type: HOTELS_LIST, payload: payload} ;
+}
+export function actHotelsDelete(id) {
+  console.log('actionCreater HOTELSDELETE id', id)
+  return { type: HOTELS_DELETE, payload: id} ;
 }
 
 // ===========================

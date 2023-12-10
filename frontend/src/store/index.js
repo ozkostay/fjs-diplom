@@ -3,10 +3,12 @@ import createSagaMiddleware from "redux-saga";
 import saga from "./sagas";
 import reducerUser from "./reducers/user";
 import reducerUsersList from "./reducers/users";
+import reducerHotelsList from "./reducers/hotels";
 
 const reducer = combineReducers({
   crUser: reducerUser,
   usersList: reducerUsersList,
+  hotelsList: reducerHotelsList,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
