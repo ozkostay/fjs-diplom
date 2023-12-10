@@ -137,6 +137,17 @@ body {
   margin: 0 5px 0 0;
 }
 
+.user-search-wrap {
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.users-search {
+  height: 32px;
+  width: 400px;
+}
+
 .users-icon {
   width: 25px;
   height: 25px;

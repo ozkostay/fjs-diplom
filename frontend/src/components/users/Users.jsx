@@ -87,10 +87,17 @@ export default function Users() {
             </select>
           </div>
         </div>
-        <input value={search} onChange={(e) => setSearch(e.target.value)} />
-        <button className="form-button" onClick={findUsers}>
-          Найти
-        </button>
+        <div className="user-search-wrap">
+          <input
+            className="users-search"
+            placeholder="Введите Имя, телефон или email"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className="form-button" onClick={findUsers}>
+            Найти
+          </button>
+        </div>
 
         {users ? (
           <>
