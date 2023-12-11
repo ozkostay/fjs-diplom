@@ -27,6 +27,17 @@ export default function UserEdit() {
     }
   }, [user]);
 
+  function fnFormHandler(event) {
+    event.preventDefault();
+    const formObj = {
+      id,
+      name,
+      contactPhone: phone,
+      role
+    }
+    console.log('FORM SEND!!!', formObj);
+  }
+
   console.log("COMPONENT");
   return (
     <>
@@ -36,7 +47,7 @@ export default function UserEdit() {
             <h1>Редактирование Данных пользователя</h1>
           </div>
           <br />
-          <form>
+          <form onSubmit={fnFormHandler}>
             <div className="user-view">
               <span className="edit-fields bold bb">ID: </span>
               {user._id}

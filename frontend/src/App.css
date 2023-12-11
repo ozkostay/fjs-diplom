@@ -176,6 +176,9 @@ body {
   text-align: center
 }
 
+.paging-arrows {
+  font-size: 1.6em;
+}
 
 .navbar-nav {
   display: flex;
@@ -205,6 +208,7 @@ body {
   font-size: 18px;
   height: 40px;
   width: 300px;
+  background-color: #fefee3;
 }
 
 .form-button {
@@ -254,10 +258,11 @@ body {
   text-align: right;
   width: 80px;
   margin-right: 20px;
+  
 }
 
 .user-edit-input {
-  
+  background-color: #fefee3;
   width: 300px;
   height: 30px;
   font-size: 1em;

@@ -8,7 +8,7 @@ import {
 import UsersItem from "./UsersItem";
 
 export default function Users() {
-  const { users } = useSelector((state) => state.usersList);
+  const { users, isDelete } = useSelector((state) => state.usersList);
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState("");
@@ -17,7 +17,7 @@ export default function Users() {
 
   useEffect(() => {
     findUsers();
-  }, [offset, limit]);
+  }, [offset, limit, isDelete]);
 
   function findUsers() {
     const params = {
@@ -34,19 +34,16 @@ export default function Users() {
   }
 
   function hendlerIcon(event, id) {
-    // console.log("HENDLER USERS ", event.target.getAttribute("data-title"));
     const action = event.target?.alt;
     switch (action) {
       case "view":
-        // console.log("Переход на страницу просмотра пользователя", id);
         navigate(`/userview/${id}`);
         break;
       case "edit":
-        // console.log("Редактирование пользователя", id);
         navigate(`/useredit/${id}`);
         break;
       case "delete":
-        // console.log("Удалние пользователя", id);
+        setOffset(0);
         dispatch(actUsersDelete(id));
         break;
       default:
@@ -62,9 +59,6 @@ export default function Users() {
 
   function fnSetOffset(type) {
     if (type === "incr") {
-      // if(users.length <= offset * limit + limit) {
-      //   return
-      // }
       setOffset(offset + 1);
     } else {
       setOffset(offset === 0 ? 0 : offset - 1);
@@ -110,7 +104,7 @@ export default function Users() {
               </tr>
               {users.map((item, index) => (
                 <UsersItem
-                  limit={Number(limit)}
+                  limit={limit}
                   key={item._id}
                   index={index}
                   item={item}
@@ -124,15 +118,15 @@ export default function Users() {
                 onClick={() => fnSetOffset("decr")}
                 disabled={offset < 1 ? true : false}
               >
-                &lt;
+                <span className="paging-arrows">&lt;</span>
               </button>
               <span className="paging-span">{offset + 1}</span>
               <button
                 className="paging-button"
                 onClick={() => fnSetOffset("incr")}
-                disabled={users.length <= Number(limit) ? true : false}
+                disabled={users.length <= limit ? true : false}
               >
-                &gt;
+                <span className="paging-arrows">&gt;</span>
               </button>
             </div>
           </>

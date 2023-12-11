@@ -4,6 +4,7 @@ const initialState = {
   users: [],
   loading: false,
   error: null,
+  isDelete: null,
 };
 
 export default function reducerUsersList(state = initialState, action) {
@@ -21,13 +22,13 @@ export default function reducerUsersList(state = initialState, action) {
         error: null,
       };
     case USERS_DELETE:
-      const tempUsers = state.users.filter((i) => i._id !== action.payload);
-      console.log('action.payload', action.payload);
+      // const tempUsers = state.users.filter((i) => i._id !== action.payload);
+      console.log('USERS DELETE action.payload', action.payload);
       return {
         ...state,
-        users: tempUsers,
         loading: false,
         error: null,
+        isDelete: action.payload
       };
     default:
       console.log("reducer USERS default");

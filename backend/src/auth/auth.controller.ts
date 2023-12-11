@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -17,6 +18,7 @@ import { UserDocument } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 import { ICreateUserDto } from 'src/users/interfaces/dto/create-user';
 import { IUserFromFrontDto } from 'src/users/interfaces/dto/userFromFront';
+import { IUpdateUserDto } from 'src/users/interfaces/dto/update-user';
 
 @Controller('api')
 export class AuthController {
@@ -43,6 +45,12 @@ export class AuthController {
     return this.authService.login(req.user)
   }
   
+  @Put('/admin/users/:id')
+  public update(@Param('id') id: string, @Body() data: IUpdateUserDto): any {
+    console.log('USER CONTROLLER PUT', id, 'data', data);
+    return this.userService.update(id,data);
+  }
+
   @Delete('/admin/users/:id')
   public delete(@Param() { id }: IParamId): Promise<UserDocument> {
     console.log('USER DELETE', id);

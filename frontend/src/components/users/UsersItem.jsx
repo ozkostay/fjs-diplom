@@ -4,10 +4,7 @@ import editIcon from "../../pics/pen.png";
 import deleteIcon from "../../pics/remove.png";
 
 export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
-  // function fnHover(event) {
-  //   console.log("FFFFFFFFFFFFFFFFFFF", event.target.getAttribute("data-title"));
-  // }
-  // const indexStart = offset * limit;
+  
   if (index >= limit) {
     return;
   }
