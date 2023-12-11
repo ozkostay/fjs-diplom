@@ -20,7 +20,6 @@ export default function Signup() {
     if (!user) {
       navigate("/signin");
     } else {
-      dispatch(actUsersList());
       navigate("/users");
     }
   }
