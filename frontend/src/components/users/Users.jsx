@@ -110,6 +110,7 @@ export default function Users() {
               </tr>
               {users.map((item, index) => (
                 <UsersItem
+                  limit={Number(limit)}
                   key={item._id}
                   index={index}
                   item={item}
@@ -121,6 +122,7 @@ export default function Users() {
               <button
                 className="paging-button"
                 onClick={() => fnSetOffset("decr")}
+                disabled={offset < 1 ? true : false}
               >
                 &lt;
               </button>
@@ -128,6 +130,7 @@ export default function Users() {
               <button
                 className="paging-button"
                 onClick={() => fnSetOffset("incr")}
+                disabled={users.length <= Number(limit) ? true : false}
               >
                 &gt;
               </button>

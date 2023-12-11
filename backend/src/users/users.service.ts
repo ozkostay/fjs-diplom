@@ -19,12 +19,14 @@ export class UsersService {
   public async findAll(params: any): Promise<UserDocument[]> {
     console.log(params);
     const { offset, limit, search } = params;
+    const qOffset = Number(offset);
+    const qLimit = Number(limit);
     const searchString = new RegExp(search, 'i');
     return await this.UserModel.find({
       $or: [{ name: searchString }, { email: searchString }, { contactPhone: searchString }],
     })
-      .skip(offset * limit)
-      .limit(limit)
+      .skip(qOffset * qLimit)
+      .limit(qLimit + 1)
       .exec();
   }
 

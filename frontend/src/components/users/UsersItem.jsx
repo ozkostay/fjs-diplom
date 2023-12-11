@@ -8,9 +8,9 @@ export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
   //   console.log("FFFFFFFFFFFFFFFFFFF", event.target.getAttribute("data-title"));
   // }
   // const indexStart = offset * limit;
-  // if (index < indexStart || index > indexStart + limit - 1) {
-  //   return;
-  // }
+  if (index >= limit) {
+    return;
+  }
 
   return (
     <>
