@@ -1,4 +1,4 @@
-import { USERS_LIST, USERS_DELETE } from "../actions/actionTypes";
+import { USERS_LIST, USERS_DELETE, USERS_UPDATE } from "../actions/actionTypes";
 
 const initialState = {
   users: [],
@@ -30,6 +30,15 @@ export default function reducerUsersList(state = initialState, action) {
         error: null,
         isDelete: action.payload
       };
+      case USERS_UPDATE:
+      console.log('USERS UPDATE action.payload', action.payload);
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        isDelete: action.payload.id
+      };
+      
     default:
       console.log("reducer USERS default");
       return state;

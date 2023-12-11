@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { actUsersUpdate } from "../../store/actions/actionCreators";
 
 export default function UserEdit() {
   const { users } = useSelector((state) => state.usersList);
@@ -9,6 +10,9 @@ export default function UserEdit() {
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("client");
   let { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     console.log("USE 1");
@@ -36,6 +40,8 @@ export default function UserEdit() {
       role
     }
     console.log('FORM SEND!!!', formObj);
+    dispatch(actUsersUpdate(formObj));
+    navigate('/users');
   }
 
   console.log("COMPONENT");
