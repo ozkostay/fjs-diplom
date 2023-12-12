@@ -7,8 +7,14 @@ blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
 
+input,textarea{border-radius: 5px;border: 1px solid #ccc}
+button{border-radius: 5px;border: 0px solid #ccc}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
   background-color: #f5f6fa;
+  font-family: 'Roboto', sans-serif;
 }
 
 .bb {
@@ -233,6 +239,8 @@ body {
 .mainpage {
   margin: 20px;
   font-size: 22px;
+  font-size: 1em;
+  color: #8a92a6;
 }
 
 .read {
@@ -271,4 +279,79 @@ body {
 .user-edit-button {
   margin-left: 121px;
   margin-bottom: 30px;
+}
+
+.addhotel-span {
+  display: block;
+  margin: 10px 0 0 0 ;
+  
+}
+
+.addhotel-title {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  margin: 10px 0 0 0 ;
+  font-size: 1.3em;
+  color: #232d42;
+}
+
+.addhotel-desc {
+  box-sizing: border-box;
+  margin: 10px 0 0 0 ;
+  padding: 5px;
+  width: 100%;
+  min-height: 300px;
+  color: #232d42;
+  font-size: 1.1em;
+}
+
+.addhoyel-btn {
+  color: white;
+  display: flex;
+  margin: 10px 20px 0 0;
+  font-size: 1em;
+}
+
+.addhoyel-btn.green {
+  background-color: #1aa053;
+  padding: 10px;
+}
+
+.addhoyel-btn.red {
+  background-color: #e15d5d;
+  padding: 10px;
+}
+
+.addhoyel-btn.blue {
+  background-color: #5d73e1;
+  padding: 10px;
+}
+
+.addhotel-preview {
+  box-sizing: border-box;
+  min-height: 150px;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.addhotel-pics-preview {
+  width: calc((100% - 29px) / 2);
+  height: 120px;
+  border: 1px solid black;
+  margin: 5px;
+  background-color: #adb5bd;
+  border-radius: 5px;
+  border: none;
+}
+
+.addhotel-pics-btn {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
 }
