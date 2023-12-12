@@ -34,21 +34,16 @@ body {
 .logo-link {
   box-sizing: border-box;
   width: 237px;
-  /* background-color: #ffffff; */
   background-image: url(../src/pics/logo.png);
   border: 2px solid #686ab1;
   border-radius: 8px;
   margin: 0 37px 0 0;
   text-align: center;
-  /* font-weight: 700; */
-  /* height: 57px; */
 }
 
 .logo-img {
   box-sizing: border-box;
 }
-
-
 
 .header-main {
   box-sizing: border-box;
@@ -316,24 +311,23 @@ body {
 
 .addhoyel-btn.green {
   background-color: #1aa053;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .addhoyel-btn.red {
   background-color: #e15d5d;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .addhoyel-btn.blue {
   background-color: #5d73e1;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .addhotel-preview {
   box-sizing: border-box;
   min-height: 150px;
   width: 100%;
-  padding: 5px;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -341,17 +335,21 @@ body {
 }
 
 .addhotel-pics-preview {
-  width: calc((100% - 29px) / 2);
-  height: 120px;
+  height: 110px;
+  width: auto;
   border: 1px solid black;
   margin: 5px;
   background-color: #adb5bd;
   border-radius: 5px;
-  border: none;
+  border: 3px solid white;
 }
 
 .addhotel-pics-btn {
   width: 50px;
   height: 50px;
   margin: 5px;
+}
+
+.addhotel-input-file {
+  display: none;
 }
