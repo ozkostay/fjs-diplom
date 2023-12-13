@@ -4,17 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 export default function AddHotelPics() {
   // const { user } = useSelector((state) => state.crUser);
   const [picsArray, setPicsArray] = useState([]);
-  const [startFile, setStartFile] = useState(null);
-  // const [startFile, setStartFile] = useState(null);
+  let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
 
   function fnPics2Arr(e) {
     const preArray = [...picsArray];
     const inputArray = Array.from(e.target.files);
-    console.log("EVENT FILE 111", inputArray);
     inputArray.forEach((i) => preArray.push(i));
-    console.log("EVENT FILE 222", preArray);
     setPicsArray(preArray);
   }
 
@@ -23,12 +20,12 @@ export default function AddHotelPics() {
   }
 
   function fnOnDragStart(e, item, index) {
-    console.log(item, index);
-    // setStartFile(item);
+    idxFrom = index;
   }
 
   function fnOnDragLeave(e) {
-    e.target.style.border = '3px solid white';
+    e.preventDefault();
+    e.target.style.border = "3px solid white";
   }
 
   function fnOnDragEnd(e) {
@@ -37,15 +34,15 @@ export default function AddHotelPics() {
 
   function fnOnDragOver(e) {
     e.preventDefault();
-    e.target.style.border = '3px solid red';
+    e.target.style.border = "3px solid red";
   }
 
-  function fnOnDrop(e, item) {
+  function fnOnDrop(e, item, idxTo) {
     e.preventDefault();
-    console.log(item);
-    e.target.style.border = '3px solid white';
-    // const tempArray = [...picsArray];
-    // const imageFrom = tempArray.splice();
+    e.target.style.border = "3px solid white";
+    const tempArray = [...picsArray];
+    tempArray.splice(idxTo, 0, tempArray.splice(idxFrom, 1)[0]);
+    setPicsArray(tempArray);
   }
 
   return (
@@ -71,7 +68,7 @@ export default function AddHotelPics() {
                 onDragLeave={(e) => fnOnDragLeave(e)}
                 onDragEnd={(e) => fnOnDragEnd(e)}
                 onDragOver={(e) => fnOnDragOver(e)}
-                onDrop={(e) => fnOnDrop(e, item)}
+                onDrop={(e) => fnOnDrop(e, item, index)}
               />
             ))}
 
