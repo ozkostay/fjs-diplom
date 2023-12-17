@@ -3,11 +3,12 @@ import {
   USER_LOGIN,
   USER_LOGOUT,
   USER_SIGNUP,
+  USERS_UPDATE,
   USERS_LIST,
   USERS_DELETE,
   HOTELS_LIST,
   HOTELS_DELETE,
-  USERS_UPDATE,
+  HOTELS_PICS,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -46,7 +47,10 @@ export function actHotelsDelete(id) {
   console.log('actionCreater HOTELSDELETE id', id)
   return { type: HOTELS_DELETE, payload: id} ;
 }
-
+export function actHotelsPics(arrPics) {
+  console.log('actionCreater HOTELS-PICS arrPics', arrPics)
+  return { type: HOTELS_PICS, payload: arrPics} ;
+}
 
 // ===========================
 // export function hitsRequest(param) {

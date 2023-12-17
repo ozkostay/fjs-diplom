@@ -1,11 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { HotelsService } from './hotels.service';
 import { ICreateHotelDto } from './interfaces/dto/create-hotel';
 import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('api')
 export class HotelsController {
-  constructor(private readonly hotelsService: HotelsService){}
+  constructor(private readonly hotelsService: HotelsService) {}
 
   @Get('/admin/hotels')
   public findAll(): any {
@@ -13,8 +24,22 @@ export class HotelsController {
   }
 
   @Post('/admin/hotels')
-  public create(@Body() createHotelDto: ICreateHotelDto): any {
-    return this.hotelsService.create(createHotelDto);
+  public create(@Body() body: any): any {
+    // console.log('hotels post body', body);
+    return { mess: 'Добавляем гостиницу' };
+    //return this.hotelsService.create(body);
+  }
+
+  @Post('/admin/hotels/uploadpics')
+  @UseInterceptors(FilesInterceptor('files'))
+  public uploadpics(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Body() body: any,
+  ): any {
+    console.log('hotels post upload FILES', files);
+    console.log('hotels post upload BODY', body);
+    // return { mess: 'Добавляем картинки гостиницы'}
+    return this.hotelsService.create(files);
   }
 
   @Put('/admin/hotels/:id')

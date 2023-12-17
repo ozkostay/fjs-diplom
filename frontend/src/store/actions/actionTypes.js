@@ -12,4 +12,5 @@ export const USERS_DELETE = "USERS_DELETE";
 export const HOTELS_LIST = "HOTELS_LIST";
 export const HOTELS_LIST_ERROR = "HOTELS_LIST_ERROR";
 export const HOTELS_DELETE = "HOTELS_DELETE";
+export const HOTELS_PICS = "HOTELS_PICS";
 
