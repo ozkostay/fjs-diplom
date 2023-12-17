@@ -26,7 +26,7 @@ export default function AddHotel() {
     };
     try {
       const res = await fetch(url, options);
-      console.log("RES", res);
+      console.log("RES", res.text());
     } catch (e) {
       console.log("ERROR UPLOAD", e.massage);
     }

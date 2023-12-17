@@ -35,11 +35,8 @@ export class HotelsController {
   public uploadpics(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() body: any,
-  ): any {
-    console.log('hotels post upload FILES', files);
-    console.log('hotels post upload BODY', body);
-    // return { mess: 'Добавляем картинки гостиницы'}
-    return this.hotelsService.create(files);
+  ): Promise<any> {
+    return this.hotelsService.create(files, body);
   }
 
   @Put('/admin/hotels/:id')

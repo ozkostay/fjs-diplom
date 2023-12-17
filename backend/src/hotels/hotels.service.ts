@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ICreateHotelDto } from './interfaces/dto/create-hotel';
 import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
 import { Hotel, HotelDocument } from './schemas/hotels.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { access, mkdir, writeFile} from 'fs/promises';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { v4 as uuidv4} from 'uuid';
 
 @Injectable()
@@ -17,10 +17,36 @@ export class HotelsService {
   }
 
   // public create(hotel: ICreateHotelDto): Promise<HotelDocument> {
-  public create(files: any[]): any {
+  public async create(files: any[], body: any): Promise<any> {
     console.log('UUID', uuidv4());
-    // return this.HotelModel.create(files);
-    return 'OK';
+    console.log('FILES', files);
+    console.log('BODY', body);
+    // Настройка пути
+    const folder = join(__dirname,'..','..','/public/hotels');
+    try {
+      await access(folder);
+    } catch(e) {
+      await mkdir(folder, {recursive: true});
+      //throw new InternalServerErrorException('Jib,rf');
+    }
+    // Записываем файлы на диск
+    const resWriteFIles = await Promise.all(
+      files.map( async (file) => {
+        try {
+          await writeFile( folder, file.buffer) // video 3:43 and 2.26
+        } catch (error) {
+          
+        }
+      })
+    );
+
+    // Если ОК 
+    // заполняем МОДЕЛЬ + опись файлов files.map =>  (url: file., name: originalname)
+
+    // this.HotelModel.create(files);
+    return new Promise((resolve) => {
+      resolve('OKKK');
+    });
   }
 
   public update(id: string, data: IUpdateHotelDto): Promise<HotelDocument> {
