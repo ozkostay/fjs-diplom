@@ -3,4 +3,5 @@ export interface ICreateHotelDto {
     description: string,
     createdAt: Date,
     updatedAt: Date,
+    files: string,
 }

@@ -16,6 +16,9 @@ export class Hotel {
 
     @Prop({ required: true })
     public updatedAt: Date;
+
+    @Prop()
+    public files: string;
  }
 
 export const HotetlSchema = SchemaFactory.createForClass(Hotel);
