@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
 
 export default function AddHotel() {
@@ -7,7 +7,8 @@ export default function AddHotel() {
   const { hotelsPics } = useSelector((state) => state.hotelsList);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const dispatch = useDispatch();
+  // const pictures = useMemo(() => <AddHotelPics />,[hotelsPics]);
+  const pictures = useMemo(() => <AddHotelPics />,[]);
 
   async function handlerHotelsSave(e) {
     e.preventDefault();
@@ -34,7 +35,7 @@ export default function AddHotel() {
     }
   }
 
-  const pictures = useMemo(() => <AddHotelPics />,[hotelsPics]);
+  
 
   return (
     <>

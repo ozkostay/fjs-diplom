@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actHotelsList } from "../../store/actions/actionCreators";
+import HotelsItems from "./HotelsItems";
 
 export default function Hotels() {
   const { hotels } = useSelector((state) => state.hotelsList);
@@ -11,14 +12,15 @@ export default function Hotels() {
   }, []);
 
   function fnConLogHotels() {
-    console.log('HOTES', hotels);
+    console.log("HOTES", hotels);
   }
 
   return (
     <>
-      <div>Все гостиницы</div>
-      <div>Hotels</div>
-      <button onClick={fnConLogHotels}>Гостишки state</button>
+      <div className="hotels-main bb">
+        <h1 className="hotels-header bb">Поиск гостиницы</h1>
+        {hotels && hotels.map((i) => <HotelsItems key={i._id} item={i} />)}
+      </div>
     </>
   );
 }
