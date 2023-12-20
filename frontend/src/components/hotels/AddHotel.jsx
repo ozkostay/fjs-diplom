@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
 
 export default function AddHotel() {
   // const { user } = useSelector((state) => state.crUser);
   const { hotelsPics } = useSelector((state) => state.hotelsList);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
 
   async function handlerHotelsSave(e) {
@@ -17,8 +19,8 @@ export default function AddHotel() {
     hotelsPics.forEach((item) => {
       formData.append("files", item);
     });
-    formData.append("title", 'TITLEEEEEEEEE');
-    formData.append("description", 'description description description description description');
+    formData.append("title", title);
+    formData.append("description", description);
 
     const options = {
       method: "POST",
@@ -32,20 +34,29 @@ export default function AddHotel() {
     }
   }
 
-  console.log("==== DDDDDDD +++++");
+  const pictures = useMemo(() => <AddHotelPics />,[hotelsPics]);
 
   return (
     <>
       <div className="mainpage">
-        <AddHotelPics />
+        {pictures}
         <div>
           <span className="addhotel-span">Название отеля</span>
-          <input className="addhotel-title" type="text" />
+          <input
+            className="addhotel-title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <div>
           <label>
             <span className="addhotel-span">Описание отеля</span>
-            <textarea className="addhotel-desc" />
+            <textarea
+              className="addhotel-desc"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </label>
         </div>
         <div className="addhoyel-btn">

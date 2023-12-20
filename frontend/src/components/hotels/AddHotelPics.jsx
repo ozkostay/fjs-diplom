@@ -7,7 +7,8 @@ export default function AddHotelPics() {
   let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
-
+  console.log('RRRRRRRRRRRRRRRRRR Pics');
+  //=====================================
   function fnPics2Arr(e) {
     const preArray = [...hotelsPics];
     const inputArray = Array.from(e.target.files);
@@ -19,19 +20,24 @@ export default function AddHotelPics() {
       return;
     }
     dispatch(actHotelsPics(preArray));
+    console.log('RRRRRRRRRRRRRRRRRR Pics 222');
   }
 
+  //=====================================
   function fnClickPlus() {
     inputFile.current.click();
+    console.log('RRRRRRRRRRRRRRRRRR Pics 3');
   }
 
   function fnOnDragStart(e, item, index) {
     idxFrom = index;
+    console.log('RRRRRRRRRRRRRRRRRR Pics 4');
   }
 
   function fnOnDragLeave(e) {
     e.preventDefault();
     e.target.style.border = "3px solid white";
+    console.log('RRRRRRRRRRRRRRRRRR Pics 5');
   }
 
   function fnOnDragEnd(e) {
@@ -41,6 +47,7 @@ export default function AddHotelPics() {
   function fnOnDragOver(e) {
     e.preventDefault();
     e.target.style.border = "3px solid red";
+    console.log('RRRRRRRRRRRRRRRRRR Pics 6');
   }
 
   function fnOnDrop(e, item, idxTo) {
@@ -49,9 +56,10 @@ export default function AddHotelPics() {
     const tempArray = [...hotelsPics];
     tempArray.splice(idxTo, 0, tempArray.splice(idxFrom, 1)[0]);
     dispatch(actHotelsPics(tempArray));
+    console.log('RRRRRRRRRRRRRRRRRR Pics 7');
   }
 
-  console.log("=!++++++++++++++++++++++++++++++++++");
+  //=====================================
   return (
     <>
       <div>
