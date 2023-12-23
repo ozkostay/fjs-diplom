@@ -38,7 +38,7 @@ body {
 
 .header-container {
   height: 57px;
-  display: flex;
+  display: flex;  
 }
 
 .logo-link {
@@ -49,6 +49,7 @@ body {
   border-radius: 8px;
   margin: 0 37px 0 0;
   text-align: center;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .logo-img {
@@ -64,6 +65,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .main-container {
@@ -80,7 +82,8 @@ body {
   padding: 15px;
   height: 208px;
   align-self: flex-star;
-  font-size: 16px
+  font-size: 16px;  
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .left-nav li {
@@ -103,6 +106,7 @@ body {
   width: 626px;
   border-radius: 8px;
   background-color: white;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .users-header {
@@ -312,26 +316,31 @@ body {
   font-size: 1.1em;
 }
 
-.addhoyel-btn {
+.addhotel-btn {
   color: white;
   display: flex;
   margin: 10px 20px 0 0;
   font-size: 1em;
 }
 
-.addhoyel-btn.green {
+.addhotel-btn.green {
   background-color: #1aa053;
   padding: 10px 20px;
 }
 
-.addhoyel-btn.red {
+.addhotel-btn.red {
   background-color: #e15d5d;
   padding: 10px 20px;
 }
 
-.addhoyel-btn.blue {
+.addhotel-btn.blue {
   background-color: #5d73e1;
   padding: 10px 20px;
+}
+
+.addhotel-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .addhotel-preview {
@@ -344,15 +353,41 @@ body {
   flex-wrap: wrap;
 }
 
+.addhotel-div-preview {
+  margin: 0 5px 5px 0;
+  height: 115px;
+  position: relative;
+}
+
 .addhotel-pics-preview {
   height: 110px;
   width: auto;
   border: 1px solid black;
-  margin: 0 0 5px 5px;
-  background-color: #adb5bd;
   border-radius: 5px;
   border: 3px solid white;
   cursor: move;
+  position: relative;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.close-img-preview{
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  background: rgba(25, 25, 25, 0.3);
+  color: white;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* background-color:white; */
+
 }
 
 .addhotel-pics-btn {
@@ -379,6 +414,7 @@ body {
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 8px;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .hotels-item-wrap {
@@ -387,6 +423,7 @@ body {
   margin-bottom: 20px;
   background-color: white;
   border-radius: 8px;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .hotels-item-pic {
@@ -446,5 +483,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white
+  background-color: #232d42;
+  color: white;
+  cursor: pointer;
 }

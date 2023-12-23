@@ -1,15 +1,45 @@
-import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
+import { actHotelsPics } from "../../store/actions/actionCreators";
 
 export default function AddHotel() {
   // const { user } = useSelector((state) => state.crUser);
   const { hotelsPics } = useSelector((state) => state.hotelsList);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const pictures = useMemo(() => <AddHotelPics />,[hotelsPics]);
-  const pictures = useMemo(() => <AddHotelPics />,[]);
+  const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
+  const dispatch = useDispatch();
+  const saveButton = useRef(null);
+  const pictures = useMemo(() => <AddHotelPics />, []);
 
+  //===============================================================
+  function validate() {
+    if (title.length < 5) {
+      // alert("В заголовке должно быть не менее 5 символов");
+      return false;
+    }
+    if (description.length < 100) {
+      // alert("В описании должно быть не менее 100 символов");
+      return false;
+    }
+    if (hotelsPics.length < 1) {
+      // alert("Должно быть не менее 1 изображения");
+      return false;
+    }
+    return true;
+  }
+
+  //===============================================================
+  useEffect(() => {
+    if (validate()) {
+      setSaveBtnDisabled(false);
+      return;
+    }
+    setSaveBtnDisabled(true);
+  },[hotelsPics, title, description])
+
+  //===============================================================
   async function handlerHotelsSave(e) {
     e.preventDefault();
     const url =
@@ -30,13 +60,21 @@ export default function AddHotel() {
     try {
       const res = await fetch(url, options);
       console.log("RES", res.text());
+      clearAll();
+      alert("Гостиница успешно добавлена!");
     } catch (e) {
       console.log("ERROR UPLOAD", e.massage);
     }
   }
-
   
+  //================================================
+  function clearAll() {
+    dispatch(actHotelsPics([]));
+    setTitle("");
+    setDescription("");
+  }
 
+  //====================================================
   return (
     <>
       <div className="mainpage">
@@ -46,6 +84,7 @@ export default function AddHotel() {
           <input
             className="addhotel-title"
             type="text"
+            placeholder="не менее 5 символов"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -55,17 +94,17 @@ export default function AddHotel() {
             <span className="addhotel-span">Описание отеля</span>
             <textarea
               className="addhotel-desc"
+              placeholder="не менее 100 символов"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
         </div>
-        <div className="addhoyel-btn">
-          <button className="addhoyel-btn green" onClick={handlerHotelsSave}>
+        <div className="addhotel-btn">
+          <button ref={saveButton} className="addhotel-btn green" onClick={handlerHotelsSave} disabled={saveBtnDisabled}>
             Сохранить
           </button>
-          <button className="addhoyel-btn red">Отменить</button>
-          <button className="addhoyel-btn blue">Добавить номер</button>
+          <button className="addhotel-btn red" onClick={clearAll}>Отменить</button>
         </div>
       </div>
     </>

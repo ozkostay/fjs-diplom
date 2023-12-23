@@ -17,7 +17,7 @@ export default function Users() {
 
   useEffect(() => {
     findUsers();
-    console.log('9999999999999999999999999999999');
+    console.log("9999999999999999999999999999999");
   }, [offset, limit, isDelete]);
 
   function findUsers() {
@@ -103,21 +103,23 @@ export default function Users() {
         {users ? (
           <>
             <table className="users-table">
-              <tr className="" key="0">
-                <th className="users-table-th users-table-npp">ID</th>
-                <th className="users-table-th users-table-name">name</th>
-                <th className="users-table-th users-table-mail">email</th>
-                <th className="users-table-th users-table-buttons"></th>
-              </tr>
-              {users.map((item, index) => (
-                <UsersItem
-                  limit={limit}
-                  key={item._id}
-                  index={index}
-                  item={item}
-                  hendlerIcon={hendlerIcon}
-                />
-              ))}
+              <tbody>
+                <tr className="" key="0">
+                  <th className="users-table-th users-table-npp">ID</th>
+                  <th className="users-table-th users-table-name">name</th>
+                  <th className="users-table-th users-table-mail">email</th>
+                  <th className="users-table-th users-table-buttons"></th>
+                </tr>
+                {users.map((item, index) => (
+                  <UsersItem
+                    limit={limit}
+                    key={item._id}
+                    index={index}
+                    item={item}
+                    hendlerIcon={hendlerIcon}
+                  />
+                ))}
+              </tbody>
             </table>
             <div className="paging">
               <button

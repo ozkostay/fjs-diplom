@@ -17,8 +17,8 @@ export default function Hotels() {
 
   return (
     <>
-      <div className="hotels-main bb">
-        <h1 className="hotels-header bb">Поиск гостиницы</h1>
+      <div className="hotels-main">
+        <h1 className="hotels-header">Поиск гостиницы</h1>
         {hotels && hotels.map((i) => <HotelsItems key={i._id} item={i} />)}
       </div>
     </>

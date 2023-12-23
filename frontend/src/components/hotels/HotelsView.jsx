@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
 export default function HotelsView(props) {
+  const { user } = useSelector((state) => state.crUser);
   const [isModal, setIsModal] = useState(false);
   const [urlForModal, setUrlForModal] = useState(null);
   const location = useLocation();
@@ -50,22 +52,20 @@ export default function HotelsView(props) {
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
         </div>
-
-        <div className="addhoyel-btn">
-          {/* <button className="addhoyel-btn green" onClick={handlerHotelsSave}>
-            Сохранить
-          </button> */}
-          <button className="addhoyel-btn red">Редактировать</button>
-          <button className="addhoyel-btn blue">Добавить номер</button>
-        </div>
+        {user && user.role === "admin" && (
+          <div className="addhotel-btn">
+            <button className="addhotel-btn red">Редактировать</button>
+            <button className="addhotel-btn blue">Добавить номер</button>
+          </div>
+        )}
       </div>
       {isModal && (
-        <div className="modal-wrap bb">
+        <div className="modal-wrap">
           <div
-            className="pics-modal bb"
+            className="pics-modal"
             style={{ backgroundImage: `url(${urlForModal})` }}
-          >SSS
-            <div className="close-modal bb" onClick={fnCloseModalPics}>
+          >
+            <div className="close-modal" onClick={fnCloseModalPics}>
               &times;
             </div>
           </div>
