@@ -17,16 +17,23 @@ export default function Users() {
 
   useEffect(() => {
     findUsers();
+    console.log('9999999999999999999999999999999');
   }, [offset, limit, isDelete]);
 
   function findUsers() {
+    const preOffset = offset;
     const params = {
-      offset,
+      offset: preOffset,
       limit,
       search,
     };
     console.log("PARAMSSSSSS", params);
     dispatch(actUsersList(params));
+  }
+
+  function searchUsers() {
+    setOffset(0);
+    findUsers();
   }
 
   function fnAddUser() {
@@ -88,7 +95,7 @@ export default function Users() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="form-button" onClick={findUsers}>
+          <button className="form-button" onClick={searchUsers}>
             Найти
           </button>
         </div>

@@ -10,6 +10,7 @@ import UserEdit from "./components/users/UserEdit";
 import Hotels from "./components/hotels/Hotels";
 import AddHotel from "./components/hotels/AddHotel";
 import Room from "./components/Room";
+import HotelsView from "./components/hotels/HotelsView";
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
 // import Contacts from "./components/Contacts";
@@ -28,6 +29,8 @@ function App() {
           <Route path="/signin" element={<Login />} />
           <Route path="/users" element={<Users />} />
           <Route path="/hotels" element={<Hotels />} />
+          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/hotels/view/:id" element={<HotelsView />} />
           <Route path="/room" element={<Room />} />
           <Route path="/addhotel" element={<AddHotel />} />
           <Route path="/userview/:id" element={<UserView />} />

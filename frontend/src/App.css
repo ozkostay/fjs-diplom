@@ -371,7 +371,7 @@ body {
 }
 
 .hotels-main {
-  background-color: #ccc;
+  background-color: #f5f6fa;
 }
 
 .hotels-header {
@@ -409,4 +409,42 @@ body {
   font-size: 1em;
   background-color: #5d73e1;
   padding: 10px 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.modal-wrap {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 30px;
+  background-color: black;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.pics-modal {
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100%;
+  position: relative;
+  
+}
+
+.close-modal {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white
 }

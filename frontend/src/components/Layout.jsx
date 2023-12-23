@@ -11,10 +11,10 @@ export default function Layout() {
 
   return (
     <>
-      <div className="app-container bb">
+      <div className="app-container">
         <Header />
-        <main className="main-container bb">
-          <div className="left-nav bb">
+        <main className="main-container">
+          <div className="left-nav">
             <ul>
               <li>
                 <Link className="nav-link" to="/hotels">

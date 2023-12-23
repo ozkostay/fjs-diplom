@@ -23,15 +23,15 @@ export default function Header() {
 
   return (
     <>
-      <div className="header-container bb">
-        <Link className="logo-link bb" to="/">
-          <div className="logo-img bb">
+      <div className="header-container">
+        <Link className="logo-link" to="/">
+          <div className="logo-img">
             {/* <img className="logo-img" src={logo} /> */}
             
           </div>
         </Link>
 
-        <div className="header-main bb">
+        <div className="header-main">
           <div></div>
           {user ? (
             <div>
@@ -42,10 +42,10 @@ export default function Header() {
             </div>
           ) : (
             <div>
-              <Link className="nav-link bb" to="/signup">
+              <Link className="nav-link" to="/signup">
                 <span className="link-span">Регистрация</span>
               </Link>
-              <Link className="nav-link bb" to="/signin">
+              <Link className="nav-link" to="/signin">
                 <span className="link-span">Войти</span>
               </Link>
             </div>

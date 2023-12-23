@@ -1,7 +1,9 @@
 import React from "react";
+import HotelView from "./HotelsView";
+import { useNavigate } from "react-router-dom";
 
 export default function HotelsItems({item}) {
-
+  const navigate = useNavigate();
   // const url = `${process.env.REACT_APP_BACK_URL}/${item.files.url[0]}`
   const pics = JSON.parse(item.files);
   const picsUrl = `url(${process.env.REACT_APP_BACK_URL}${pics[0].url})`;
@@ -13,6 +15,14 @@ export default function HotelsItems({item}) {
     backgroundSize:"cover"
   }
 
+  function fnViewHotel() {
+    // HotelView();
+    const url = `/hotels/view/${item._id}`
+    console.log('URL', url);
+    navigate( url , { state: {item} });
+
+  }
+
   return (
     <>
       <div className="hotels-item-wrap">
@@ -20,7 +30,7 @@ export default function HotelsItems({item}) {
         <div className="hotels-item-conteiner">
           <h2>{item.title}</h2>
           <div className="hotels-item-description">{item.description}</div>
-          <button className="hotels-item-btn">Подробнее</button>
+          <button className="hotels-item-btn" onClick={fnViewHotel}>Подробнее</button>
         </div>
       </div>
     </>
