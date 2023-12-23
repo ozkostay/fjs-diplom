@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
+import AddRoom from "./AddRoom";
 
 export default function HotelsView(props) {
   const { user } = useSelector((state) => state.crUser);
   const [isModal, setIsModal] = useState(false);
   const [urlForModal, setUrlForModal] = useState(null);
+  const [isAddRoom, setIsAddRoom] = useState(false);
   const location = useLocation();
 
   if (!location.state) {
@@ -55,7 +57,7 @@ export default function HotelsView(props) {
         {user && user.role === "admin" && (
           <div className="addhotel-btn">
             <button className="addhotel-btn red">Редактировать</button>
-            <button className="addhotel-btn blue">Добавить номер</button>
+            <button className="addhotel-btn blue" onClick={() => setIsAddRoom(true)}>Добавить номер</button>
           </div>
         )}
       </div>
@@ -71,6 +73,10 @@ export default function HotelsView(props) {
           </div>
         </div>
       )}
+      {isAddRoom && (
+        <AddRoom setIsAddRoom={setIsAddRoom}/>
+      )}
+      
     </>
   );
 }

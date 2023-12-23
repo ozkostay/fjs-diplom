@@ -105,8 +105,7 @@ body {
 .outlet-container {
   width: 626px;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
+  /* background-color: white; */
 }
 
 .users-header {
@@ -246,10 +245,14 @@ body {
 }
 
 .mainpage {
-  margin: 20px;
+  margin: 0 0 20px 0;
+  padding: 20px;
   font-size: 22px;
   font-size: 1em;
   color: #8a92a6;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
 .read {
@@ -407,6 +410,7 @@ body {
 
 .hotels-main {
   background-color: #f5f6fa;
+  /* box-shadow: 0 0 5px 5px rgba(122,122,122,0.3); */
 }
 
 .hotels-header {
