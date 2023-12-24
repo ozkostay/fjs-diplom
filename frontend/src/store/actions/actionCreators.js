@@ -9,14 +9,15 @@ import {
   HOTELS_LIST,
   HOTELS_DELETE,
   HOTELS_PICS,
+  HOTELS_ADD,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
-  console.log('actionCreater param', user)
+  // console.log('actionCreater param', user)
   return { type: USER_TEST, payload: { user } };
 }
 export function actUserLogin(payload) {
-  console.log('actionCreater payoad', payload)
+  // console.log('actionCreater payoad', payload)
   return { type: USER_LOGIN, payload: payload };
 }
 export function actUserLogout() {
@@ -28,27 +29,31 @@ export function actUserSignup(payload) {
   return { type: USER_SIGNUP, payload: payload} ;
 }
 export function actUsersList(payload) {
-  console.log('actionCreater USERSLIST payoad', payload)
+  // console.log('actionCreater USERSLIST payoad', payload)
   return { type: USERS_LIST, payload: payload} ;
 }
 export function actUsersDelete(id) {
-  console.log('actionCreater USERSDELETE id', id)
+  // console.log('actionCreater USERSDELETE id', id)
   return { type: USERS_DELETE, payload: id} ;
 }
 export function actUsersUpdate(payload) {
-  console.log('actionCreater USERS UPDATE id', payload)
+  // console.log('actionCreater USERS UPDATE id', payload)
   return { type: USERS_UPDATE, payload: payload} ;
 }
 export function actHotelsList(payload) {
-  console.log('actionCreater HOTELSLIST payoad', payload)
+  // console.log('actionCreater HOTELSLIST payoad', payload)
   return { type: HOTELS_LIST, payload: payload} ;
 }
+export function actHotelsAdd(payload) {
+  // console.log('actionCreater HOTELS-ADD payoad', payload)
+  return { type: HOTELS_ADD, payload: payload} ;
+}
 export function actHotelsDelete(id) {
-  console.log('actionCreater HOTELSDELETE id', id)
+  // console.log('actionCreater HOTELSDELETE id', id)
   return { type: HOTELS_DELETE, payload: id} ;
 }
 export function actHotelsPics(arrPics) {
-  console.log('actionCreater HOTELS-PICS arrPics', arrPics)
+  // console.log('actionCreater HOTELS-PICS arrPics', arrPics)
   return { type: HOTELS_PICS, payload: arrPics} ;
 }
 

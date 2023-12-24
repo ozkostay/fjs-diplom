@@ -8,10 +8,10 @@ const initialState = {
 };
 
 export default function reducerUsersList(state = initialState, action) {
-  console.log("reducer USERS", action);
+  // console.log("reducer USERS", action);
   switch (action.type) {
     case USERS_LIST:
-      console.log('REDUCER USER LIST', action.payload);
+      // console.log('REDUCER USER LIST', action.payload);
       if(action.payload.limit) {
         return state;
       }
@@ -23,7 +23,7 @@ export default function reducerUsersList(state = initialState, action) {
       };
     case USERS_DELETE:
       // const tempUsers = state.users.filter((i) => i._id !== action.payload);
-      console.log('USERS DELETE action.payload', action.payload);
+      // console.log('USERS DELETE action.payload', action.payload);
       return {
         ...state,
         loading: false,
@@ -31,7 +31,7 @@ export default function reducerUsersList(state = initialState, action) {
         isDelete: action.payload
       };
       case USERS_UPDATE:
-      console.log('USERS UPDATE action.payload', action.payload);
+      // console.log('USERS UPDATE action.payload', action.payload);
       return {
         ...state,
         loading: false,
@@ -40,7 +40,7 @@ export default function reducerUsersList(state = initialState, action) {
       };
       
     default:
-      console.log("reducer USERS default");
+      // console.log("reducer USERS default");
       return state;
   }
 }

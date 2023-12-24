@@ -41,7 +41,7 @@ export default function reducerUser(state = initialState, action) {
       }
       return state;
     default:
-      console.log("reducer USER default");
+      // console.log("reducer USER default");
       return state;
   }
 }

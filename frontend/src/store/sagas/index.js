@@ -4,9 +4,11 @@ import {
   USER_SIGNUP,
   USERS_LIST,
   USERS_DELETE,
-  HOTELS_LIST,
-  HOTELS_DELETE,
   USERS_UPDATE,
+  HOTELS_LIST,
+  HOTELS_ADD,
+  HOTELS_DELETE,
+  
 } from "../actions/actionTypes";
 // workers;
 import WorkerUserLoginSearch from "./workers/WorkerUserLoginSearch";
@@ -16,6 +18,7 @@ import WorkerUsersDelete from "./workers/WorkerUsersDelete";
 import WorkerHotelsList from "./workers/WorkerHotelsList";
 import WorkerHotelsDelete from "./workers/WorkerHotelsDelete";
 import WorkerUsersUpdate from "./workers/WorkerUsersUpdate";
+import WorkerHotelsAdd from "./workers/WorkerHotelAdd";
 
 
 // watchers
@@ -26,26 +29,25 @@ function* watchUserSignup() {
   yield takeLatest(USER_SIGNUP, WorkerUserSignup);
 }
 function* watchUsersList() {
-  console.log('SAGA WATCHER');
   yield takeLatest(USERS_LIST, WorkerUsersList);
-  console.log('SAGA WATCHER 2');
 }
 function* watchUsersDelete() {
-  console.log('SAGA Watcher DELETE');
   yield takeLatest(USERS_DELETE, WorkerUsersDelete);
 }
 function* watchUsersUpdate() {
-  console.log('SAGA Watcher USER UPDATE');
   yield takeLatest(USERS_UPDATE, WorkerUsersUpdate);
 }
 function* watchHotelsList() {
-  console.log('SAGA WATCHER HOTELS LIST');
+  // console.log('SAGA Watcher HOTELS LIST');
   yield takeLatest(HOTELS_LIST, WorkerHotelsList);
-  console.log('SAGA WATCHER 2');
 }
 function* watchHotelsDelete() {
-  console.log('SAGA Watcher HOTELS DELETE');
+  // console.log('SAGA Watcher HOTELS DELETE');
   yield takeLatest(HOTELS_DELETE, WorkerHotelsDelete);
+}
+function* watchHotelsAdd() {
+  // console.log('SAGA Watcher HOTELS ADD');
+  yield takeLatest(HOTELS_ADD, WorkerHotelsAdd);
 }
 
 export default function* saga() {
@@ -56,4 +58,5 @@ export default function* saga() {
   yield spawn(watchUsersUpdate);
   yield spawn(watchHotelsList);
   yield spawn(watchHotelsDelete);
+  yield spawn(watchHotelsAdd);
 }

@@ -52,7 +52,7 @@ export default function AddHotelPics() {
   }
 
   function fnRemovePics(index) {
-    console.log('Удаляем индекс=',index);
+    console.log("Удаляем индекс=", index);
     dispatch(actHotelsPics(hotelsPics.filter((i, arrIdx) => arrIdx !== index)));
   }
 
@@ -70,26 +70,25 @@ export default function AddHotelPics() {
         <div className="addhotel-preview">
           {hotelsPics.length > 0 &&
             hotelsPics.map((item, index) => (
-              <>
-                <div className="addhotel-div-preview">
-                  <img
-                    key={new Date() + Math.random()}
-                    className="addhotel-pics-preview"
-                    alt="not found"
-                    src={URL.createObjectURL(item)}
-                    draggable={true}
-                    onDragStart={(e) => fnOnDragStart(e, item, index)}
-                    onDragLeave={(e) => fnOnDragLeave(e)}
-                    onDragEnd={(e) => fnOnDragEnd(e)}
-                    onDragOver={(e) => fnOnDragOver(e)}
-                    onDrop={(e) => fnOnDrop(e, item, index)}
-                  />
-                  <div
-                    className="close-img-preview"
-                    onClick={() => fnRemovePics(index)}
-                  >&times;</div>
+              <div className="addhotel-div-preview" key={index}>
+                <img
+                  className="addhotel-pics-preview"
+                  alt="not found"
+                  src={URL.createObjectURL(item)}
+                  draggable={true}
+                  onDragStart={(e) => fnOnDragStart(e, item, index)}
+                  onDragLeave={(e) => fnOnDragLeave(e)}
+                  onDragEnd={(e) => fnOnDragEnd(e)}
+                  onDragOver={(e) => fnOnDragOver(e)}
+                  onDrop={(e) => fnOnDrop(e, item, index)}
+                />
+                <div
+                  className="close-img-preview"
+                  onClick={() => fnRemovePics(index)}
+                >
+                  &times;
                 </div>
-              </>
+              </div>
             ))}
           {hotelsPics.length !== 10 && (
             <button className="addhotel-pics-btn" onClick={fnClickPlus}>

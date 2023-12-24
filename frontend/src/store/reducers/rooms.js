@@ -1,46 +1,38 @@
-import { HOTELS_LIST, HOTELS_DELETE, HOTELS_PICS, HOTELS_ADD } from "../actions/actionTypes";
+import { ROOMS_LIST, ROOMS_DELETE, ROOMS_PICS } from "../actions/actionTypes";
 
 const initialState = {
-  hotels: [],
+  rooms: [],
   loading: false,
   error: null,
-  hotelsPics: [],
+  roomsPics: [],
 };
 
-export default function reducerHotelsList(state = initialState, action) {
+export default function reducerRooms(state = initialState, action) {
   // console.log("reducer HOTELS", action);
   switch (action.type) {
-    case HOTELS_LIST:
-      // console.log('REDUCER HOTELS LIST', action.payload);
+    case ROOMS_LIST:
+      // console.log('REDUCER USER LIST', action.payload);
       return {
         ...state,
-        hotels: action.payload,
+        rooms: action.payload,
         loading: false,
         error: null,
       };
-    case HOTELS_ADD:
-      // console.log('REDUCER HOTELS ADD', action.payload);
-      return {
-        ...state,
-        // hotels: action.payload,
-        loading: false,
-        error: null,
-      };
-    case HOTELS_DELETE:
+    case ROOMS_DELETE:
       const tempHOTELS = state.hotels.filter((i) => i._id !== action.payload);
       // console.log('action.payload', action.payload);
       return {
         ...state,
-        hotels: tempHOTELS,
+        rooms: tempHOTELS,
         loading: false,
         error: null,
       };
-      case HOTELS_PICS:
+      case ROOMS_PICS:
       //const tempHOTELS = state.hotels.filter((i) => i._id !== action.payload);
       // console.log('HOTES-PICS action.payload', action.payload);
       return {
         ...state,
-        hotelsPics: action.payload,
+        roomsPics: action.payload,
         loading: false,
         error: null,
       };

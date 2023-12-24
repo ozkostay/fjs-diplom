@@ -1,7 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
-import { actHotelsPics } from "../../store/actions/actionCreators";
+import {
+  actHotelsAdd,
+  actHotelsPics,
+} from "../../store/actions/actionCreators";
 
 export default function AddHotel() {
   // const { user } = useSelector((state) => state.crUser);
@@ -37,36 +40,22 @@ export default function AddHotel() {
       return;
     }
     setSaveBtnDisabled(true);
-  },[hotelsPics, title, description])
+  }, [hotelsPics, title, description]);
 
   //===============================================================
   async function handlerHotelsSave(e) {
     e.preventDefault();
-    const url =
-      process.env.REACT_APP_BACK_URL +
-      process.env.REACT_APP_POSTFIX_HOTELS +
-      "/uploadpics";
+    // отсюда и до конца в САГИ
     const formData = new FormData();
     hotelsPics.forEach((item) => {
       formData.append("files", item);
     });
     formData.append("title", title);
     formData.append("description", description);
-
-    const options = {
-      method: "POST",
-      body: formData,
-    };
-    try {
-      const res = await fetch(url, options);
-      console.log("RES", res.text());
-      clearAll();
-      alert("Гостиница успешно добавлена!");
-    } catch (e) {
-      console.log("ERROR UPLOAD", e.massage);
-    }
+    dispatch(actHotelsAdd(formData));
+    clearAll()
   }
-  
+
   //================================================
   function clearAll() {
     dispatch(actHotelsPics([]));
@@ -101,10 +90,17 @@ export default function AddHotel() {
           </label>
         </div>
         <div className="addhotel-btn">
-          <button ref={saveButton} className="addhotel-btn green" onClick={handlerHotelsSave} disabled={saveBtnDisabled}>
+          <button
+            ref={saveButton}
+            className="addhotel-btn green"
+            onClick={handlerHotelsSave}
+            disabled={saveBtnDisabled}
+          >
             Сохранить
           </button>
-          <button className="addhotel-btn red" onClick={clearAll}>Отменить</button>
+          <button className="addhotel-btn red" onClick={clearAll}>
+            Отменить
+          </button>
         </div>
       </div>
     </>
