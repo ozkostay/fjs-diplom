@@ -10,6 +10,10 @@ import {
   HOTELS_DELETE,
   HOTELS_PICS,
   HOTELS_ADD,
+  ROOMS_LIST,
+  ROOMS_DELETE,
+  ROOMS_PICS,
+  ROOMS_ADD,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -56,6 +60,24 @@ export function actHotelsPics(arrPics) {
   // console.log('actionCreater HOTELS-PICS arrPics', arrPics)
   return { type: HOTELS_PICS, payload: arrPics} ;
 }
+
+export function actRoomsList(payload) {
+  // console.log('actionCreater HOTELSLIST payoad', payload)
+  return { type: ROOMS_LIST, payload: payload} ;
+}
+export function actRoomsAdd(payload) {
+  // console.log('actionCreater HOTELS-ADD payoad', payload)
+  return { type: ROOMS_ADD, payload: payload} ;
+}
+export function actRoomsDelete(id) {
+  // console.log('actionCreater HOTELSDELETE id', id)
+  return { type: ROOMS_DELETE, payload: id} ;
+}
+export function actRoomsPics(arrPics) {
+  // console.log('actionCreater HOTELS-PICS arrPics', arrPics)
+  return { type: ROOMS_PICS, payload: arrPics} ;
+}
+
 
 // ===========================
 // export function hitsRequest(param) {

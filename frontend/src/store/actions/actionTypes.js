@@ -15,6 +15,7 @@ export const HOTELS_DELETE = "HOTELS_DELETE";
 export const HOTELS_PICS = "HOTELS_PICS";
 export const HOTELS_LIST_ERROR = "HOTELS_LIST_ERROR";
 export const ROOMS_LIST = "ROOMS_LIST";
+export const ROOMS_ADD = "ROOMS_ADD";
 export const ROOMS_LIST_ERROR = "ROOMS_LIST_ERROR";
 export const ROOMS_DELETE = "ROOMS_DELETE";
 export const ROOMS_PICS = "ROOMS_PICS";
