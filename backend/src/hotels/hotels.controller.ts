@@ -23,14 +23,14 @@ export class HotelsController {
     return this.hotelsService.findAll();
   }
 
-  @Post('/admin/hotels')
-  public create(@Body() body: any): any {
-    // console.log('hotels post body', body);
-    return { mess: 'Добавляем гостиницу' };
-    //return this.hotelsService.create(body);
-  }
+  // @Post('/admin/hotels')
+  // public create(@Body() body: any): any {
+  //   // console.log('hotels post body', body);
+  //   return { mess: 'Добавляем гостиницу' };
+  //   //return this.hotelsService.create(body);
+  // }
 
-  @Post('/admin/hotels/uploadpics')
+  @Post('/admin/hotels/uploadpics') // Убрать uploadpics
   @UseInterceptors(FilesInterceptor('files'))
   public uploadpics(
     @UploadedFiles() files: Array<Express.Multer.File>,
