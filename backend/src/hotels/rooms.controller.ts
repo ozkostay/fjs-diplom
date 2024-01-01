@@ -18,8 +18,7 @@ export class RoomsController {
     @Body() body: any,
   ): any {
     // вернуть промис
-    return 'POST ROOMS'
-    // this.roomsService.create(files, body);
+    return this.roomsService.create(files, body);
   }
 }
   

@@ -1,4 +1,4 @@
-import { ROOMS_LIST, ROOMS_DELETE, ROOMS_PICS } from "../actions/actionTypes";
+import { ROOMS_LIST, ROOMS_DELETE, ROOMS_PICS, ROOMS_ADD } from "../actions/actionTypes";
 
 const initialState = {
   rooms: [],
@@ -15,6 +15,14 @@ export default function reducerRooms(state = initialState, action) {
       return {
         ...state,
         rooms: action.payload,
+        loading: false,
+        error: null,
+      };
+    case ROOMS_ADD:
+      // console.log('REDUCER HOTELS ADD', action.payload);
+      return {
+        ...state,
+        // hotels: action.payload,
         loading: false,
         error: null,
       };

@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import AddRoomPics from "./AddRoomPics";
 import { actRoomsAdd, actRoomsPics } from "../../store/actions/actionCreators";
 
-export default function AddRoom({setIsAddRoom}) {
+export default function AddRoom({setIsAddRoom, hotelId}) {
   const { user } = useSelector((state) => state.crUser);
   const { roomsPics } = useSelector((state) => state.rooms);
   const [title, setTitle] = useState("");
@@ -45,15 +44,17 @@ export default function AddRoom({setIsAddRoom}) {
   //===============================================================
   async function handlerHotelsSave(e) {
     e.preventDefault();
+    //По умолчанию formData создается с праметром multipart/form-data
     const formData = new FormData();
     roomsPics.forEach((item) => {
       formData.append("files", item);
     });
     formData.append("title", title);
     formData.append("description", description);
-    
-    
-    // Добавить еще поля по ТЗ
+    formData.append("hotelId", hotelId);
+    formData.append("isAnable", true);
+
+    console.log('formData', formData);
     dispatch(actRoomsAdd(formData));
     clearAll();
     // }

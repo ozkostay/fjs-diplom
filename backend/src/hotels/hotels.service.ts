@@ -23,7 +23,9 @@ export class HotelsService {
   //=============================================================
   public async create(files: any[], body: INewHotelBodyDto): Promise<ICreateHotelDto> {
     // Настройка пути
-    const folder = join(__dirname, '..', '..', '/public/hotels');
+    const picsFolder = '/public/hotels';
+    const folder = join(__dirname, '..', '..', picsFolder);
+    console.log(folder);
     // Проверка наличия папки
     try {
       await access(folder);
@@ -51,7 +53,7 @@ export class HotelsService {
           console.log('ERROR WRITE files', error.message);
         }
         return {
-          url: `/public/hotels/${newFileName}`,
+          url: `${picsFolder}/${newFileName}`,
           name: newFileName,
         };
       }),

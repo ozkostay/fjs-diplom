@@ -17,7 +17,7 @@ export default function HotelsView(props) {
       </>
     );
   }
-  const { title, description, files } = location.state.item;
+  const { _id, title, description, files } = location.state.item;
   const hotelsPics = JSON.parse(files);
   const backendUrl = `${process.env.REACT_APP_BACK_URL}`;
 
@@ -53,6 +53,7 @@ export default function HotelsView(props) {
         </div>
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
+          <span style={{ color: "#8a92a6" }}>id: {_id}</span>
         </div>
         {user && user.role === "admin" && (
           <div className="addhotel-btn">
@@ -74,7 +75,7 @@ export default function HotelsView(props) {
         </div>
       )}
       {isAddRoom && (
-        <AddRoom setIsAddRoom={setIsAddRoom}/>
+        <AddRoom setIsAddRoom={setIsAddRoom} hotelId={_id}/>
       )}
       
     </>
