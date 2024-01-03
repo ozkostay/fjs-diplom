@@ -20,6 +20,10 @@ export class HotelsService {
     return this.HotelModel.find().exec();
   }
 
+  public hotelById(id: string): Promise<HotelDocument> {
+    return this.HotelModel.findById(id).exec();
+  }
+
   //=============================================================
   public async create(files: any[], body: INewHotelBodyDto): Promise<ICreateHotelDto> {
     // Настройка пути

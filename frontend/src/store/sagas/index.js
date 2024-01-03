@@ -9,6 +9,7 @@ import {
   HOTELS_ADD,
   HOTELS_DELETE,
   ROOMS_ADD,
+  ROOMS_LIST,
   
 } from "../actions/actionTypes";
 // workers;
@@ -21,6 +22,7 @@ import WorkerHotelsDelete from "./workers/WorkerHotelsDelete";
 import WorkerUsersUpdate from "./workers/WorkerUsersUpdate";
 import WorkerHotelsAdd from "./workers/WorkerHotelAdd";
 import WorkerRoomsAdd from "./workers/WorkerRoomsAdd";
+import WorkerRoomsList from "./workers/WorkerRoomsList";
 
 
 // watchers
@@ -44,16 +46,17 @@ function* watchHotelsList() {
   yield takeLatest(HOTELS_LIST, WorkerHotelsList);
 }
 function* watchHotelsDelete() {
-  // console.log('SAGA Watcher HOTELS DELETE');
   yield takeLatest(HOTELS_DELETE, WorkerHotelsDelete);
 }
 function* watchHotelsAdd() {
-  // console.log('SAGA Watcher HOTELS ADD');
   yield takeLatest(HOTELS_ADD, WorkerHotelsAdd);
 }
 function* watchRoomsAdd() {
-  // console.log('SAGA Watcher HOTELS ADD');
   yield takeLatest(ROOMS_ADD, WorkerRoomsAdd);
+}
+function* watchRoomsList() {
+  console.log('SAGA Watcher ROOMSS LIST');
+  yield takeLatest(ROOMS_LIST, WorkerRoomsList);
 }
 
 export default function* saga() {
@@ -66,4 +69,5 @@ export default function* saga() {
   yield spawn(watchHotelsDelete);
   yield spawn(watchHotelsAdd);
   yield spawn(watchRoomsAdd);
+  yield spawn(watchRoomsList);
 }

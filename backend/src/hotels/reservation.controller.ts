@@ -1,24 +1,23 @@
 import { Body, Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { ReservationService } from './reservation.service';
 
 @Controller('api')
-export class RoomsController {
-  constructor(private readonly roomsService: RoomsService) {}
+export class ReservationController {
+  constructor(private readonly reservationService: ReservationService) {}
 
-  @Get('/common/hotel-rooms')
-  public findAll(@Query() params :any): Promise<any> {
-    return this.roomsService.findAll(params);
-  }
+  // @Get('/common/hotel-rooms')
+  // public findAll(@Query() params :any): Promise<any> {
+  //   return this.roomsService.findAll(params);
+  // }
 
-  @Post('/admin/hotel-rooms')
-  @UseInterceptors(FilesInterceptor('files'))
+  @Post('/client//reservations')
   public create(
-    @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() body: any,
   ): any {
     // вернуть промис
-    return this.roomsService.create(files, body);
+    return this.reservationService.create(body);
   }
 
   // @Post('/api/client/reservations')

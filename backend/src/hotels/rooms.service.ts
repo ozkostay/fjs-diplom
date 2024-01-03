@@ -10,15 +10,29 @@ import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
 import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
 import { Room, RoomDocument } from './schemas/rooms.schema';
 import { INewRoomBodyDto } from './interfaces/dto/new-room-body';
+import { HotelsService } from './hotels.service';
 
 @Injectable()
 export class RoomsService {
   constructor(
     @InjectModel(Room.name) private RoomModel: Model<RoomDocument>,
+    private readonly hotelService: HotelsService,
   ) {}
 
-  public findAll(): Promise<RoomDocument[]> {
-    return this.RoomModel.find().exec();
+  public async findAll(params: any): Promise<RoomDocument[]> {
+    console.log('rooms params ', params);
+    const { offset, limit, hotelid } = params;
+    const qOffset = Number(offset);
+    const qLimit = Number(limit);
+    // const searchString = new RegExp(search, 'i');
+    // return await this.RoomModel.find({
+    //   $or: [{ name: searchString }, { email: searchString }, { contactPhone: searchString }],
+    // })
+    return await this.RoomModel.find({ hotel: hotelid })
+      .skip(qOffset * qLimit)
+      .limit(qLimit + 1)
+      .exec();
+    // return this.RoomModel.find().exec();
   }
 
   public async create(files: any[], body: INewRoomBodyDto): Promise<any> {
@@ -64,12 +78,10 @@ export class RoomsService {
         createdAt: new Date(),
         updatedAt: new Date(),
         isAnable: body.isAnable,
-        files: JSON.stringify(resWriteFIles),
+        images: JSON.stringify(resWriteFIles),
       };
       const room = this.RoomModel.create(newHotel);
       return room;
   }
-
-  
-
 }
+

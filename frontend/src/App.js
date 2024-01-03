@@ -10,7 +10,9 @@ import UserEdit from "./components/users/UserEdit";
 import Hotels from "./components/hotels/Hotels";
 import AddHotel from "./components/hotels/AddHotel";
 import HotelsView from "./components/hotels/HotelsView";
-import Room from "./components/hotels/Room";
+import FindRooms from "./components/hotels/FindRooms";
+import RoomsView from "./components/hotels/RoomsView";
+
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
 // import Contacts from "./components/Contacts";
@@ -31,7 +33,8 @@ function App() {
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/hotels/view/:id" element={<HotelsView />} />
-          <Route path="/room" element={<Room />} />
+          <Route path="/room" element={<FindRooms />} />
+          <Route path="/rooms/view/:id" element={<RoomsView />} />
           <Route path="/addhotel" element={<AddHotel />} />
           <Route path="/userview/:id" element={<UserView />} />
           <Route path="/useredit/:id" element={<UserEdit />} />

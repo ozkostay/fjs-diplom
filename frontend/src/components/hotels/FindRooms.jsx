@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function Room() {
+export default function FindRooms() {
   // const { user } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
 
