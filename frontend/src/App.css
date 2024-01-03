@@ -470,6 +470,10 @@ body {
   margin-bottom: 20px;
 }
 
+.clb {
+  color: black;
+}
+
 .modal-wrap {
   position: absolute;
   top: 0px;
@@ -504,4 +508,29 @@ body {
   background-color: #232d42;
   color: white;
   cursor: pointer;
+}
+
+.findrooms {
+  height: 30px;
+  font-size: 1em;
+}
+
+.findrooms.hotels {
+  width: 100%;
+}
+
+.findrooms.dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.findrooms.date {
+  width: 47%;
+}
+
+.findrooms-btn.blue {
+  color: white;
+  background-color: #5d73e1;
+  padding: 10px 20px;
 }

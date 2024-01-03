@@ -11,8 +11,8 @@ export default function* WorkerUsersList(action) {
   }
   console.log('YESYESYES');
   try {
-    const retryCount = 0;
-    const retryDelay = 0 * 1000;
+    const retryCount = 1;
+    const retryDelay = 1 * 1000;
     const data = yield retry(
       retryCount,
       retryDelay,

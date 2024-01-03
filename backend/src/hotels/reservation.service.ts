@@ -11,18 +11,32 @@ import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
 import { Room, RoomDocument } from './schemas/rooms.schema';
 import { INewRoomBodyDto } from './interfaces/dto/new-room-body';
 import { HotelsService } from './hotels.service';
-import { Reservation, ReservationDocument } from './schemas/reservations.schema';
+import {
+  Reservation,
+  ReservationDocument,
+} from './schemas/reservations.schema';
+import { ICreateReservationDto } from './interfaces/dto/create-reservation';
 
 @Injectable()
 export class ReservationService {
   constructor(
-    @InjectModel(Reservation.name) private ReservationModel: Model<ReservationDocument>,
-    private readonly hotelService: HotelsService,
+    @InjectModel(Reservation.name)
+    private ReservationModel: Model<ReservationDocument>, // private readonly hotelService: HotelsService,
   ) {}
 
-  public create(body: any): any {
-    console.log('Бронь service BODY', body);
-    return 'БРОНИРУЕМ'
+  public async findAll(): Promise<ReservationDocument[]> {
+    // console.log('GET Бронь service');
+    return await this.ReservationModel.find()
+      .populate('hotelId', ['title', 'description'])
+      .populate('roomId', ['title', 'description'])
+      .select('-__v')
+      .exec();
+  }
+
+  public create(body: ICreateReservationDto): Promise<ReservationDocument> {
+    // console.log('Бронь service BODY', body);
+    const newReservation = this.ReservationModel.create(body);
+    return newReservation;
   }
   // public async findAll(params: any): Promise<RoomDocument[]> {
   //   console.log('rooms params ', params);
@@ -89,4 +103,3 @@ export class ReservationService {
   //     return room;
   // }
 }
-

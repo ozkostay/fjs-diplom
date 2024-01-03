@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Query, UploadedFiles, UseInterceptors } fr
 import { RoomsService } from './rooms.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ReservationService } from './reservation.service';
+import { ICreateReservationDto } from './interfaces/dto/create-reservation';
 
 @Controller('api')
 export class ReservationController {
@@ -12,11 +13,18 @@ export class ReservationController {
   //   return this.roomsService.findAll(params);
   // }
 
-  @Post('/client//reservations')
+  @Get('/client/reservations')
+  public findAll() {
+    console.log('GET controller FIND BRON');
+    return this.reservationService.findAll();
+  }
+
+  @Post('/client/reservations')
   public create(
-    @Body() body: any,
+    @Body() body: ICreateReservationDto,
   ): any {
     // вернуть промис
+    console.log('CREAT BRON', body);
     return this.reservationService.create(body);
   }
 
