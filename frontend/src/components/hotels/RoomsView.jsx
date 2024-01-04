@@ -7,30 +7,24 @@ import RoomsItems from "./RoomsItems";
 
 export default function RoomsView(props) {
   const { user } = useSelector((state) => state.crUser);
-  // const { rooms } = useSelector((state) => state.rooms);
   const [isModal, setIsModal] = useState(false);
   const [urlForModal, setUrlForModal] = useState(null);
-  // const [isAddRoom, setIsAddRoom] = useState(false);
-  // const [limit, setLimit] = useState(10);
-  // const [offset, setOffset] = useState(0);
+  const dateNow = () => {
+    const tempdate = new Date();
+    return tempdate.toISOString().split("T")[0];
+  };
+  const [dateStart, setDateStart] = useState(dateNow);
+  const [dateEnd, setDateEnd] = useState(dateNow);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
-  // if (!location.state) {
-  //   return (
-  //     <>
-  //       <div>Страница доступна только со страницы просмотра гостиниц!!!</div>
-  //     </>
-  //   );
-  // }
-
   const { _id, title, description, images } = location.state.item;
   const hotelState = location.state.hotelState;
   const hotelsPics = JSON.parse(images);
   const backendUrl = `${process.env.REACT_APP_BACK_URL}`;
 
-  function fnModalPics(url) {
+  // ============================================================
+  function fnModalPics(url) { // Просмотр картинки
     setIsModal(!isModal);
     setUrlForModal(url);
   }
@@ -40,16 +34,27 @@ export default function RoomsView(props) {
     setUrlForModal("");
   }
 
-  function fnReturn() {
-    const url = `/hotels/view/${hotelState._id}`
-    navigate(url,  { state: {item: hotelState} });
+  function fnReturn() { // Назад к гостинице
+    const url = `/hotels/view/${hotelState._id}`;
+    navigate(url, { state: { item: hotelState } });
   }
 
+  function fnRegisterRoom() { // Бронируем номер
+    console.log('БРОНИРУЕМ НОМЕР');
+  }
+
+  function fnEditRoom() { // Редактируем номер
+    console.log('РЕДАКТИРУЕМ НОМЕР');
+  }
+
+  //========================================================
   return (
     <>
       <div className="hotels-header" onClick={fnReturn}>
-        {" "}
-        ... Назад к <span style={{color: 'blue'}}>{hotelState.title}</span>
+        
+        <span style={{ color: "blue", fontWeight: "bold", cursor: "pointer" }}>
+        &lt; {hotelState.title}
+        </span>
       </div>
       <div className="mainpage">
         <div className="addhotel-preview">
@@ -69,13 +74,37 @@ export default function RoomsView(props) {
         </div>
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
-          <span style={{ color: "#8a92a6" }}>id: {_id}</span>
         </div>
-        {user && user.role === "admin" && (
-          <div className="addhotel-btn">
-            <button className="addhotel-btn red">Редактировать</button>
+
+        <div className="hotels-item-wrap" style={{ display: 'block', marginTop: '60px', backgroundColor: '#fcfee2'}}>
+
+          <div className="findrooms dates">
+            <div className="findrooms date">Заезд</div>
+            <div className="findrooms date">Выезд</div>
           </div>
-        )}
+          <div className="findrooms dates mb20">
+            <input
+              type="date"
+              className="findrooms date"
+              value={dateStart}
+              onChange={(e) => setDateStart(e.target.value)}
+            />
+            --
+            <input
+              type="date"
+              className="findrooms date"
+              value={dateEnd}
+              onChange={(e) => setDateEnd(e.target.value)}
+            />
+          </div>
+
+          <div className="addhotel-btn">
+            <button className="addhotel-btn red" onClick={fnRegisterRoom}>Забронировать</button>
+            {user && user.role === "admin" && (
+              <button className="addhotel-btn blue" onClick={fnEditRoom}>Редактировать</button>
+            )}
+          </div>
+        </div>
       </div>
       {isModal && (
         <div className="modal-wrap">

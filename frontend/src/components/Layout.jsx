@@ -21,11 +21,11 @@ export default function Layout() {
                   <span className="link-span">Все гостиницы</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className="nav-link" to="/room">
                   <span className="link-span">Поиск номера</span>
                 </Link>
-              </li>
+              </li> */}
               {user?.role === "admin" ? (
                 <>
                   <li>

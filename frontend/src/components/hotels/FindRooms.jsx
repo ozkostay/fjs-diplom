@@ -4,9 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 export default function FindRooms() {
   // const { user } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
+  const dateNow = () => {
+    const tempdate = new Date();
+    return tempdate.toISOString().split('T')[0];
+  }
   const [hotelName, setHotelName] = useState("");
-  const [dateStart, setDateStart] = useState("");
-  const [dateEnd, setDateEnd] = useState("");
+  const [dateStart, setDateStart] = useState(dateNow)
+  const [dateEnd, setDateEnd] = useState(dateNow);
+
 
   // useEffect(() => {
   //   console.log('useEffect ', user);

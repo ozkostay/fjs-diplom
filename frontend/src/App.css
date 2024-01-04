@@ -13,7 +13,7 @@ button{border-radius: 5px;border: 0px solid #ccc;cursor: pointer;}
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 h1 {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -435,6 +435,13 @@ body {
   box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
 }
 
+.hotels-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
 .hotels-item-wrap {
   padding: 15px;
   display: flex;
@@ -516,7 +523,7 @@ body {
 }
 
 .findrooms.hotels {
-  width: 100%;
+  width: 85%;
 }
 
 .findrooms.dates {
@@ -534,3 +541,4 @@ body {
   background-color: #5d73e1;
   padding: 10px 20px;
 }
+

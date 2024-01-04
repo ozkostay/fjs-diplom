@@ -51,9 +51,9 @@ export default function HotelsView(props) {
     <>
       
       <div className="mainpage">
-        <h1  className="mb20">Гостиница</h1>
+        {/* <h1  className="mb20">Гостиница</h1> */}
         <div className="mb20">
-          <h2 style={{ color: "black"}}>{title}</h2>
+          <h1 style={{ color: "blue"}}>{title}</h1>
         </div>
         <div className="addhotel-preview">
           {hotelsPics.length > 0 &&
@@ -70,7 +70,6 @@ export default function HotelsView(props) {
         
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
-          <span style={{ color: "#8a92a6" }}>id: {_id}</span>
         </div>
         {user && user.role === "admin" && (
           <div className="addhotel-btn">
@@ -97,7 +96,8 @@ export default function HotelsView(props) {
         </div>
       )}
       {isAddRoom && <AddRoom setIsAddRoom={setIsAddRoom} hotelId={_id} />}
-      <h1 className="hotels-header">Номера:</h1>
+      {/* <h2 style={{ color: "black"}}>{title}</h2> */}
+      <h2 className="hotels-header">Выбрать и забронировать номер:</h2>
       {rooms.length > 0 && rooms.map((i) => <RoomsItems key={i._id} item={i} hotelState={location.state.item}/>)}
     </>
   );
