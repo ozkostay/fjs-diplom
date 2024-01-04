@@ -4,14 +4,14 @@ import { hotelsListSearch } from "../../api/hotels/hotelsListSearch";
 
 
 export default function* WorkerHotelsList(action) {
-  // console.log('SAGA WORKER HotelsList', action);
-  if (action.payload) {
-    // console.log('============== Прерываем WORKER HotelsList');
+  console.log('SAGA WORKER HotelsList', action.payload?.limit);
+  if (!action.payload.limit) {
+    console.log('NONONO ============== Прерываем WORKER HotelsList');
     return;
   }
   try {
-    const retryCount = 0;
-    const retryDelay = 0 * 1000;
+    const retryCount = 1;
+    const retryDelay = 1 * 1000;
     const data = yield retry(
       retryCount,
       retryDelay,

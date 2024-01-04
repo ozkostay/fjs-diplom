@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -19,8 +20,9 @@ export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
   @Get('/admin/hotels')
-  public findAll(): any {
-    return this.hotelsService.findAll();
+  public findAll(@Query() params: any): any {
+    console.log('get params', params);
+    return this.hotelsService.findAll(params);
   }
 
   @Post('/admin/hotels/uploadpics') // Убрать uploadpics

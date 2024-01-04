@@ -5,11 +5,14 @@ import HotelsItems from "./HotelsItems";
 
 export default function Hotels() {
   const { hotels } = useSelector((state) => state.hotelsList);
-  const [hotelName, setHotelName] = useState("");
+  const [limit, setLimit] = useState(3);
+  const [offset, setOffset] = useState(0);
+  const [search, setSearch] = useState("Mos");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actHotelsList());
+    // dispatch(actHotelsList());
+    fnFilterHotels();
   }, []);
 
   function fnConLogHotels() {
@@ -17,7 +20,15 @@ export default function Hotels() {
   }
 
   function fnFilterHotels() {
-    console.log("FILTER HOTES", hotelName);
+    
+    const preOffset = offset;
+    const params = {
+      offset: preOffset,
+      limit,
+      search,
+    };
+    console.log("FILTER HOTES", params);
+    dispatch(actHotelsList(params));
   }
 
   return (
@@ -30,8 +41,8 @@ export default function Hotels() {
               type="text"
               className="findrooms hotels"
               placeholder="введите слова для поиска"
-              value={hotelName}
-              onChange={(e) => setHotelName(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <button className="findrooms-btn blue" onClick={fnFilterHotels}>
               Найти
@@ -39,7 +50,7 @@ export default function Hotels() {
           </div>
         </div>
 
-        {hotels && hotels.map((i) => <HotelsItems key={i._id} item={i} />)}
+        {(hotels.length > 0) && hotels.map((i) => <HotelsItems key={i._id} item={i} />)}
       </div>
     </>
   );
