@@ -27,26 +27,26 @@ export default function Header() {
         <Link className="logo-link" to="/">
           <div className="logo-img">
             {/* <img className="logo-img" src={logo} /> */}
-            
           </div>
         </Link>
 
         <div className="header-main">
           <div></div>
           {user ? (
-            <div>
-              <span className="link-span header-user">{user.name}</span>
-              <span className="link-span" onClick={fnLogout}>
+            <div className="header-user-wrap">
+              <span className="header-user">{user.name}</span>
+              <span className="header-nav-link" onClick={fnLogout}>
                 Выйти
               </span>
             </div>
           ) : (
-            <div>
-              <Link className="nav-link" to="/signup">
-                <span className="link-span">Регистрация</span>
+            <div className="header-user-wrap">
+              <Link className="header-nav-link" to="/signup">
+                <span>Регистрация</span>
               </Link>
-              <Link className="nav-link" to="/signin">
-                <span className="link-span">Войти</span>
+              {/* <Link className="nav-link header-login" to="/signin"> */}
+              <Link className="header-nav-link" to="/signin">
+                <span>Войти</span>
               </Link>
             </div>
           )}

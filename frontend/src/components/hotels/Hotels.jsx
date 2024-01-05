@@ -7,11 +7,10 @@ export default function Hotels() {
   const { hotels } = useSelector((state) => state.hotelsList);
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
-  const [search, setSearch] = useState("Mos");
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(actHotelsList());
     fnFilterHotels();
   }, []);
 
@@ -44,7 +43,9 @@ export default function Hotels() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="findrooms-btn blue" onClick={fnFilterHotels}>
+     
+            {/* <button className="findrooms-btn blue" onClick={fnFilterHotels}> */}
+            <button className="hotels-item-btn" onClick={fnFilterHotels}>
               Найти
             </button>
           </div>
