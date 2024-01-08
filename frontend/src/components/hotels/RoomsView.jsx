@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AddRoom from "./AddRoom";
-import { actRoomsList } from "../../store/actions/actionCreators";
+import { actRegRoomsAdd } from "../../store/actions/actionCreators";
 import RoomsItems from "./RoomsItems";
 
 export default function RoomsView(props) {
@@ -24,7 +24,8 @@ export default function RoomsView(props) {
   const backendUrl = `${process.env.REACT_APP_BACK_URL}`;
 
   // ============================================================
-  function fnModalPics(url) { // Просмотр картинки
+  function fnModalPics(url) {
+    // Просмотр картинки
     setIsModal(!isModal);
     setUrlForModal(url);
   }
@@ -34,26 +35,47 @@ export default function RoomsView(props) {
     setUrlForModal("");
   }
 
-  function fnReturn() { // Назад к гостинице
+  function fnReturn() {
+    // Назад к гостинице
     const url = `/hotels/view/${hotelState._id}`;
     navigate(url, { state: { item: hotelState } });
   }
 
-  function fnRegisterRoom() { // Бронируем номер
-    console.log('БРОНИРУЕМ НОМЕР');
+  function fnRegisterRoom() {
+    // Бронируем номер
+    console.log(
+      "БРОНИРУЕМ НОМЕР hotel",
+      hotelState._id,
+      "nomer",
+      _id,
+      "user",
+      user._id,
+      "start",
+      dateStart,
+      "END",
+      dateEnd
+    );
+    const newRegrooms = {
+      userId: user._id,
+      hotelId: hotelState._id,
+      roomId: _id,
+      dateStart,
+      dateEnd,
+    };
+    dispatch(actRegRoomsAdd(newRegrooms));
   }
 
-  function fnEditRoom() { // Редактируем номер
-    console.log('РЕДАКТИРУЕМ НОМЕР');
+  function fnEditRoom() {
+    // Редактируем номер
+    console.log("РЕДАКТИРУЕМ НОМЕР");
   }
 
   //========================================================
   return (
     <>
       <div className="hotels-header" onClick={fnReturn}>
-        
         <span style={{ color: "blue", fontWeight: "bold", cursor: "pointer" }}>
-        &lt; {hotelState.title}
+          &lt; {hotelState.title}
         </span>
       </div>
       <div className="mainpage">
@@ -76,34 +98,49 @@ export default function RoomsView(props) {
           <span style={{ color: "#8a92a6" }}>{description}</span>
         </div>
 
-        <div className="hotels-item-wrap" style={{ display: 'block', marginTop: '60px', backgroundColor: '#fcfee2'}}>
+        <div
+          className="hotels-item-wrap"
+          style={{
+            display: "block",
+            marginTop: "60px",
+            backgroundColor: "#fcfee2",
+          }}
+        >
+          {!user && (<h2>Для возможности бронирования номера необходимо войти в систему!</h2>)}
+          {user && (
+            <>
+              <div className="findrooms dates">
+                <div className="findrooms date">Заезд</div>
+                <div className="findrooms date">Выезд</div>
+              </div>
+              <div className="findrooms dates mb20">
+                <input
+                  type="date"
+                  className="findrooms date"
+                  value={dateStart}
+                  onChange={(e) => setDateStart(e.target.value)}
+                />
+                --
+                <input
+                  type="date"
+                  className="findrooms date"
+                  value={dateEnd}
+                  onChange={(e) => setDateEnd(e.target.value)}
+                />
+              </div>
 
-          <div className="findrooms dates">
-            <div className="findrooms date">Заезд</div>
-            <div className="findrooms date">Выезд</div>
-          </div>
-          <div className="findrooms dates mb20">
-            <input
-              type="date"
-              className="findrooms date"
-              value={dateStart}
-              onChange={(e) => setDateStart(e.target.value)}
-            />
-            --
-            <input
-              type="date"
-              className="findrooms date"
-              value={dateEnd}
-              onChange={(e) => setDateEnd(e.target.value)}
-            />
-          </div>
-
-          <div className="addhotel-btn">
-            <button className="addhotel-btn red" onClick={fnRegisterRoom}>Забронировать</button>
-            {user && user.role === "admin" && (
-              <button className="addhotel-btn blue" onClick={fnEditRoom}>Редактировать</button>
-            )}
-          </div>
+              <div className="addhotel-btn">
+                <button className="addhotel-btn red" onClick={fnRegisterRoom}>
+                  Забронировать
+                </button>
+                {user && user.role === "admin" && (
+                  <button className="addhotel-btn blue" onClick={fnEditRoom}>
+                    Редактировать
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
       {isModal && (

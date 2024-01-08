@@ -23,7 +23,6 @@ export class ReservationController {
   public create(
     @Body() body: ICreateReservationDto,
   ): any {
-    // вернуть промис
     console.log('CREAT BRON', body);
     return this.reservationService.create(body);
   }

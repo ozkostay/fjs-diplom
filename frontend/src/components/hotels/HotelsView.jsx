@@ -97,7 +97,7 @@ export default function HotelsView(props) {
       )}
       {isAddRoom && <AddRoom setIsAddRoom={setIsAddRoom} hotelId={_id} />}
       {/* <h2 style={{ color: "black"}}>{title}</h2> */}
-      <h2 className="hotels-header">Выбрать и забронировать номер:</h2>
+      <h2 className="hotels-header" style={{backgroundColor: "#dfffe5"}}>Выбрать и забронировать номер:</h2>
       {rooms.length > 0 && rooms.map((i) => <RoomsItems key={i._id} item={i} hotelState={location.state.item}/>)}
     </>
   );

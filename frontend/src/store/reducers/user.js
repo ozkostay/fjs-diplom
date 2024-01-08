@@ -34,6 +34,7 @@ export default function reducerUser(state = initialState, action) {
       //
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("reservations");
       return {...state, user: null};
     case USER_SIGNUP:
       if (action.payload.access_token) {

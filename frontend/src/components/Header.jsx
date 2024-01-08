@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { actUserLogout } from "../store/actions/actionCreators";
+import { actRegRoomsClear, actRegRoomsDelete, actUserLogout } from "../store/actions/actionCreators";
 import logo from "../pics/logo.png";
 // import headerLogo from "./img/header-logo.png";
 
 export default function Header() {
   const { user } = useSelector((state) => state.crUser);
+  const { regRooms } = useSelector((state) => state.regrooms);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -18,7 +19,12 @@ export default function Header() {
     event.preventDefault();
     console.log("Yes LOGOUT");
     dispatch(actUserLogout());
+    dispatch(actRegRoomsClear());
     navigate("/");
+  }
+
+  function fnRegRooms() {
+    console.log('RegRooms', regRooms);
   }
 
   return (
@@ -31,7 +37,9 @@ export default function Header() {
         </Link>
 
         <div className="header-main">
-          <div></div>
+          <div>
+            <button onClick={fnRegRooms}>books</button><h2>{regRooms.length}</h2>
+          </div>
           {user ? (
             <div className="header-user-wrap">
               <span className="header-user">{user.name}</span>

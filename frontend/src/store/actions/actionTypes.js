@@ -19,4 +19,9 @@ export const ROOMS_ADD = "ROOMS_ADD";
 export const ROOMS_LIST_ERROR = "ROOMS_LIST_ERROR";
 export const ROOMS_DELETE = "ROOMS_DELETE";
 export const ROOMS_PICS = "ROOMS_PICS";
+export const REG_LIST = "REG_LIST";
+export const REG_ADD = "REG_ADD";
+export const REG_LIST_ERROR = "REG_LIST_ERROR";
+export const REG_DELETE = "REG_DELETE";
+export const REG_LOCAL_CLEAR = "REG_LOCAL_CLEAR";
 
