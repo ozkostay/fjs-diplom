@@ -24,11 +24,13 @@ export class ReservationService {
     private ReservationModel: Model<ReservationDocument>, // private readonly hotelService: HotelsService,
   ) {}
 
-  public async findAll(): Promise<ReservationDocument[]> {
+  public async findByUserId(params): Promise<ReservationDocument[]> {
     // console.log('GET Бронь service');
-    return await this.ReservationModel.find()
+    const { userid } = params;
+    //console.log('GET Бронь service userId=', userid);
+    return await this.ReservationModel.find({ userId: userid })
+      .populate('roomId', ['title', 'description', 'images'])
       .populate('hotelId', ['title', 'description'])
-      .populate('roomId', ['title', 'description'])
       .select('-__v')
       .exec();
   }

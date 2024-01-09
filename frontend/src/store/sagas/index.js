@@ -11,6 +11,7 @@ import {
   ROOMS_ADD,
   ROOMS_LIST,
   REG_ADD,
+  REG_LIST,
   
 } from "../actions/actionTypes";
 // workers;
@@ -25,6 +26,7 @@ import WorkerHotelsAdd from "./workers/WorkerHotelAdd";
 import WorkerRoomsAdd from "./workers/WorkerRoomsAdd";
 import WorkerRoomsList from "./workers/WorkerRoomsList";
 import WorkerRegRoomsAdd from "./workers/WorkerRegRoomAdd";
+import WorkerRegRoomsList from "./workers/WorkerRegRoomsList";
 
 
 // watchers
@@ -65,6 +67,10 @@ function* watchRegRoomsAdd() {
   console.log('SAGA Watcher REG_ROOMSS_ADD');
   yield takeLatest(REG_ADD, WorkerRegRoomsAdd);
 }
+function* watchRegRoomsList() {
+  console.log('SAGA Watcher REG_ROOMSS_LIST');
+  yield takeLatest(REG_LIST, WorkerRegRoomsList);
+}
 
 export default function* saga() {
   yield spawn(watchUserLogin);
@@ -78,4 +84,5 @@ export default function* saga() {
   yield spawn(watchRoomsAdd);
   yield spawn(watchRoomsList);
   yield spawn(watchRegRoomsAdd);
+  yield spawn(watchRegRoomsList);
 }

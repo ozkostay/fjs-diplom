@@ -14,9 +14,9 @@ export class ReservationController {
   // }
 
   @Get('/client/reservations')
-  public findAll() {
-    console.log('GET controller FIND BRON');
-    return this.reservationService.findAll();
+  public findByUserId(@Query() params: any) {
+    //console.log('GET controller FIND BRON', params);
+    return this.reservationService.findByUserId(params);
   }
 
   @Post('/client/reservations')

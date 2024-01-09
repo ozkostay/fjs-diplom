@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { actRegRoomsClear, actRegRoomsDelete, actUserLogout } from "../store/actions/actionCreators";
+import { actRegRoomsClear, actRegRoomsList, actUserLogout } from "../store/actions/actionCreators";
 import logo from "../pics/logo.png";
 // import headerLogo from "./img/header-logo.png";
 
 export default function Header() {
   const { user } = useSelector((state) => state.crUser);
-  const { regRooms } = useSelector((state) => state.regrooms);
+  const { regRooms, addRegRooms } = useSelector((state) => state.regrooms);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function testUser() {
-    console.log("reduserUSER: ", user);
-  }
-
+  //============================================================
+  useEffect(() => {
+    console.log('useEffect in HEADER');
+    if (user) {
+      console.log('useEffect in HEADER 2  ');
+      dispatch(actRegRoomsList(user._id));
+    }
+  },[user, addRegRooms])
+  
   function fnLogout(event) {
     event.preventDefault();
     console.log("Yes LOGOUT");
@@ -26,10 +31,11 @@ export default function Header() {
   function fnRegRooms() {
     console.log('RegRooms', regRooms);
   }
-
+  
+  //============================================================
   return (
     <>
-      <div className="header-container">
+      <header className="header-container">
         <Link className="logo-link" to="/">
           <div className="logo-img">
             {/* <img className="logo-img" src={logo} /> */}
@@ -38,10 +44,14 @@ export default function Header() {
 
         <div className="header-main">
           <div>
-            <button onClick={fnRegRooms}>books</button><h2>{regRooms.length}</h2>
+            <button onClick={fnRegRooms}>books</button><h2>{regRooms?.length}</h2>
           </div>
           {user ? (
             <div className="header-user-wrap">
+              <Link  className="header-nav-link" to="/reservations">
+                Бронирования
+              </Link>
+
               <span className="header-user">{user.name}</span>
               <span className="header-nav-link" onClick={fnLogout}>
                 Выйти
@@ -59,7 +69,7 @@ export default function Header() {
             </div>
           )}
         </div>
-      </div>
+      </header>
     </>
   );
 }

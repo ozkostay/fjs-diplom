@@ -12,11 +12,13 @@ const reservationsLocalStorage = JSON.parse(
 const initialState = reservationsLocalStorage
   ? {
       regRooms: reservationsLocalStorage,
+      addRegRooms: false,
       loading: false,
       error: null,
     }
   : {
-      regRooms: [],
+      regRooms: null,
+      addRegRooms: false,
       loading: false,
       error: null,
     };
@@ -26,9 +28,18 @@ export default function reducerRegRooms(state = initialState, action) {
   switch (action.type) {
     case REG_LIST:
       console.log("REDUCER REG LIST", action.payload);
+      if(typeof action.payload === 'string') {
+        return {
+          ...state,
+          loading: false,
+          error: null,
+        };
+      }
+      localStorage.setItem("reservations", JSON.stringify(action.payload));
       return {
         ...state,
         regRooms: action.payload,
+        addRegRooms: false,
         loading: false,
         error: null,
       };
@@ -37,14 +48,9 @@ export default function reducerRegRooms(state = initialState, action) {
       if (!action.payload) {
         break;
       }
-      const tempState = [
-        ...state.regRooms,
-        action.payload ? action.payload : null,
-      ];
-      localStorage.setItem("reservations", JSON.stringify(tempState));
       return {
         ...state,
-        regRooms: tempState,
+        addRegRooms: true,
         loading: false,
         error: null,
       };
