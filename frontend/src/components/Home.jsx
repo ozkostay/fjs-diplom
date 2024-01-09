@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Home() {
-
   // async function hendlerSubmit(event) {
   //   // console.log('Rading...', REACT_APP_KONST);
   //   event.preventDefault();
@@ -17,7 +16,7 @@ export default function Home() {
   //       'Content-Type': 'application/json;charset=utf-8',
   //       'Authorization': token
   //     },
-  //   }; 
+  //   };
   //   try {
   //     const data = await fetch(url, options);
   //     const response = await data.json();
@@ -37,13 +36,14 @@ export default function Home() {
   return (
     <>
       <div className="mainpage">
-        
-        <div className="read">
-          &lt;Главная страница&gt;
+        <div className="firstpage bb">
+          <h1>НЕТОЛОГИЯ</h1>
+          <h1>TRAVEL</h1>
+          <span>Лучшие гостиницы мира</span>
         </div>
+
         {/* <button onClick={hendlerSubmit} type="submit" className="form-button">Отправить</button> */}
-      </div> 
-      
+      </div>
     </>
   );
 }

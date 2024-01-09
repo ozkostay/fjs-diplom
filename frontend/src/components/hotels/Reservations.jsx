@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actHotelsList } from "../../store/actions/actionCreators";
+import { actHotelsList, actRegRoomsDelete } from "../../store/actions/actionCreators";
 import HotelsItems from "./HotelsItems";
 import ReservationsItems from "./ReservationsItems";
 
@@ -11,7 +11,10 @@ export default function Reservations() {
   // const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
-  console.log('===================== Рендер брони');
+  function fnDeleteResRoom(id) {
+    console.log('Delete id=', id);
+    // dispatch(actRegRoomsDelete(id));
+  }
 
   return (
     <>
@@ -21,7 +24,7 @@ export default function Reservations() {
       </button>
       {regRooms &&
         // <h1>asdfasdfadsf</h1>
-        regRooms.map((i) => <ReservationsItems key={i._id} item={i}/>)}
+        regRooms.map((i) => <ReservationsItems key={i._id} item={i} deleteItem={fnDeleteResRoom} />)}
     </>
   );
 }
