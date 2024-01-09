@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Hotel, HotelDocument } from './schemas/hotels.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { access, mkdir, writeFile } from 'fs/promises';
 import { join, resolve } from 'path';
@@ -35,10 +35,20 @@ export class ReservationService {
       .exec();
   }
 
-  public create(body: ICreateReservationDto): Promise<ReservationDocument> {
+  public async create(
+    body: ICreateReservationDto,
+  ): Promise<ReservationDocument> {
     // console.log('Бронь service BODY', body);
-    const newReservation = this.ReservationModel.create(body);
+    const newReservation = await this.ReservationModel.create(body);
     return newReservation;
+  }
+
+  public async delete(id: string): Promise<ReservationDocument> {
+    console.log('Бронь DELETE service id=', id);
+    const delReservation = await this.ReservationModel.findOneAndDelete({
+      _id: id,
+    });
+    return delReservation;
   }
   // public async findAll(params: any): Promise<RoomDocument[]> {
   //   console.log('rooms params ', params);

@@ -14,6 +14,12 @@ export default function ReservationsItems({ item, deleteItem }) {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   };
+  const dateStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: '0 4px',
+    marginBottom: '10px',
+  };
 
   function fnViewRoom() {
     // HotelView();
@@ -33,14 +39,31 @@ export default function ReservationsItems({ item, deleteItem }) {
               {item.hotelId.title}
             </h2>
             <h2>{item.roomId.title}</h2>
-            <div className="hotels-item-description">
+            <div className="hotels-item-description mb20">
               {item.roomId.description}
             </div>
+
+            <div style={dateStyle}>
+              <div style={{ fontWeight: "700" }}>Дата заезда: </div>
+              <div style={{ fontWeight: "700", color: "blue" }}>
+                {new Date(item.dateStart).toLocaleDateString("ru-RU")}
+              </div>
+            </div>
+            <div style={dateStyle}>
+              <div style={{ fontWeight: "700" }}>Дата отъезда: </div>
+              <div style={{ fontWeight: "700", color: "blue" }}>
+                {new Date(item.dateEnd).toLocaleDateString("ru-RU")}
+              </div>
+            </div>
+
             <div className="hotels-item-buttons">
               <button className="addhotel-btn blue" onClick={fnViewRoom}>
                 Подробнее
               </button>
-              <button className="addhotel-btn red" onClick={() => deleteItem(item._id)}>
+              <button
+                className="addhotel-btn red"
+                onClick={() => deleteItem(item._id)}
+              >
                 Отменить
               </button>
             </div>

@@ -91,7 +91,7 @@ export function actRegRoomsAdd(payload) {
   return { type: REG_ADD, payload: payload };
 }
 export function actRegRoomsDelete(id) {
-  // console.log('actionCreater REG_DELETE id', id)
+  console.log('actionCreater REG_DELETE id', id)
   return { type: REG_DELETE, payload: id };
 }
 export function actRegRoomsClear(id) {

@@ -55,13 +55,10 @@ export default function reducerRegRooms(state = initialState, action) {
         error: null,
       };
     case REG_DELETE:
-      const tempRegs = state.hotregRoomsels.filter(
-        (i) => i._id !== action.payload
-      );
-      console.log("REDUCER REG DELETE", action.payload);
+      console.log("REDUCER REGROOMS DELETE", action.payload);
       return {
         ...state,
-        regRooms: tempRegs,
+        addRegRooms: true,
         loading: false,
         error: null,
       };
