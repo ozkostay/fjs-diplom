@@ -1,25 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { actRegRoomsClear, actRegRoomsList, actUserLogout } from "../store/actions/actionCreators";
-import logo from "../pics/logo.png";
+import {
+  actRegRoomsClear,
+  actRegRoomsList,
+  actUserLogout,
+} from "../store/actions/actionCreators";
+// import logo from "../pics/logo.png";
+// import chat from "../pics/chat.png";
 // import headerLogo from "./img/header-logo.png";
 
 export default function Header() {
   const { user } = useSelector((state) => state.crUser);
   const { regRooms, addRegRooms } = useSelector((state) => state.regrooms);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //============================================================
   useEffect(() => {
-    console.log('useEffect in HEADER');
+    console.log("useEffect in HEADER");
     if (user) {
-      console.log('useEffect in HEADER 2  ');
+      console.log("useEffect in HEADER 2  ");
       dispatch(actRegRoomsList(user._id));
     }
-  },[user, addRegRooms])
-  
+  }, [user, addRegRooms]);
+
   function fnLogout(event) {
     event.preventDefault();
     console.log("Yes LOGOUT");
@@ -29,9 +35,9 @@ export default function Header() {
   }
 
   function fnRegRooms() {
-    console.log('RegRooms', regRooms);
+    console.log("RegRooms", regRooms);
   }
-  
+
   //============================================================
   return (
     <>
@@ -44,11 +50,12 @@ export default function Header() {
 
         <div className="header-main">
           <div>
-            <button onClick={fnRegRooms}>books</button><h2>{regRooms?.length}</h2>
+            <button onClick={fnRegRooms}>books</button>
+            <h2>{regRooms?.length}</h2>
           </div>
           {user ? (
             <div className="header-user-wrap">
-              <Link  className="header-nav-link" to="/reservations">
+              <Link className="header-nav-link" to="/reservations">
                 Бронирования
               </Link>
 
@@ -62,7 +69,6 @@ export default function Header() {
               <Link className="header-nav-link" to="/signup">
                 <span>Регистрация</span>
               </Link>
-              {/* <Link className="nav-link header-login" to="/signin"> */}
               <Link className="header-nav-link" to="/signin">
                 <span>Войти</span>
               </Link>
