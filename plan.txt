@@ -40,7 +40,7 @@ WS=================
 модель
 API Web
 2.5.1.  POST /api/client/support-requests/   // Позволяет пользователю с ролью client создать обращение в техподдержку.
-2.5.5.  POST /api/common/support-requests/:id/messages // Позволяет
+2.5.5.  POST /api/common/support-requests/:id/messages // Позволяет пользователю с ролью manager или client отправлять сообщения в чат.
 
 interface CreateSupportRequestDto {
   user: ID;
@@ -51,7 +51,7 @@ interface SendMessageDto {
   author: ID;
   supportRequest: ID;
   text: string;
-} пользователю с ролью manager или client отправлять сообщения в чат.
+} 
 
 
 
