@@ -34,28 +34,13 @@ export class ChatService {
 
   @Post()
   public async addMessage(body: SendMessageDto, id: string): Promise<any> {
-    
     console.log('CHAT SERVISE addMessage body', body, id);
-    // const { author, text } = body;
-    // ищем чат
-    const currentChat = await this.SupportRequestModel.findById(id);
-    // добавляем сообщение
-    const newMessage = await this.createMessage(body);
-
-    console.log('ISARRAY ',Array.isArray(currentChat.messages));
+    const currentChat = await this.SupportRequestModel.findById(id); // ищем чат
+    const newMessage = await this.createMessage(body); // создаем сообщение
     // console.log('currentChat', currentChat.messages[0]);
     console.log('newMessage', newMessage);
     console.log('currentChat2', currentChat);
     currentChat.messages.push(newMessage);
-    // const { author, text } = body;
-    // const newMessage = {
-    //   author: author,
-    //   sentAt: new Date(),
-    //   text: text,
-    //   readAt: null,
-    // };
-    // const returnMessage = await this.MessageModel.create(newMessage);
-    // console.log('return Message', returnMessage);
     return currentChat;
   }
 
@@ -70,9 +55,7 @@ export class ChatService {
       messages: [],
       isActive: true,
     };
-    // console.log('ISARRAY ',Array.isArray(newChat.messages));
     newChat.messages.push(newMessage);
-    // newChat.messages.push(temp);
     const returnChat = await this.SupportRequestModel.create(newChat);
     console.log('return CHAT', returnChat);
     return returnChat;

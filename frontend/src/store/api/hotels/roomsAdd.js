@@ -9,9 +9,11 @@ export const roomsAdd = async (formData) => {
   };
   try {
     const res = await fetch(url, options);
-    console.log("RES", res.text());
-    alert("Номер успешно добавлен!");
+    const data = await res.json()
+    console.log("RES", data);
+    // return data
   } catch (e) {
     console.log("ERROR UPLOAD", e.massage);
+    // return null
   }
 };

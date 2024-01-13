@@ -13,7 +13,10 @@ export class ChatController {
   }
 
   @Post('common/support-requests/:id/messages') // добавить сообщение
-  public createMessage(@Param() { id }: ParamIdDto, @Body() body: SendMessageDto): Promise<any> {
+  public addMessage(
+    @Param() { id }: ParamIdDto,
+    @Body() body: SendMessageDto,
+  ): Promise<any> {
     console.log('CONTROLLER createMessage ID', id);
     console.log('CONTROLLER createMessage BODY', body);
     return this.chatService.addMessage(body, id);

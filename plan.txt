@@ -32,6 +32,9 @@ useMemo
 Брони создание
 Бронь получение
 в просмотре номера добавить даты и кнопку бронировать
+2.5.1.  POST /api/client/support-requests/   // Позволяет пользователю с ролью client создать обращение в техподдержку.
+2.5.5.  POST /api/common/support-requests/:id/messages // Позволяет пользователю с ролью manager или client отправлять сообщения в чат.
+
 ***********************************************************************
 Добавить список обращений для пользователя
 
@@ -39,29 +42,6 @@ useMemo
 WS=================
 модель
 API Web
-2.5.1.  POST /api/client/support-requests/   // Позволяет пользователю с ролью client создать обращение в техподдержку.
-2.5.5.  POST /api/common/support-requests/:id/messages // Позволяет пользователю с ролью manager или client отправлять сообщения в чат.
-
-interface CreateSupportRequestDto {
-  user: ID;
-  text: string;
-}
-
-interface SendMessageDto {
-  author: ID;
-  supportRequest: ID;
-  text: string;
-} 
-
-
-
-
-
-
-
-
-
-
 ***
 2.5.2.  GET /api/client/support-requests/   // Получение списка обращений в поддержку для клиента
 2.5.3.  GET /api/manager/support-requests/   // Позволяет пользователю с ролью manager получить список обращений от клиентов.
