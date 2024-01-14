@@ -13,8 +13,6 @@ export class SupportRequest {
     @Prop({ required: true })
     public createdAt: Date;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Message' })
-    // public messages: [Message];
     @Prop()
     public messages: [{}];
 

@@ -7,7 +7,6 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message, MessageDocument } from './schemas/Message.schema';
 import { SendMessageDto } from './interfaces/SendMessageDto';
-import { ParamIdDto } from './interfaces/ParamIdDto';
 
 @Injectable()
 export class ChatService {
@@ -17,9 +16,8 @@ export class ChatService {
     @InjectModel(Message.name) private MessageModel: Model<MessageDocument>,
   ) {}
 
-  @Post()
-  public async createMessage(body: SendMessageDto): Promise<any> {
-    console.log('CHAT SERVISE createMessage body', body);
+  @Post() //============================
+  public async createMessage(body: SendMessageDto): Promise<MessageDocument> {
     const { author, text } = body;
     const newMessage = {
       author: author,
@@ -28,36 +26,49 @@ export class ChatService {
       readAt: null,
     };
     const returnMessage = await this.MessageModel.create(newMessage);
-    console.log('return Message', returnMessage);
     return returnMessage;
   }
 
-  @Post()
-  public async addMessage(body: SendMessageDto, id: string): Promise<any> {
-    console.log('CHAT SERVISE addMessage body', body, id);
-    const currentChat = await this.SupportRequestModel.findById(id); // ищем чат
-    const newMessage = await this.createMessage(body); // создаем сообщение
-    // console.log('currentChat', currentChat.messages[0]);
-    console.log('newMessage', newMessage);
-    console.log('currentChat2', currentChat);
-    currentChat.messages.push(newMessage);
-    return currentChat;
+  @Post() //============================
+  public async getChat(params: {
+    id: string;
+    author: string;
+  }): Promise<SupportRequestDocument> {
+    const { id, author } = params;
+    console.log('id', id, 'aut', author);
+    // Если ID === "newchat" создаем новый, иначе берем по ID
+    let returnChat: any;
+    if (id === 'newchat') {
+      const newChat = {
+        user: author,
+        createdAt: new Date(),
+        messages: [],
+        isActive: true,
+      };
+      returnChat = await this.SupportRequestModel.create(newChat);
+    } else {
+      returnChat = await this.SupportRequestModel.findById(id);
+    }
+    return returnChat;
   }
 
-  @Post()
-  public async createChat(body: any): Promise<any> {
-    console.log('CHAT SERVISE createChat body', body);
+  @Post() //============================
+  public async addMessage(
+    body: SendMessageDto,
+    id: string,
+  ): Promise<SupportRequestDocument> {
+    console.log('CHAT SERVISE addMessage body', body, id);
+    const paramsForChat = { id, author: body.author };
     const newMessage = await this.createMessage(body);
-    console.log('DDD', newMessage);
-    const newChat = {
-      user: body.author,
-      createdAt: new Date(),
-      messages: [],
-      isActive: true,
-    };
-    newChat.messages.push(newMessage);
-    const returnChat = await this.SupportRequestModel.create(newChat);
-    console.log('return CHAT', returnChat);
-    return returnChat;
+    const currentChat = await this.getChat(paramsForChat);
+    const newMessages = [...currentChat.messages, newMessage];
+    const newCurrentChat = await this.SupportRequestModel.findByIdAndUpdate(
+      currentChat._id,
+      { messages: newMessages },
+      {
+        returnDocument: 'after',
+      },
+    );
+    return newCurrentChat;
   }
 }
