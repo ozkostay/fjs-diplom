@@ -635,7 +635,7 @@ a {
   position: fixed;
   bottom: 145px;
   right: 40px;  
-  background-color: #5d73e1;
+  background-color: #b4b9ff;
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 0 5px 5px rgba(122,122,122,0.6);
@@ -673,7 +673,7 @@ a {
   height: 40px;
   font-size: 2em;
   font-weight: 700;
-  background-color: #cbd4ff;
+  background-color: #5d73e1;
   color: white;
 }
 
@@ -705,4 +705,57 @@ a {
    font-size: 1em;
    font-weight: 700;
    color: white;
+}
+
+.mchat-wrap {
+  display: flex;
+  height: 350px;
+}
+
+.mchat-users {
+  width: 35%;
+}
+
+.mchat-header {
+  padding: 10px 5px;
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+  background-color: #9c9c9c;
+  color: white;
+}
+
+.mchat-users-cell {
+  display: flex;
+  padding: 10px 5px;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.mchat-users-cell:hover {
+  background-color: #cfd2da;
+}
+
+.mchat-users-cell-focus {
+  background-color: #5181b8;
+}
+
+.mchat-name {
+  width: 90%;
+  color: black;
+  cursor: pointe  r;
+}
+
+.mchat-signal {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff530f;
+}
+
+.mchat-dialog {
+  box-sizing: border-box;
+  width: 65%;
+  border: 1px solid #a0a0a0;
 }

@@ -13,6 +13,7 @@ import HotelsView from "./components/hotels/HotelsView";
 import FindRooms from "./components/hotels/FindRooms";
 import RoomsView from "./components/hotels/RoomsView";
 import Reservations from "./components/hotels/Reservations";
+import ManagerChat from "./components/users/ManagerChat";
 
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/userview/:id" element={<UserView />} />
           <Route path="/useredit/:id" element={<UserEdit />} />
           <Route path="/reservations" element={<Reservations />} />
+          <Route path="/managerchat" element={<ManagerChat />} />
           {/* <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/catalog" element={<Catalog />} />

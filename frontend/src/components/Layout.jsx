@@ -14,42 +14,41 @@ export default function Layout() {
     <>
       <div className="app-container">
         <Header />
-        <Chat />
+        {user && user.role === "client" && <Chat />  }
         <main className="main-container">
-          
-            <div className="left-nav">
-              <ul>
-                <li>
-                  <Link  className="nav-link" to="/hotels">
-                    Все гостиницы
-                  </Link>
-                </li>
-                {/* <li>
-                <Link className="nav-link" to="/room">
-                  <span className="link-span">Поиск номера</span>
+          <div className="left-nav">
+            <ul>
+              <li>
+                <Link className="nav-link" to="/hotels">
+                  Все гостиницы
                 </Link>
-              </li> */}
-                {user?.role === "admin" ? (
-                  <>
-                    <li>
-                      <Link className="nav-link" to="addhotel">
-                        Добавить гостиницу
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="nav-link" to="/users">
-                        Пользователи                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  ""
-                )}
-              </ul>
-            </div>
-            <div className="outlet-container">
-              <Outlet />
-            </div>
-          
+              </li>
+              <li>
+                <Link className="nav-link" to="/managerchat">
+                  <span className="link-span">Чат</span>
+                </Link>
+              </li>
+              {user?.role === "admin" ? (
+                <>
+                  <li>
+                    <Link className="nav-link" to="addhotel">
+                      Добавить гостиницу
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="nav-link" to="/users">
+                      Пользователи{" "}
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
+            </ul>
+          </div>
+          <div className="outlet-container">
+            <Outlet />
+          </div>
         </main>
       </div>
     </>
