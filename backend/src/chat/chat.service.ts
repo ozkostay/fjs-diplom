@@ -16,7 +16,7 @@ export class ChatService {
     @InjectModel(Message.name) private MessageModel: Model<MessageDocument>,
   ) {}
 
-  @Post() //============================
+  //============================
   public async createMessage(body: SendMessageDto): Promise<MessageDocument> {
     const { author, text } = body;
     const newMessage = {
@@ -29,7 +29,7 @@ export class ChatService {
     return returnMessage;
   }
 
-  @Post() //============================
+  //============================
   public async getChat(params: {
     id: string;
     author: string;
@@ -52,7 +52,7 @@ export class ChatService {
     return returnChat;
   }
 
-  @Post() //============================
+  //============================
   public async addMessage(
     body: SendMessageDto,
     id: string,
@@ -70,5 +70,14 @@ export class ChatService {
       },
     );
     return newCurrentChat;
+  }
+
+  //============================
+  public async findUserRequest(params) {
+    const { id } = params;
+    console.log('id', params);
+    const response = await this.SupportRequestModel.find({ user: id });
+    // console.log('response', response);
+    return response;
   }
 }

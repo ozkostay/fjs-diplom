@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import chat from "../pics/chat.png";
-import { createChat } from "../store/api/chat/creatChat";
 import { useSelector } from "react-redux";
 import { sendClientMessage } from "../store/api/chat/sendClientMessage";
+import { findUserRequest } from "../store/api/chat/findUserRequest";
 
 export default function Chat() {
   const { user } = useSelector((state) => state.crUser);
   const [isChat, setIsChat] = useState(false);
   const [myMessage, setMyMessage] = useState("");
   const dialog = useRef();
-  const [currenChat, setCurrentChat] = useState('newchat'); // текущий чат
+  const [currenChat, setCurrentChat] = useState({ _id: "newchat"}); // текущий чат
   const [messages, setMassages] = useState(null); // массив сообщений
 
   // =============================================================
@@ -23,49 +23,27 @@ export default function Chat() {
   useEffect(() => {
     const sendFetch = async () => {
       // Получаем обращение пользователя, если нет то стейт остается по умолчанию
-      console.log('Send FEtch!!!');
-      // ==============================================================================================================
-    }
-    sendFetch()
-  }, [])
+      console.log("Send FEtch!!!", user._id);
+      const response = await findUserRequest(user._id);
+      console.log('=!========== ', response);
+      if (response.length > 0) {
+        setCurrentChat(response[0]);
+      }
+    };
+    sendFetch();
+  }, []);
 
   //===================================
   async function fnSendMessage() {
     console.log("Посылаем сообщение", myMessage);
-
-    if (!currenChat && myMessage.trim()) {
-      const id = 123;
-      const body = {
-        author: user._id,
-        text: myMessage,
-      };
-      const response = await sendClientMessage(body);
-      if (response.errorStatus) {
-        return;
-      }
-      setCurrentChat(response);
-      setMassages(response.messages);
-    } else if (currenChat && myMessage.trim()) {
-      // иначе --- addMessage POST body { author, text}
-    } else {
-      console.log("Нечего посылать");
+    const body = { author: user._id, text: myMessage };
+    const params = { id: currenChat, body };
+    const response = await sendClientMessage(params);
+    if (response.errorStatus) {
+      return;
     }
-
+    setCurrentChat(response);
     setMyMessage("");
-  }
-
-  //===================================
-  function fnCloseChat() {
-    console.log("Закрываем чат");
-    // isActive = false;
-    // очищаем окно диалога
-  }
-
-  //===================================
-  function fnHistory() {
-    console.log("Загружаем историю");
-    // Загружаем список чатов
-    // в сисок с выбором
   }
 
   // =============================================================
@@ -178,14 +156,6 @@ export default function Chat() {
             />
             <button className="chat-send-btn" onClick={fnSendMessage}>
               &gt;
-            </button>
-          </div>
-          <div className="chat-send">
-            <button className="chat-btn-clshist" onClick={fnCloseChat}>
-              Закончить
-            </button>
-            <button className="chat-btn-clshist" onClick={fnHistory}>
-              История
             </button>
           </div>
         </div>

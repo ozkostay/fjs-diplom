@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { ParamIdDto } from './interfaces/ParamIdDto';
 import { SendMessageDto } from './interfaces/SendMessageDto';
@@ -13,6 +13,12 @@ export class ChatController {
     @Param() { id }: ParamIdDto,
     @Body() body: SendMessageDto,
   ): Promise<SupportRequestDocument> {
+    console.log('============ id', id, 'body', body);
     return this.chatService.addMessage(body, id);
+  }
+
+  @Get('client/support-requests/')
+  public findUserRequest(@Query() params: any): any {
+    return this.chatService.findUserRequest(params);
   }
 }

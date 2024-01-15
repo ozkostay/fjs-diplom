@@ -1,15 +1,8 @@
 export const sendClientMessage = async (params) => {
   const { id, body } = params;
-
-
-
-
-  
-  //==========================================================================
-  console.log("===== PARAM API sendClientMessage", JSON.stringify(body));
   const url =
     process.env.REACT_APP_BACK_URL +
-    `/api/client/support-requests`;
+    `/api/common/support-requests/${id._id}/messages`;
   const options = {
     method: "POST",
     headers: {
@@ -17,18 +10,16 @@ export const sendClientMessage = async (params) => {
     },
     body: JSON.stringify(body),
   };
+  console.log("URL API == ", url);
   try {
     const res = await fetch(url, options);
-    // console.log("RES", res);
     if (!res.ok) {
-      console.log('Ошибка в TRY');
-      return { errorStatus: res.status, errorStatusText: res.statusText};  
+      console.log("Ошибка в TRY");
+      return { errorStatus: res.status, errorStatusText: res.statusText };
     }
-    // const data = await res.json()
-    // console.log("DATA", data);
-    return await res.json()
+    return await res.json();
   } catch (e) {
     console.log("ERROR UPLOAD", e.massage);
-    return null
+    return null;
   }
 };
