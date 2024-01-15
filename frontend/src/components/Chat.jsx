@@ -2,33 +2,44 @@ import React, { useEffect, useRef, useState } from "react";
 import chat from "../pics/chat.png";
 import { createChat } from "../store/api/chat/creatChat";
 import { useSelector } from "react-redux";
+import { sendClientMessage } from "../store/api/chat/sendClientMessage";
 
 export default function Chat() {
   const { user } = useSelector((state) => state.crUser);
   const [isChat, setIsChat] = useState(false);
   const [myMessage, setMyMessage] = useState("");
   const dialog = useRef();
-  const [currenChat, setCurrentChat] = useState(null); // текущий чат
+  const [currenChat, setCurrentChat] = useState('newchat'); // текущий чат
   const [messages, setMassages] = useState(null); // массив сообщений
 
   // =============================================================
   useEffect(() => {
-    // console.log('dialog.current',dialog.current);
+    // Переход к концу диалога
     if (dialog.current) {
       dialog.current.scrollTop = 99999;
     }
   }, [dialog.current]);
 
+  useEffect(() => {
+    const sendFetch = async () => {
+      // Получаем обращение пользователя, если нет то стейт остается по умолчанию
+      console.log('Send FEtch!!!');
+      // ==============================================================================================================
+    }
+    sendFetch()
+  }, [])
+
   //===================================
-  async function fnSedMessage() {
+  async function fnSendMessage() {
     console.log("Посылаем сообщение", myMessage);
 
     if (!currenChat && myMessage.trim()) {
+      const id = 123;
       const body = {
         author: user._id,
         text: myMessage,
       };
-      const response = await createChat(body);
+      const response = await sendClientMessage(body);
       if (response.errorStatus) {
         return;
       }
@@ -141,6 +152,22 @@ export default function Chat() {
                 Какоето сообщение от клиента. Вопрос очень важный
               </div>
             </div> */}
+            <div className="message-wrap">
+              <div className="message-client">
+                {" "}
+                Какоето сообщение от клиента. Вопрос очень важный
+              </div>
+            </div>
+            <div
+              className="message-wrap"
+              style={{ justifyContent: "flex-end" }}
+            >
+              <div className="message-manager">
+                {" "}
+                Какоето сообщение от менеджера. Ответ не менее важны , чем у
+                клиента
+              </div>
+            </div>
           </div>
           <div className="chat-send">
             <input
@@ -149,7 +176,7 @@ export default function Chat() {
               value={myMessage}
               onChange={(e) => setMyMessage(e.target.value)}
             />
-            <button className="chat-send-btn" onClick={fnSedMessage}>
+            <button className="chat-send-btn" onClick={fnSendMessage}>
               &gt;
             </button>
           </div>

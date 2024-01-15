@@ -1,6 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ManagerChatItem from "./ManagerChatItem";
+
+const tempArr = [
+  {
+    _id: "1",
+    user: { name: "Иванов" },
+  },
+  {
+    _id: "2",
+    user: { name: "Петров" },
+  },
+  {
+    _id: "3",
+    user: { name: "Сидоров" },
+  },
+  {
+    _id: "4",
+    user: { name: "Третьякова" },
+  },
+];
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
@@ -52,7 +72,7 @@ export default function ManagerChat() {
 
             <div className="">
               <ul className="">
-                <li
+                {/* <li
                   className="mchat-users-cell"
                   onClick={(e) => fnLiOnClick(e)}
                   onMouseOver={(e) => fnOnMouseOver(e)}
@@ -60,34 +80,16 @@ export default function ManagerChat() {
                 >
                   <span className="mchat-name">Иванов</span>
                   <div className="mchat-signal"> </div>
-                </li>
-                <li
-                  className="mchat-users-cell"
-                  onClick={(e) => fnLiOnClick(e)}
-                  onMouseOver={(e) => fnOnMouseOver(e)}
-                  onMouseLeave={(e) => fnOnMouseLeave(e)}
-                >
-                  <div className="mchat-name">Петров</div>
-                  <div className="mchat-signal"> </div>
-                </li>
-                <li
-                  className="mchat-users-cell"
-                  onClick={(e) => fnLiOnClick(e)}
-                  onMouseOver={(e) => fnOnMouseOver(e)}
-                  onMouseLeave={(e) => fnOnMouseLeave(e)}
-                >
-                  <div className="mchat-name">Сидоров</div>
-                  <div className="mchat-signal"> </div>
-                </li>
-                <li
-                  className="mchat-users-cell"
-                  onClick={(e) => fnLiOnClick(e)}
-                  onMouseOver={(e) => fnOnMouseOver(e)}
-                  onMouseLeave={(e) => fnOnMouseLeave(e)}
-                >
-                  <div className="mchat-name">Третьякова</div>
-                  <div className="mchat-signal"> </div>
-                </li>
+                </li> */}
+                {tempArr.map((i) => (
+                  <ManagerChatItem
+                    key={i._id}
+                    item={i}
+                    fnLiOnClick={fnLiOnClick}
+                    fnOnMouseOver={fnOnMouseOver}
+                    fnOnMouseLeave={fnOnMouseLeave}
+                  />
+                ))}
               </ul>
             </div>
           </div>
