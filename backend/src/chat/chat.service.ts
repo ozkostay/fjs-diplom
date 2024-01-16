@@ -73,10 +73,31 @@ export class ChatService {
   }
 
   //============================
-  public async findUserRequest(params) {
+  public async findUserRequest(params): Promise<any> {
     const { id } = params;
     console.log('id', params);
     const response = await this.SupportRequestModel.find({ user: id });
+    // console.log('response', response);
+    return response;
+  }
+
+  //============================
+  public async findRequestById(params): Promise<any> {
+    const { id } = params;
+    console.log('id', id);
+    const response = await this.SupportRequestModel.findById(id);
+    // console.log('response', response);
+    return response;
+  }
+
+  //============================ 
+      
+  public async getUsersFromRequests(): Promise<any> {
+    console.log('555');
+    const response = await this.SupportRequestModel.find()
+      .select(['-__v', '-isActive', '-createdAt', '-messages'])
+      .populate('user', ['name'])
+      .exec();
     // console.log('response', response);
     return response;
   }

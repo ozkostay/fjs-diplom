@@ -1,21 +1,22 @@
-export const findUserRequest = async (params) => {
-  console.log("===PAR=== findUserRequest id=", params);
+export const getUsersFromRequests = async () => {
+  console.log(" === getUsersFromRequests ");
   const url =
     process.env.REACT_APP_BACK_URL +
-    `/api/client/support-requests/?id=${params}`;
+    `/api/manager/support-requests-users`;
+    console.log('getUsersFromRequests url', url);
 
-    console.log('findUserRequest url', url);
     try {
     const response = await fetch(url);
     if (!response.ok) {
-      console.log("Ошибка в TRY3");
+      console.log("Ошибка в TRY getUsersFromRequests");
       return { errorStatus: response.status, errorStatusText: response.statusText };
     }
     const data = await response.json()
-    console.log("DATA", data);
+    console.log("DATA getUsersFromRequests", data);
     return data;
+
   } catch (e) {
-    console.log("ERROR UPLOAD", e.massage);
+    console.log("ERROR getUsersFromRequests", e.massage);
     return null;
   }
 

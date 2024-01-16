@@ -17,8 +17,20 @@ export class ChatController {
     return this.chatService.addMessage(body, id);
   }
 
-  @Get('client/support-requests/')
+  @Get('client/support-requests')
   public findUserRequest(@Query() params: any): any {
     return this.chatService.findUserRequest(params);
+  }
+
+  @Get('manager/support-request')
+  public findRequestById(@Query() params: any): any {
+    console.log('999', params);
+    return this.chatService.findRequestById(params);
+  }
+  
+  @Get('manager/support-requests-users')
+  public getUsersFromRequests(): Promise<any> {
+    console.log(555);
+    return this.chatService.getUsersFromRequests();
   }
 }

@@ -1,34 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ManagerChatItem from "./ManagerChatItem";
-
-const tempArr = [
-  {
-    _id: "1",
-    user: { name: "Иванов" },
-  },
-  {
-    _id: "2",
-    user: { name: "Петров" },
-  },
-  {
-    _id: "3",
-    user: { name: "Сидоров" },
-  },
-  {
-    _id: "4",
-    user: { name: "Третьякова" },
-  },
-];
+import { findUserRequest } from "../../store/api/chat/findUserRequest";
+import { getUsersFromRequests } from "../../store/api/chat/getUsersFromRequests";
+import { findRequestById } from "../../store/api/chat/findRequestById";
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
   const [seletedLi, setSeletedLi] = useState(null);
+  const [chatsUsers, setChatsUsers] = useState(null);
+  const [messages, setMessages] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function fnLiOnClick(e) {
+  //getUsersFromRequests
+  useEffect(() => {
+    const sendFetch = async () => {
+      const response = await getUsersFromRequests();
+      const data = await response;
+      console.log("DATA", data);
+      setChatsUsers(await data);
+    };
+    sendFetch();
+  }, []);
+
+  //==================================
+  async function fnLiOnClick(e, id) {
     e.preventDefault();
     if (seletedLi) {
       seletedLi.style.backgroundColor = "white";
@@ -38,8 +36,13 @@ export default function ManagerChat() {
     setSeletedLi(currentLi);
     currentLi.style.backgroundColor = "#5181b8";
     currentLi.firstChild.style.color = "white";
+    // const dataRequest = await findUserRequest(id);
+    const dataRequest = await findRequestById(id);
+    setMessages(dataRequest.messages);
+    console.log("=== dataRequest ===", dataRequest);
   }
 
+  //==================================
   function fnOnMouseOver(e) {
     e.preventDefault();
     const currentLi = e.target.closest(".mchat-users-cell");
@@ -51,6 +54,7 @@ export default function ManagerChat() {
     currentLi.firstChild.style.color = "black";
   }
 
+  //==================================
   function fnOnMouseLeave(e) {
     e.preventDefault();
     const currentLi = e.target.closest(".mchat-users-cell");
@@ -81,19 +85,38 @@ export default function ManagerChat() {
                   <span className="mchat-name">Иванов</span>
                   <div className="mchat-signal"> </div>
                 </li> */}
-                {tempArr.map((i) => (
-                  <ManagerChatItem
-                    key={i._id}
-                    item={i}
-                    fnLiOnClick={fnLiOnClick}
-                    fnOnMouseOver={fnOnMouseOver}
-                    fnOnMouseLeave={fnOnMouseLeave}
-                  />
-                ))}
+                {chatsUsers &&
+                  chatsUsers.map((i) => (
+                    <ManagerChatItem
+                      key={i._id}
+                      item={i}
+                      fnLiOnClick={fnLiOnClick}
+                      fnOnMouseOver={fnOnMouseOver}
+                      fnOnMouseLeave={fnOnMouseLeave}
+                    />
+                  ))}
               </ul>
             </div>
           </div>
-          <div className="mchat-dialog">asdf asdf asdf asdf</div>
+          {/* <div className="mchat-dialog">{messages && messages[0].text }</div> */}
+          <div className="mchat-dialog">
+            <div className="message-wrap">
+              <div className="message-client">
+                {" "}
+                Какоето сообщение от клиента. Вопрос очень важный
+              </div>
+            </div>
+            <div
+              className="message-wrap"
+              style={{ justifyContent: "flex-end" }}
+            >
+              <div className="message-manager">
+                {" "}
+                Какоето сообщение от менеджера. Ответ не менее важны , чем у
+                клиента
+              </div>
+            </div>
+          </div>
         </div>
 
         {/*  */}
