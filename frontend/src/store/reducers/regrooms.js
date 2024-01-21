@@ -5,10 +5,10 @@ import {
   REG_LOCAL_CLEAR,
 } from "../actions/actionTypes";
 
-const reservationsLocalStorage = JSON.parse(
-  localStorage.getItem("reservations")
-);
-
+const tempReservationLocalStorage = localStorage.getItem("reservations");
+const reservationsLocalStorage = tempReservationLocalStorage ? JSON.parse(
+  tempReservationLocalStorage) : tempReservationLocalStorage;
+  
 const initialState = reservationsLocalStorage
   ? {
       regRooms: reservationsLocalStorage,

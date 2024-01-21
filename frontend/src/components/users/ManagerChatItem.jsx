@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function ManagerChatItem({
   item,
@@ -8,12 +6,11 @@ export default function ManagerChatItem({
   fnOnMouseOver,
   fnOnMouseLeave,
 }) {
-  
   return (
     <>
       <li
         className="mchat-users-cell"
-        onClick={(e) => fnLiOnClick(e, item._id)}
+        onClick={(e) => fnLiOnClick(e, item._id, item.user)}
         onMouseOver={(e) => fnOnMouseOver(e)}
         onMouseLeave={(e) => fnOnMouseLeave(e)}
       >

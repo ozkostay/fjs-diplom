@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ManagerChatItem from "./ManagerChatItem";
-import { findUserRequest } from "../../store/api/chat/findUserRequest";
 import { getUsersFromRequests } from "../../store/api/chat/getUsersFromRequests";
 import { findRequestById } from "../../store/api/chat/findRequestById";
+import ManagerChatDialogItem from "./ManagerChatDialogsItem";
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
   const [seletedLi, setSeletedLi] = useState(null);
   const [chatsUsers, setChatsUsers] = useState(null);
   const [messages, setMessages] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const [chatOwner, setChatOwner] = useState(null);
+  
   //getUsersFromRequests
   useEffect(() => {
     const sendFetch = async () => {
@@ -26,7 +24,7 @@ export default function ManagerChat() {
   }, []);
 
   //==================================
-  async function fnLiOnClick(e, id) {
+  async function fnLiOnClick(e, chatId, user) {
     e.preventDefault();
     if (seletedLi) {
       seletedLi.style.backgroundColor = "white";
@@ -36,10 +34,12 @@ export default function ManagerChat() {
     setSeletedLi(currentLi);
     currentLi.style.backgroundColor = "#5181b8";
     currentLi.firstChild.style.color = "white";
-    // const dataRequest = await findUserRequest(id);
-    const dataRequest = await findRequestById(id);
-    setMessages(dataRequest.messages);
+    const dataRequest = await findRequestById(chatId);
+
     console.log("=== dataRequest ===", dataRequest);
+    setChatOwner(user);
+    setMessages(dataRequest.messages);
+    console.log("=== dataRequest messages ===", dataRequest.messages);
   }
 
   //==================================
@@ -49,7 +49,6 @@ export default function ManagerChat() {
     if (currentLi === seletedLi) {
       return;
     }
-    // console.log("OVER", e.target.closest(".mchat-users-cell"));
     currentLi.style.backgroundColor = "#cfd2da";
     currentLi.firstChild.style.color = "black";
   }
@@ -61,7 +60,6 @@ export default function ManagerChat() {
     if (currentLi === seletedLi) {
       return;
     }
-    // console.log("LEAVE  ", currentLi);
     currentLi.style.backgroundColor = "white";
   }
 
@@ -73,18 +71,8 @@ export default function ManagerChat() {
             <div className="mchat-header">
               <h2>Чаты клиентов</h2>
             </div>
-
             <div className="">
               <ul className="">
-                {/* <li
-                  className="mchat-users-cell"
-                  onClick={(e) => fnLiOnClick(e)}
-                  onMouseOver={(e) => fnOnMouseOver(e)}
-                  onMouseLeave={(e) => fnOnMouseLeave(e)}
-                >
-                  <span className="mchat-name">Иванов</span>
-                  <div className="mchat-signal"> </div>
-                </li> */}
                 {chatsUsers &&
                   chatsUsers.map((i) => (
                     <ManagerChatItem
@@ -98,28 +86,17 @@ export default function ManagerChat() {
               </ul>
             </div>
           </div>
-          {/* <div className="mchat-dialog">{messages && messages[0].text }</div> */}
           <div className="mchat-dialog">
-            <div className="message-wrap">
-              <div className="message-client">
-                {" "}
-                Какоето сообщение от клиента. Вопрос очень важный
-              </div>
-            </div>
-            <div
-              className="message-wrap"
-              style={{ justifyContent: "flex-end" }}
-            >
-              <div className="message-manager">
-                {" "}
-                Какоето сообщение от менеджера. Ответ не менее важны , чем у
-                клиента
-              </div>
-            </div>
+            {messages &&
+              messages.map((i) => (
+                <ManagerChatDialogItem
+                  key={i._id}
+                  item={i}
+                  chatOwner={chatOwner}
+                />
+              ))}
           </div>
         </div>
-
-        {/*  */}
       </div>
     </>
   );

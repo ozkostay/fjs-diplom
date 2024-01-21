@@ -685,14 +685,16 @@ a {
 }
 
 .message-client {
-  background-color: #ffbfbf;
+  color: rgb(32, 32, 32);
+  background-color: #ccffd3;
   width: 80%;
   border-radius: 10px;
   padding: 5px;
 }
 
 .message-manager {
-  background-color: #ccffd3;
+  color: rgb(32, 32, 32);
+  background-color: #ffbfbf;
   width: 80%;
   border-radius: 10px;
   padding: 5px;
@@ -759,4 +761,5 @@ a {
   width: 65%;
   border: 1px solid #a0a0a0;
   padding: 10px;
+  overflow-x:hidden;
 }
