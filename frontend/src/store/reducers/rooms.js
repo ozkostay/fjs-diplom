@@ -11,7 +11,7 @@ export default function reducerRooms(state = initialState, action) {
   // console.log("reducer HOTELS", action);
   switch (action.type) {
     case ROOMS_LIST:
-      console.log('REDUCER USER LIST', action.payload);
+      // console.log('REDUCER USER LIST', action.payload);
       return {
         ...state,
         rooms: action.payload,

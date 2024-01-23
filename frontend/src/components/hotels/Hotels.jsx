@@ -26,7 +26,7 @@ export default function Hotels() {
       limit,
       search,
     };
-    console.log("FILTER HOTES", params);
+    // console.log("FILTER HOTES", params);
     dispatch(actHotelsList(params));
   }
 

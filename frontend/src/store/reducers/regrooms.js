@@ -24,10 +24,10 @@ const initialState = reservationsLocalStorage
     };
 
 export default function reducerRegRooms(state = initialState, action) {
-  console.log("reducer REGROOMS", action);
+  // console.log("reducer REGROOMS", action);
   switch (action.type) {
     case REG_LIST:
-      console.log("REDUCER REG LIST", action.payload);
+      // console.log("REDUCER REG LIST", action.payload);
       if(typeof action.payload === 'string') {
         return {
           ...state,

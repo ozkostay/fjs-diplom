@@ -1,5 +1,5 @@
 export const regRoomsSearchList = async (params) => {
-  console.log("===== PARAM SAGA reservation LIST", params);
+  // console.log("===== PARAM SAGA reservation LIST", params);
   const search = `?userid=${params}`;
   const url =
     process.env.REACT_APP_BACK_URL +
@@ -15,7 +15,7 @@ export const regRoomsSearchList = async (params) => {
   try {
     const res = await fetch(url, options);
     const data = await res.json();
-    console.log("API GOOG RES", data);
+    // console.log("API GOOG RES", data);
     // alert("Бронь успешно добавлена!");
     return data;
   } catch (e) {

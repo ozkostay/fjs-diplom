@@ -61,20 +61,20 @@ function* watchRoomsAdd() {
   yield takeLatest(ROOMS_ADD, WorkerRoomsAdd);
 }
 function* watchRoomsList() {
-  console.log('SAGA Watcher ROOMSS LIST');
+  // console.log('SAGA Watcher ROOMSS LIST');
   yield takeLatest(ROOMS_LIST, WorkerRoomsList);
 }
 
 function* watchRegRoomsAdd() {
-  console.log('SAGA Watcher REG_ROOMSS_ADD');
+  // console.log('SAGA Watcher REG_ROOMSS_ADD');
   yield takeLatest(REG_ADD, WorkerRegRoomsAdd);
 }
 function* watchRegRoomsList() {
-  console.log('SAGA Watcher REG_ROOMSS_LIST');
+  // console.log('SAGA Watcher REG_ROOMSS_LIST');
   yield takeLatest(REG_LIST, WorkerRegRoomsList);
 }
 function* watchRegRoomsDelete() {
-  console.log('SAGA Watcher REG_ROOMSS_LIST');
+  // console.log('SAGA Watcher REG_ROOMSS_LIST');
   yield takeLatest(REG_DELETE, WorkerRegRoomsDelete);
 }
 

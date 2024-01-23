@@ -14,49 +14,57 @@ export default function Chat() {
   const [myMessage, setMyMessage] = useState("");
   const dialog = useRef();
   const [currenChat, setCurrentChat] = useState({ _id: "newchat" }); // текущий чат
-  const [messages, setMassages] = useState(null); // массив сообщений
+  const [messages, setMessages] = useState(null); // массив сообщений
 
   // ======================================
   useEffect(() => {
+    // console.log('== 10 ==');
     goToEndDialog()
   }, [dialog.current]);
 
   // ======================================
   useEffect(() => {
+    // console.log('== 20 ==');
     fetchUserReq();
   }, []);
 
   //==== Слушаем сообщение сервера ========
   useEffect(() => {
+    // console.log('== 30 ==');
     const eventName = `serverToClient${user._id}`;
-    console.log("333 Слушаем сообщение сервера!!!", eventName);
+    // console.log("333 Слушаем сообщение сервера!!!", eventName);
     socket.on(eventName, (data) => {
       console.log("on messageToClient!!! YESSSS", data);
       if (data.clientId === user._id) {
         console.log("===!=== Пришло новое сообщение ");
-        setMassages(null);
+        setMessages(null);
         fetchUserReq();
       }
     });
+    goToEndDialog();
+    // console.log('== 30-1 ==');
     return () => {
+      console.log('== 30-2 ==');
       socket.off(eventName);
     };
   }, [messages]);
 
   // ======================================
   async function fetchUserReq() {
-    console.log("fetchUserReq!!!", user._id);
+    // console.log('== 40 ==');
+    // console.log("fetchUserReq!!!", user._id);
     const response = await findUserRequest(user._id);
-    console.log("=!========== ", response);
+    // console.log("=!========== ", response);
     if (response.length > 0) {
       setCurrentChat(response[0]);
-      setMassages(response[0].messages);
-      goToEndDialog();
+      setMessages(response[0].messages);
+      
     }
   }
 
   // ======================================
   function goToEndDialog() {
+    // console.log('== 50 ==');
     if (dialog.current) {
       dialog.current.scrollTop = 99999;
     }
@@ -64,7 +72,8 @@ export default function Chat() {
 
   // ======================================
   async function fnSendMessage() {
-    console.log("Посылаем сообщение", myMessage);
+    // console.log('== 60 ==');
+    // console.log("Посылаем сообщение", myMessage);
     const body = { author: user._id, text: myMessage };
     const params = { id: currenChat, body };
     const response = await sendClientMessage(params);
@@ -78,6 +87,7 @@ export default function Chat() {
   }
 
   // ======================================
+  // console.log('== 70 ==');
   return (
     <>
       <img

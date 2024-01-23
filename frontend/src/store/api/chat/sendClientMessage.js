@@ -10,7 +10,7 @@ export const sendClientMessage = async (params) => {
     },
     body: JSON.stringify(body),
   };
-  console.log("URL API == ", url);
+  // console.log("URL API == ", url);
   try {
     const res = await fetch(url, options);
     if (!res.ok) {

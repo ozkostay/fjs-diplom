@@ -19,9 +19,9 @@ export default function Header() {
 
   //============================================================
   useEffect(() => {
-    console.log("useEffect in HEADER");
+    // console.log("useEffect in HEADER");
     if (user) {
-      console.log("useEffect in HEADER 2  ");
+      // console.log("useEffect in HEADER 2  ");
       dispatch(actRegRoomsList(user._id));
     }
   }, [user, addRegRooms]);

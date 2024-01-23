@@ -4,9 +4,9 @@ import { hotelsListSearch } from "../../api/hotels/hotelsListSearch";
 
 
 export default function* WorkerHotelsList(action) {
-  console.log('SAGA WORKER HotelsList', action.payload?.limit);
+  // console.log('SAGA WORKER HotelsList', action.payload?.limit);
   if (!action.payload.limit) {
-    console.log('NONONO ============== Прерываем WORKER HotelsList');
+    // console.log('NONONO ============== Прерываем WORKER HotelsList');
     return;
   }
   try {

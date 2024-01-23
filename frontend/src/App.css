@@ -735,25 +735,25 @@ a {
   
 }
 
-.mchat-users-cell:hover {
+/* .mchat-users-cell:hover {
   background-color: #cfd2da;
 }
 
 .mchat-users-cell-focus {
   background-color: #5181b8;
-}
+} */
 
 .mchat-name {
   width: 90%;
   color: black;
-  cursor: pointe  r;
+  cursor: pointer;
 }
 
 .mchat-signal {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #ff530f;
+  /* background-color: #ff530f; */
 }
 
 .mchat-dialog {

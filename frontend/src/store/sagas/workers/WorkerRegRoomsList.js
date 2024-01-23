@@ -4,9 +4,9 @@ import { regRoomsSearchList } from "../../api/regrooms/regroomsSearchList";
 
 
 export default function* WorkerRegRoomsList(action) {
-  console.log('SAGA WORKER RegRoomsList', action.payload);
+  // console.log('SAGA WORKER RegRoomsList', action.payload);
   if (typeof action.payload !== 'string' ) {
-    console.log('NONONO ============== Прерываем WORKER REGRoomsList');
+    // console.log('NONONO ============== Прерываем WORKER REGRoomsList');
     return;
   }
   try {

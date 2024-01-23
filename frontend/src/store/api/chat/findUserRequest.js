@@ -1,10 +1,10 @@
 export const findUserRequest = async (params) => {
-  console.log("===PAR=== findUserRequest id=", params);
+  // console.log("===PAR=== findUserRequest id=", params);
   const url =
     process.env.REACT_APP_BACK_URL +
     `/api/client/support-requests/?id=${params}`;
 
-    console.log('findUserRequest url', url);
+    // console.log('findUserRequest url', url);
     try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -12,7 +12,7 @@ export const findUserRequest = async (params) => {
       return { errorStatus: response.status, errorStatusText: response.statusText };
     }
     const data = await response.json()
-    console.log("DATA", data);
+    // console.log("DATA", data);
     return data;
   } catch (e) {
     console.log("ERROR UPLOAD", e.massage);
@@ -24,3 +24,4 @@ export const findUserRequest = async (params) => {
   //   resolve("WWW");
   // });
 };
+

@@ -6,6 +6,13 @@ export default function ManagerChatItem({
   fnOnMouseOver,
   fnOnMouseLeave,
 }) {
+  
+  // console.log('ITEM item.newMessage', item.newMessage);
+  const signal = {
+    backgroundColor: item.newMessage ? "rgba(255, 83, 15, 1)" : "rgba(255, 83, 15, 0)",
+  };
+
+  // console.log('ManagerChatItem', signal);
   return (
     <>
       <li
@@ -15,8 +22,12 @@ export default function ManagerChatItem({
         onMouseLeave={(e) => fnOnMouseLeave(e)}
       >
         <span className="mchat-name">{item.user.name}</span>
-        <div className="mchat-signal"> </div>
+        <div className="mchat-signal" style={signal}>
+          {" "}
+        </div>
       </li>
     </>
   );
 }
+
+// background-color: #ff530f;

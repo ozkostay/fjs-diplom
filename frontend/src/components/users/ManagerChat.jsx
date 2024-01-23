@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ManagerChatItem from "./ManagerChatItem";
 import { getUsersFromRequests } from "../../store/api/chat/getUsersFromRequests";
 import { findRequestById } from "../../store/api/chat/findRequestById";
 import ManagerChatDialogItem from "./ManagerChatDialogsItem";
+import io from "socket.io-client";
+
+const socket = io.connect(process.env.REACT_APP_BACK_URL);
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
@@ -11,36 +14,102 @@ export default function ManagerChat() {
   const [chatsUsers, setChatsUsers] = useState(null);
   const [messages, setMessages] = useState(null);
   const [chatOwner, setChatOwner] = useState(null);
-  
+  const dialog = useRef();
+
   //getUsersFromRequests
   useEffect(() => {
+    // console.log('== 10 ==');
     const sendFetch = async () => {
-      const response = await getUsersFromRequests();
-      const data = await response;
-      console.log("DATA", data);
-      setChatsUsers(await data);
+      try {
+        const response = await getUsersFromRequests();
+        const data = await response;
+        data.forEach((item) => {
+          item.newMessage = false;
+        });
+        // console.log("DATA 00000000000000000000000000000000000000", data);
+        setChatsUsers(await data);
+      } catch (err) {
+        console.log("Ошибка в ManagerChat 24", err.massage);
+      }
     };
     sendFetch();
   }, []);
 
+  useEffect(() => {
+    goToEndDialog();
+  }, [messages])
+
+  // ==== Слушаем сообщение сервера ========
+  useEffect(() => {
+    // console.log("== 20 ==", chatOwner);
+    const eventName = `serverToManager`;
+    // console.log("333 Слушаем сообщение сервера!!!", eventName);
+    socket.on(eventName, (data) => {
+      // console.log('YESSSS 111', chatsUsers);
+      const newChatsUsers = [...chatsUsers];
+      newChatsUsers.forEach((item) => {
+        if (item.user._id === data.clientId) {
+          item.newMessage = true;
+          if ( chatOwner && (item.user._id === chatOwner.user._id)) {
+            fetchUserRequest(chatOwner.chatId);
+          }
+        }
+      });
+      setChatsUsers(newChatsUsers);
+      // console.log("on serverToManager!!! YESSSS 222", newChatsUsers);
+    });
+ 
+    return () => {
+      // console.log("== 20-2 ==");
+      socket.off(eventName);
+    };
+  }, [chatsUsers]);
+
   //==================================
   async function fnLiOnClick(e, chatId, user) {
     e.preventDefault();
+    // console.log('== 30 ==');
+    // console.log("========== == 0 == user", user);
+    setChatOwner({ chatId, user });
     if (seletedLi) {
       seletedLi.style.backgroundColor = "white";
       seletedLi.firstChild.style.color = "black";
     }
     const currentLi = e.target.closest(".mchat-users-cell");
     setSeletedLi(currentLi);
+
     currentLi.style.backgroundColor = "#5181b8";
     currentLi.firstChild.style.color = "white";
-    const dataRequest = await findRequestById(chatId);
-
-    console.log("=== dataRequest ===", dataRequest);
-    setChatOwner(user);
-    setMessages(dataRequest.messages);
-    console.log("=== dataRequest messages ===", dataRequest.messages);
+    // console.log('== 30 == 1');
+    fetchUserRequest(chatId);
+    // console.log('== 30 == 2');
+    const newChatsUsers = [...chatsUsers];
+    newChatsUsers.forEach((item) => {
+      if (item.user._id === user._id) {
+        item.newMessage = false;
+      }
+    });
+    setChatsUsers(newChatsUsers);
+    goToEndDialog();
   }
+
+  //====================================
+  function goToEndDialog() {
+    if (dialog.current) {
+      dialog.current.scrollTop = 99999;
+    }
+  }
+
+  //====================================
+  async function fetchUserRequest(chatId) {
+    const dataRequest = await findRequestById(chatId);
+    // console.log("=== dataRequest ===", dataRequest);
+    setMessages(dataRequest.messages);
+    goToEndDialog();
+    return '';
+  }
+  // WS come
+  // по ID находм user
 
   //==================================
   function fnOnMouseOver(e) {
@@ -86,7 +155,7 @@ export default function ManagerChat() {
               </ul>
             </div>
           </div>
-          <div className="mchat-dialog">
+          <div ref={dialog} className="mchat-dialog">
             {messages &&
               messages.map((i) => (
                 <ManagerChatDialogItem

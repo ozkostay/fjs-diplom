@@ -1,9 +1,9 @@
 export const getUsersFromRequests = async () => {
-  console.log(" === getUsersFromRequests ");
+  // console.log(" === getUsersFromRequests ");
   const url =
     process.env.REACT_APP_BACK_URL +
     `/api/manager/support-requests-users`;
-    console.log('getUsersFromRequests url', url);
+    // console.log('getUsersFromRequests url', url);
 
     try {
     const response = await fetch(url);
@@ -12,7 +12,7 @@ export const getUsersFromRequests = async () => {
       return { errorStatus: response.status, errorStatusText: response.statusText };
     }
     const data = await response.json()
-    console.log("DATA getUsersFromRequests", data);
+    // console.log("DATA getUsersFromRequests", data);
     return data;
 
   } catch (e) {
