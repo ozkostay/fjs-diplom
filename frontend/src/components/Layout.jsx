@@ -23,11 +23,14 @@ export default function Layout() {
                   Все гостиницы
                 </Link>
               </li>
-              <li>
+              
+              {user?.role === "manager" && (<li>
                 <Link className="nav-link" to="/managerchat">
                   <span className="link-span">Чат</span>
                 </Link>
-              </li>
+              </li>)}
+              
+              
               {user?.role === "admin" ? (
                 <>
                   <li>

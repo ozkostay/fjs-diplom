@@ -7,7 +7,7 @@ blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
 
-input,textarea{border-radius: 5px;border: 1px solid #ccc}
+input,textarea{border-radius: 5px; border: 1px solid #ccc}
 button{border-radius: 5px;border: 0px solid #ccc;cursor: pointer;}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -711,7 +711,7 @@ a {
 
 .mchat-wrap {
   display: flex;
-  height: 350px;
+  height: calc(100vh - 150px);
 }
 
 .mchat-users {
@@ -735,14 +735,6 @@ a {
   
 }
 
-/* .mchat-users-cell:hover {
-  background-color: #cfd2da;
-}
-
-.mchat-users-cell-focus {
-  background-color: #5181b8;
-} */
-
 .mchat-name {
   width: 90%;
   color: black;
@@ -756,10 +748,50 @@ a {
   /* background-color: #ff530f; */
 }
 
+.mchat-dialog-wrap {
+  width: 100%;
+  /* height: 600px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .mchat-dialog {
   box-sizing: border-box;
-  width: 65%;
+  width: 100%;
+  height: 93%;
   border: 1px solid #a0a0a0;
   padding: 10px;
   overflow-x:hidden;
+
+}
+
+.mchat-dialog-send {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.mchat-dialog-send input {
+  box-sizing: border-box;
+  width: 88%;
+  height: 40px;
+  font-size: 1rem;
+  background-color: rgb(255, 251, 226);
+  outline:none;
+}
+
+.mchat-dialog-send input:focus {
+  border: 3px solid #eb8a0a;
+
+}
+
+.mchat-dialog-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #5d73e1;
+  background-color: #5d73e1;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
 }

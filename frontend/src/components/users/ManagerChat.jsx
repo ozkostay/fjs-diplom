@@ -14,6 +14,7 @@ export default function ManagerChat() {
   const [chatsUsers, setChatsUsers] = useState(null);
   const [messages, setMessages] = useState(null);
   const [chatOwner, setChatOwner] = useState(null);
+  const [mgrMessage, setMgrMessage] = useState('')
   const dialog = useRef();
 
   //getUsersFromRequests
@@ -37,7 +38,7 @@ export default function ManagerChat() {
 
   useEffect(() => {
     goToEndDialog();
-  }, [messages])
+  }, [messages]);
 
   // ==== Слушаем сообщение сервера ========
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function ManagerChat() {
       newChatsUsers.forEach((item) => {
         if (item.user._id === data.clientId) {
           item.newMessage = true;
-          if ( chatOwner && (item.user._id === chatOwner.user._id)) {
+          if (chatOwner && item.user._id === chatOwner.user._id) {
             fetchUserRequest(chatOwner.chatId);
           }
         }
@@ -58,7 +59,7 @@ export default function ManagerChat() {
       setChatsUsers(newChatsUsers);
       // console.log("on serverToManager!!! YESSSS 222", newChatsUsers);
     });
- 
+
     return () => {
       // console.log("== 20-2 ==");
       socket.off(eventName);
@@ -71,15 +72,16 @@ export default function ManagerChat() {
     // console.log('== 30 ==');
     // console.log("========== == 0 == user", user);
     setChatOwner({ chatId, user });
+    // Меняем стили
     if (seletedLi) {
       seletedLi.style.backgroundColor = "white";
       seletedLi.firstChild.style.color = "black";
     }
     const currentLi = e.target.closest(".mchat-users-cell");
     setSeletedLi(currentLi);
-
     currentLi.style.backgroundColor = "#5181b8";
     currentLi.firstChild.style.color = "white";
+    // запрос чата выбранного клиента
     // console.log('== 30 == 1');
     fetchUserRequest(chatId);
     // console.log('== 30 == 2');
@@ -90,7 +92,6 @@ export default function ManagerChat() {
       }
     });
     setChatsUsers(newChatsUsers);
-    goToEndDialog();
   }
 
   //====================================
@@ -105,8 +106,6 @@ export default function ManagerChat() {
     const dataRequest = await findRequestById(chatId);
     // console.log("=== dataRequest ===", dataRequest);
     setMessages(dataRequest.messages);
-    goToEndDialog();
-    return '';
   }
   // WS come
   // по ID находм user
@@ -132,6 +131,10 @@ export default function ManagerChat() {
     currentLi.style.backgroundColor = "white";
   }
 
+  function fnSendMessage() {
+    console.log('SEND', mgrMessage);
+  }
+
   return (
     <>
       <div className="mainpage">
@@ -155,15 +158,22 @@ export default function ManagerChat() {
               </ul>
             </div>
           </div>
-          <div ref={dialog} className="mchat-dialog">
-            {messages &&
-              messages.map((i) => (
-                <ManagerChatDialogItem
-                  key={i._id}
-                  item={i}
-                  chatOwner={chatOwner}
-                />
-              ))}
+
+          <div className="mchat-dialog-wrap">
+            <div ref={dialog} className="mchat-dialog">
+              {messages &&
+                messages.map((i) => (
+                  <ManagerChatDialogItem
+                    key={i._id}
+                    item={i}
+                    chatOwner={chatOwner}
+                  />
+                ))}
+            </div>
+            <div className="mchat-dialog-send">
+              <input type="text" value={mgrMessage} onChange={(e) => setMgrMessage(e.target.value)}/>
+              <button className="mchat-dialog-btn" onClick={fnSendMessage}>&gt;&gt;</button>
+            </div>
           </div>
         </div>
       </div>
