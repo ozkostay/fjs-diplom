@@ -6,7 +6,7 @@ import { findRequestById } from "../../store/api/chat/findRequestById";
 import ManagerChatDialogItem from "./ManagerChatDialogsItem";
 import io from "socket.io-client";
 
-const socket = io.connect(process.env.REACT_APP_BACK_URL);
+const socket2 = io.connect(process.env.REACT_APP_BACK_URL);
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
@@ -45,7 +45,7 @@ export default function ManagerChat() {
     // console.log("== 20 ==", chatOwner);
     const eventName = `serverToManager`;
     // console.log("333 Слушаем сообщение сервера!!!", eventName);
-    socket.on(eventName, (data) => {
+    socket2.on(eventName, (data) => {
       // console.log('YESSSS 111', chatsUsers);
       const newChatsUsers = [...chatsUsers];
       newChatsUsers.forEach((item) => {
@@ -62,7 +62,7 @@ export default function ManagerChat() {
 
     return () => {
       // console.log("== 20-2 ==");
-      socket.off(eventName);
+      socket2.off(eventName);
     };
   }, [chatsUsers]);
 
@@ -133,6 +133,8 @@ export default function ManagerChat() {
 
   function fnSendMessage() {
     console.log('SEND', mgrMessage);
+    const bodyToSocket = { clientId: chatOwner.user._id };
+    socket2.emit("managerToClient", bodyToSocket);
   }
 
   return (
@@ -166,7 +168,7 @@ export default function ManagerChat() {
                   <ManagerChatDialogItem
                     key={i._id}
                     item={i}
-                    chatOwner={chatOwner}
+                    chatOwner={chatOwner.user}
                   />
                 ))}
             </div>

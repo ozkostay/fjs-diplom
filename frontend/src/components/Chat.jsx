@@ -30,9 +30,9 @@ export default function Chat() {
 
   //==== Слушаем сообщение сервера ========
   useEffect(() => {
-    // console.log('== 30 ==');
+    console.log('== 30 ==');
     const eventName = `serverToClient${user._id}`;
-    // console.log("333 Слушаем сообщение сервера!!!", eventName);
+    console.log("333 Слушаем сообщение сервера!!!", eventName);
     socket.on(eventName, (data) => {
       console.log("on messageToClient!!! YESSSS", data);
       if (data.clientId === user._id) {
@@ -42,7 +42,7 @@ export default function Chat() {
       }
     });
     goToEndDialog();
-    // console.log('== 30-1 ==');
+    console.log('== 30-1 ==');
     return () => {
       console.log('== 30-2 ==');
       socket.off(eventName);
@@ -54,7 +54,7 @@ export default function Chat() {
     // console.log('== 40 ==');
     // console.log("fetchUserReq!!!", user._id);
     const response = await findUserRequest(user._id);
-    // console.log("=!========== ", response);
+    console.log("=!========== ", response);
     if (response.length > 0) {
       setCurrentChat(response[0]);
       setMessages(response[0].messages);

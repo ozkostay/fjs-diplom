@@ -46,6 +46,7 @@ API Web
 2.5.2.  GET /api/client/support-requests/   // Получение списка обращений в поддержку для клиента
 2.5.3.  GET /api/manager/support-requests/   // Позволяет пользователю с ролью manager получить список обращений от клиентов.
 2.5.4.  GET /api/common/support-requests/:id/messages // Получение истории сообщений из обращения в техподдержку
+2.5.5.  POST /api/common/support-requests/:id/messages  //Позволяет пользователю с ролью manager или client отправлять сообщения в чат.
 ---
 2.5.6.  POST /api/common/support-requests/:id/messages/read   // Позволяет пользователю с ролью manager или client отправлять отметку, что сообщения прочитаны.
 2.5.7.  message: subscribeToChat payload: chatId   // Позволяет пользователю с ролью manager или client получать новые сообщения в чате через WebSocket.
@@ -61,6 +62,7 @@ find
 Форма input and button
 сигналы WS
 запросы по сигналам
+прочитано
 
 
 

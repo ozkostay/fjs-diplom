@@ -37,8 +37,11 @@ export class WebsocetsGateway {
   @SubscribeMessage('managerToClient')
   handleMessageToClient(@MessageBody() body: any): string {
     console.log('managerToClient', body);
+    const messageClientName = `serverToClient${body.clientId}`;
+    console.log('=============', messageClientName);
+    this.server.emit(messageClientName, body);
     this.server.emit('serverToManager', body);
-    this.server.emit('serverToClient', body);
     return 'managerToClient';
   }
 }
+
