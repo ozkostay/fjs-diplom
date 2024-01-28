@@ -8,6 +8,13 @@ import { SupportRequestDocument } from './schemas/SupportRequest.schema';
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
+  @Get('admin/deletemessage')
+  public delallMessage(): any {
+    console.log('============ Удаляем все сообщения');
+    return this.chatService.delallMessage();
+  }
+
+
   @Post('common/support-requests/:id/messages') // добавить сообщение
   public addMessage(
     @Param() { id }: ParamIdDto,
@@ -15,6 +22,15 @@ export class ChatController {
   ): Promise<SupportRequestDocument> {
     console.log('============ id', id, 'body', body);
     return this.chatService.addMessage(body, id);
+  }
+
+  @Post('common/support-requests/:id/messages/read') // Прочитать сообщение
+  public readMessage(
+    @Param() { id }: ParamIdDto,
+    @Body() body: SendMessageDto,
+  ): any {
+    console.log('============ id', id, 'body', body);
+    return this.chatService.readMessage(body, id);
   }
 
   @Get('client/support-requests')

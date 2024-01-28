@@ -5,6 +5,7 @@ import { sendClientMessage } from "../store/api/chat/sendClientMessage";
 import { findUserRequest } from "../store/api/chat/findUserRequest";
 import ManagerChatDialogItem from "./users/ManagerChatDialogsItem";
 import io from "socket.io-client";
+import { readMessage } from "../store/api/chat/readMessage";
 
 const socket = io.connect(process.env.REACT_APP_BACK_URL);
 
@@ -20,7 +21,7 @@ export default function Chat() {
   useEffect(() => {
     // console.log('== 10 ==');
     goToEndDialog()
-  }, [dialog.current]);
+  }, [isChatVisible]);
 
   // ======================================
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function Chat() {
     goToEndDialog();
     console.log('== 30-1 ==');
     return () => {
-      console.log('== 30-2 ==');
+      console.log('== 30-2 ==', messages);
       socket.off(eventName);
     };
   }, [messages]);
@@ -64,9 +65,19 @@ export default function Chat() {
 
   // ======================================
   function goToEndDialog() {
-    // console.log('== 50 ==');
-    if (dialog.current) {
+    if (dialog.current && isChatVisible) {
+      console.log('== 50 == Идем в конец isChatVisible=', isChatVisible);
       dialog.current.scrollTop = 99999;
+      // отметки прочтено
+      const params = {
+        id: currenChat,
+        body: { 
+          readDate: new Date(),
+          whoRead: user,
+        },
+      }
+      const response = readMessage(params);
+      console.log('response', response);
     }
   }
 

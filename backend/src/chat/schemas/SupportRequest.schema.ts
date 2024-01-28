@@ -13,8 +13,8 @@ export class SupportRequest {
     @Prop({ required: true })
     public createdAt: Date;
 
-    @Prop()
-    public messages: [{}];
+    @Prop({type: [mongoose.Schema.Types.ObjectId], ref: 'Message'})
+    public messages: any;
 
     @Prop()
     public isActive: boolean;

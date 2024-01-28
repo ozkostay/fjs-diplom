@@ -1,9 +1,10 @@
-export const sendClientMessage = async (params) => {
+export const readMessage = async (params) => {
   const { id, body } = params;
   const url =
     process.env.REACT_APP_BACK_URL +
-    `/api/common/support-requests/${id._id}/messages`;
-  const options = {
+    `/api/common/support-requests/${id._id}/messages/read`;
+  
+    const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -23,3 +24,4 @@ export const sendClientMessage = async (params) => {
     return null;
   }
 };
+

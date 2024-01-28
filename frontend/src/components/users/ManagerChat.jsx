@@ -5,8 +5,9 @@ import { getUsersFromRequests } from "../../store/api/chat/getUsersFromRequests"
 import { findRequestById } from "../../store/api/chat/findRequestById";
 import ManagerChatDialogItem from "./ManagerChatDialogsItem";
 import io from "socket.io-client";
+import { sendClientMessage } from "../../store/api/chat/sendClientMessage";
 
-const socket2 = io.connect(process.env.REACT_APP_BACK_URL);
+const socket = io.connect(process.env.REACT_APP_BACK_URL);
 
 export default function ManagerChat() {
   const { user } = useSelector((state) => state.crUser);
@@ -14,26 +15,15 @@ export default function ManagerChat() {
   const [chatsUsers, setChatsUsers] = useState(null);
   const [messages, setMessages] = useState(null);
   const [chatOwner, setChatOwner] = useState(null);
-  const [mgrMessage, setMgrMessage] = useState('')
+  const [mgrMessage, setMgrMessage] = useState("");
+  const [socetData, setSocetData] = useState(null);
+  const [mgrSend, setMgrSend] = useState(false);
   const dialog = useRef();
 
   //getUsersFromRequests
   useEffect(() => {
     // console.log('== 10 ==');
-    const sendFetch = async () => {
-      try {
-        const response = await getUsersFromRequests();
-        const data = await response;
-        data.forEach((item) => {
-          item.newMessage = false;
-        });
-        // console.log("DATA 00000000000000000000000000000000000000", data);
-        setChatsUsers(await data);
-      } catch (err) {
-        console.log("Ошибка в ManagerChat 24", err.massage);
-      }
-    };
-    sendFetch();
+    // fetchChatsUsers();
   }, []);
 
   useEffect(() => {
@@ -44,27 +34,56 @@ export default function ManagerChat() {
   useEffect(() => {
     // console.log("== 20 ==", chatOwner);
     const eventName = `serverToManager`;
-    // console.log("333 Слушаем сообщение сервера!!!", eventName);
-    socket2.on(eventName, (data) => {
-      // console.log('YESSSS 111', chatsUsers);
-      const newChatsUsers = [...chatsUsers];
-      newChatsUsers.forEach((item) => {
-        if (item.user._id === data.clientId) {
-          item.newMessage = true;
-          if (chatOwner && item.user._id === chatOwner.user._id) {
-            fetchUserRequest(chatOwner.chatId);
-          }
-        }
-      });
-      setChatsUsers(newChatsUsers);
-      // console.log("on serverToManager!!! YESSSS 222", newChatsUsers);
+    socket.on(eventName, (data) => {
+      // console.log("YESSSS 111", mgrSend);
+      fetchChatsUsers(data);
     });
 
     return () => {
       // console.log("== 20-2 ==");
-      socket2.off(eventName);
+      socket.off(eventName);
     };
   }, [chatsUsers]);
+
+  //=======================================
+  useEffect(() => {
+    // console.log("YESSSS 222", chatsUsers);
+    // console.log("YESSSS 333", chatsUsers);
+    
+    if (!chatsUsers) {
+      fetchChatsUsers();
+    }
+    if (!socetData) return;
+    const newChatsUsers = [...chatsUsers];
+
+    newChatsUsers.forEach((item) => {
+      if (item.user._id === socetData.clientId) {
+        item.newMessage = true;
+        if (chatOwner && item.user._id === chatOwner.user._id) {
+          fetchUserRequest(chatOwner.chatId);
+        }
+      }
+    });
+    setChatsUsers(newChatsUsers);
+    // setSocetData(null);
+  }, [socetData]);
+
+  //=============================================
+  async function fetchChatsUsers(socetData) {
+    try {
+      const response = await getUsersFromRequests();
+      const data = await response;
+      data.forEach((item) => {
+        item.newMessage = false;
+      });
+      setChatsUsers(await data);
+      // console.log('data data', socetData)
+      if (socetData) setSocetData(socetData);
+      // console.log('=!===========================2');
+    } catch (err) {
+      console.log("Ошибка в ManagerChat 24", err.massage);
+    }
+  }
 
   //==================================
   async function fnLiOnClick(e, chatId, user) {
@@ -84,7 +103,7 @@ export default function ManagerChat() {
     // запрос чата выбранного клиента
     // console.log('== 30 == 1');
     fetchUserRequest(chatId);
-    // console.log('== 30 == 2');
+    // console.log("== 30 == 2");
     const newChatsUsers = [...chatsUsers];
     newChatsUsers.forEach((item) => {
       if (item.user._id === user._id) {
@@ -96,6 +115,9 @@ export default function ManagerChat() {
 
   //====================================
   function goToEndDialog() {
+    if (!chatOwner) return;
+
+    // console.log("====== manager to end");
     if (dialog.current) {
       dialog.current.scrollTop = 99999;
     }
@@ -107,8 +129,6 @@ export default function ManagerChat() {
     // console.log("=== dataRequest ===", dataRequest);
     setMessages(dataRequest.messages);
   }
-  // WS come
-  // по ID находм user
 
   //==================================
   function fnOnMouseOver(e) {
@@ -131,11 +151,22 @@ export default function ManagerChat() {
     currentLi.style.backgroundColor = "white";
   }
 
-  function fnSendMessage() {
-    console.log('SEND', mgrMessage);
+  //================================== Отправка сообщений
+  async function fnSendMessage() {
+    const body = { author: user._id, text: mgrMessage };
+    const params = { id: { _id: chatOwner.chatId }, body };
+    const response = await sendClientMessage(params);
+    if (response.errorStatus) {
+      return;
+    }
+    setMgrMessage("");
     const bodyToSocket = { clientId: chatOwner.user._id };
-    socket2.emit("managerToClient", bodyToSocket);
+    // console.log('=!================== setMgrSend(true);');
+    setMgrSend(true);
+    socket.emit("managerToClient", bodyToSocket);
   }
+
+  // console.log("888888888888888", socetData);
 
   return (
     <>
@@ -173,8 +204,14 @@ export default function ManagerChat() {
                 ))}
             </div>
             <div className="mchat-dialog-send">
-              <input type="text" value={mgrMessage} onChange={(e) => setMgrMessage(e.target.value)}/>
-              <button className="mchat-dialog-btn" onClick={fnSendMessage}>&gt;&gt;</button>
+              <input
+                type="text"
+                value={mgrMessage}
+                onChange={(e) => setMgrMessage(e.target.value)}
+              />
+              <button className="mchat-dialog-btn" onClick={fnSendMessage}>
+                &gt;&gt;
+              </button>
             </div>
           </div>
         </div>
