@@ -7,6 +7,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message, MessageDocument } from './schemas/Message.schema';
 import { SendMessageDto } from './interfaces/SendMessageDto';
+import { User, UserDocument } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class ChatService {
@@ -14,6 +15,7 @@ export class ChatService {
     @InjectModel(SupportRequest.name)
     private SupportRequestModel: Model<SupportRequestDocument>,
     @InjectModel(Message.name) private MessageModel: Model<MessageDocument>,
+    @InjectModel(User.name) private UserModel: Model<UserDocument>,
   ) {}
 
   public async delallMessage(): Promise<any> {
@@ -48,7 +50,7 @@ export class ChatService {
     console.log('=== CHAT либо новый либо нет === ', 'id', id, 'aut', author);
     // Если ID === "newchat" создаем новый, иначе берем по ID
     let returnChat: any;
-    let msgs: any; 
+    let msgs: any;
     if (id === 'newchat') {
       console.log('11111', id);
       msgs = [];
@@ -69,14 +71,13 @@ export class ChatService {
       msgs = chat.messages;
       console.log('22222-2 msgs', msgs);
       msgs.push(newMessage._id);
-        returnChat = await this.SupportRequestModel.findByIdAndUpdate(
+      returnChat = await this.SupportRequestModel.findByIdAndUpdate(
         chat._id,
-      { messages: msgs },
-      {
-        returnDocument: 'after',
-      },
-    );
-
+        { messages: msgs },
+        {
+          returnDocument: 'after',
+        },
+      );
     }
     console.log('=== Чат Чат Чат ', returnChat);
 
@@ -110,27 +111,43 @@ export class ChatService {
   }
 
   public async readMessage(body: any, id: any): Promise<any> {
-    console.log('CHAT SERVISE addMessage body', body, id);
+    console.log('CHAT SERVISE readMessage body=', body, 'id=', id);
+    // console.log('CHAT SERVISE readMessage id=', id);
     const paramsForChat = { id, body };
-    const currentChat = await this.SupportRequestModel.findById(id);
+    const currentChat = await this.SupportRequestModel.findById(id)
+      //.populate('messages')
+      .populate({
+        path: 'messages',
+        model: this.MessageModel,
+        populate: {
+          path: 'author',
+          model: this.UserModel,
+        },
+      })
+      .exec();
+
     if (!currentChat) {
       return 'null';
     }
-    // const aaa = [...currentChat.messages];
-    // const oldMessages = currentChat.messages.map((i) => i).filter((i) => i.author !== body.whoRead);
-    // const messNotRead = oldMessages.map(i);
-    // console.log(messNotRead);
-    // const currentChat = await this.getChat(paramsForChat);
-    // const newMessages = [...currentChat.messages, newMessage];
-    // const newCurrentChat = await this.SupportRequestModel.findByIdAndUpdate(
-    //   currentChat._id,
-    //   { messages: newMessages },
-    //   {
-    //     returnDocument: 'after',
-    //   },
-    // );
-    // return newCurrentChat;
-    return { aaa: 'Read servise' };
+    // console.log('SERVISE readMessage', currentChat);
+    const newMessages = [...currentChat.messages];
+    newMessages.forEach((i) => {
+      // console.log('!999 ', String(i.author._id), 'body.au', String(body.whoRead._id));
+      if (String(i.author._id) !== String(body.whoRead._id)) {
+        // console.log('id ',i.author._id, 'text', i.text)
+        i.readAt = body.readDate;
+      }
+    });
+
+    const newCurrentChat = await this.SupportRequestModel.findByIdAndUpdate(
+      currentChat._id, // какой ID
+      { messages: newMessages }, // Что меняем
+      {
+        returnDocument: 'after', // Возврат документа после изменений
+      },
+    );
+    return newCurrentChat;
+    // return { aaa: 'Read servise' };
   }
 
   //============================
@@ -138,8 +155,8 @@ export class ChatService {
     const { id } = params;
     console.log('id', params);
     const response = await this.SupportRequestModel.find({ user: id })
-    .populate('messages')
-    .exec();
+      .populate('messages')
+      .exec();
     // console.log('response', response);
     return response;
   }
@@ -149,8 +166,8 @@ export class ChatService {
     const { id } = params;
     console.log('id', id);
     const response = await this.SupportRequestModel.findById(id)
-    .populate('messages')
-    .exec();
+      .populate('messages')
+      .exec();
     // console.log('response', response);
     return response;
   }

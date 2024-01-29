@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Header from "./Header";
 import { useSelector } from "react-redux";
-import Chat from "./Chat";
+import Chat from "./chats/Chat";
 // import Footer from './Footer';
 // import Banner from './Banner';
 // import Error from './Error';

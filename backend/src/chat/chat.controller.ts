@@ -29,7 +29,7 @@ export class ChatController {
     @Param() { id }: ParamIdDto,
     @Body() body: SendMessageDto,
   ): any {
-    console.log('============ id', id, 'body', body);
+    console.log('Прочтено ============ id', id, 'body', body);
     return this.chatService.readMessage(body, id);
   }
 

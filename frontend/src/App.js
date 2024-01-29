@@ -13,7 +13,7 @@ import HotelsView from "./components/hotels/HotelsView";
 import FindRooms from "./components/hotels/FindRooms";
 import RoomsView from "./components/hotels/RoomsView";
 import Reservations from "./components/hotels/Reservations";
-import ManagerChat from "./components/users/ManagerChat";
+import ManagerChat from "./components/chats/ManagerChat";
 
 // import Page404 from "./components/Page404";
 // import About from "./components/About";

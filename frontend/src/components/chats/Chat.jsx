@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import chat from "../pics/chat.png";
+import chat from "../../pics/chat.png";
 import { useSelector } from "react-redux";
-import { sendClientMessage } from "../store/api/chat/sendClientMessage";
-import { findUserRequest } from "../store/api/chat/findUserRequest";
-import ManagerChatDialogItem from "./users/ManagerChatDialogsItem";
+import { sendClientMessage } from "../../store/api/chat/sendClientMessage";
+import { findUserRequest } from "../../store/api/chat/findUserRequest";
+import ManagerChatDialogItem from "./ManagerChatDialogsItem";
 import io from "socket.io-client";
-import { readMessage } from "../store/api/chat/readMessage";
+import { readMessage } from "../../store/api/chat/readMessage";
 
 const socket = io.connect(process.env.REACT_APP_BACK_URL);
 
