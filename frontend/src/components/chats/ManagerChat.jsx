@@ -32,10 +32,11 @@ export default function ManagerChat() {
 
   // ==== Слушаем сообщение сервера ========
   useEffect(() => {
-    // console.log("== 20 ==", chatOwner);
+    console.log();
+    console.log("== 20 ==", chatOwner);
     const eventName = `serverToManager`;
     socket.on(eventName, (data) => {
-      // console.log("YESSSS 111", mgrSend);
+      console.log("YESSSS 111", mgrSend);
       fetchChatsUsers(data);
     });
 
@@ -125,6 +126,8 @@ export default function ManagerChat() {
 
   //====================================
   async function fetchUserRequest(chatId) {
+    console.log('Запрос чата', chatId);
+    
     const dataRequest = await findRequestById(chatId);
     // console.log("=== dataRequest ===", dataRequest);
     setMessages(dataRequest.messages);

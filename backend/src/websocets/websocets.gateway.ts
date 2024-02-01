@@ -43,5 +43,14 @@ export class WebsocetsGateway {
     this.server.emit('serverToManager', body);
     return 'managerToClient';
   }
+
+  @SubscribeMessage('clientReadMessage')
+  clientReadMessage(@MessageBody() body: any): string {
+    console.log('clientReadMessage', body);
+    // const messageClientName = `serverToClient${body.clientId}`;
+    console.log('===== Read message ========', body.clientId);
+    this.server.emit('serverToManager', body);
+    return 'managerToClient';
+  }
 }
 

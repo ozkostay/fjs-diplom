@@ -20,7 +20,10 @@ export default function Chat() {
   // ======================================
   useEffect(() => {
     // console.log('== 10 ==');
-    goToEndDialog()
+    if (isChatVisible) {
+      fetchUserReq();
+      goToEndDialog();
+    }
   }, [isChatVisible]);
 
   // ======================================
@@ -31,7 +34,10 @@ export default function Chat() {
 
   //==== Слушаем сообщение сервера ========
   useEffect(() => {
-    console.log('== 30 ==');
+    console.log("== 30 ==");
+    if (!isChatVisible) {
+      return;
+    }
     const eventName = `serverToClient${user._id}`;
     console.log("333 Слушаем сообщение сервера!!!", eventName);
     socket.on(eventName, (data) => {
@@ -43,47 +49,48 @@ export default function Chat() {
       }
     });
     goToEndDialog();
-    console.log('== 30-1 ==');
+    console.log("== 30-1 ==");
     return () => {
-      console.log('== 30-2 ==', messages);
+      console.log("== 30-2 ==", messages);
       socket.off(eventName);
     };
-  }, [messages]);
+  }, [messages, isChatVisible]);
 
   // ======================================
   async function fetchUserReq() {
-    // console.log('== 40 ==');
-    // console.log("fetchUserReq!!!", user._id);
     const response = await findUserRequest(user._id);
     console.log("=!========== ", response);
     if (response.length > 0) {
       setCurrentChat(response[0]);
       setMessages(response[0].messages);
-      
     }
   }
 
   // ======================================
   function goToEndDialog() {
-    if (dialog.current && isChatVisible) {
-      console.log('== 50 == Идем в конец isChatVisible=', isChatVisible);
+    if (dialog.current && isChatVisible && messages) {
+      console.log("== 50 == Идем в конец isChatVisible=", isChatVisible);
       dialog.current.scrollTop = 99999;
       // отметки прочтено
+      // Находим не прочитанные менеджера и в массив
+      const notReadMess = messages
+        .filter((i) => i.author !== user._id && !i.readAt)
+        .map((i) => i._id);
       const params = {
         id: currenChat,
-        body: { 
-          readDate: new Date(),
-          whoRead: user,
+        body: {
+          createdBefore: notReadMess,
         },
-      }
+      };
       const response = readMessage(params);
-      console.log('response', response);
+      const bodyToSocket = { clientId: user._id };
+      socket.emit("clientReadMessage", bodyToSocket);
     }
   }
 
   // ======================================
   async function fnSendMessage() {
-    // console.log('== 60 ==');
+    console.log('== 60 ==');
     // console.log("Посылаем сообщение", myMessage);
     const body = { author: user._id, text: myMessage };
     const params = { id: currenChat, body };

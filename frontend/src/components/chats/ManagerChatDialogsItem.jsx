@@ -3,7 +3,7 @@ import vGreen from "../../pics/v-green.png";
 import vvGreen from "../../pics/vv-green.png";
 
 export default function ManagerChatDialogItem({ item, chatOwner }) {
-  console.log("333", item.readAt);
+  // console.log("333", item.readAt);
   // `url(${background})`
   const checkRead = item.readAt ? vvGreen : vGreen;
 

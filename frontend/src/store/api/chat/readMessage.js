@@ -1,5 +1,6 @@
 export const readMessage = async (params) => {
   const { id, body } = params;
+  console.log('STRING', JSON.stringify(body));
   const url =
     process.env.REACT_APP_BACK_URL +
     `/api/common/support-requests/${id._id}/messages/read`;

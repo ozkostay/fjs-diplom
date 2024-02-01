@@ -3,33 +3,31 @@ import { ChatService } from './chat.service';
 import { ParamIdDto } from './interfaces/ParamIdDto';
 import { SendMessageDto } from './interfaces/SendMessageDto';
 import { SupportRequestDocument } from './schemas/SupportRequest.schema';
+import { ReadMessageDto } from './interfaces/ReadMessageDTO';
 
 @Controller('api')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @Get('admin/deletemessage')
+  @Get('admin/deletemessage') // Для разработки
   public delallMessage(): any {
     console.log('============ Удаляем все сообщения');
     return this.chatService.delallMessage();
   }
-
 
   @Post('common/support-requests/:id/messages') // добавить сообщение
   public addMessage(
     @Param() { id }: ParamIdDto,
     @Body() body: SendMessageDto,
   ): Promise<SupportRequestDocument> {
-    console.log('============ id', id, 'body', body);
     return this.chatService.addMessage(body, id);
   }
 
   @Post('common/support-requests/:id/messages/read') // Прочитать сообщение
   public readMessage(
     @Param() { id }: ParamIdDto,
-    @Body() body: SendMessageDto,
+    @Body() body: ReadMessageDto,
   ): any {
-    console.log('Прочтено ============ id', id, 'body', body);
     return this.chatService.readMessage(body, id);
   }
 
@@ -40,13 +38,11 @@ export class ChatController {
 
   @Get('manager/support-request')
   public findRequestById(@Query() params: any): any {
-    console.log('999', params);
     return this.chatService.findRequestById(params);
   }
-  
+
   @Get('manager/support-requests-users')
   public getUsersFromRequests(): Promise<any> {
-    console.log(555);
     return this.chatService.getUsersFromRequests();
   }
 }
