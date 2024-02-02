@@ -6,6 +6,7 @@ import { findRequestById } from "../../store/api/chat/findRequestById";
 import ManagerChatDialogItem from "./ManagerChatDialogsItem";
 import io from "socket.io-client";
 import { sendClientMessage } from "../../store/api/chat/sendClientMessage";
+import { readMessage } from "../../store/api/chat/readMessage";
 
 const socket = io.connect(process.env.REACT_APP_BACK_URL);
 
@@ -21,22 +22,23 @@ export default function ManagerChat() {
   const dialog = useRef();
 
   //getUsersFromRequests
-  useEffect(() => {
-    // console.log('== 10 ==');
-    // fetchChatsUsers();
-  }, []);
+  // useEffect(() => {
+  //   console.log("== 10 ==");
+  //   // fetchChatsUsers();
+  // }, []);
 
   useEffect(() => {
+    console.log("== 10 ==  Messages изменились - идем в конец списка");
     goToEndDialog();
   }, [messages]);
 
   // ==== Слушаем сообщение сервера ========
   useEffect(() => {
-    console.log();
-    console.log("== 20 ==", chatOwner);
+    console.log("== 20 == Эффект сокета");
     const eventName = `serverToManager`;
     socket.on(eventName, (data) => {
-      console.log("YESSSS 111", mgrSend);
+      console.log("=YESSSSon========== ", data.clientId);
+      console.log("=YESSSSon== FUNC ======== ", data.func);
       fetchChatsUsers(data);
     });
 
@@ -48,9 +50,9 @@ export default function ManagerChat() {
 
   //=======================================
   useEffect(() => {
-    // console.log("YESSSS 222", chatsUsers);
+    console.log("== 30 == Поучаем пользователей ЧАТов");
     // console.log("YESSSS 333", chatsUsers);
-    
+    // console.log("== 30 ==");
     if (!chatsUsers) {
       fetchChatsUsers();
     }
@@ -71,6 +73,7 @@ export default function ManagerChat() {
 
   //=============================================
   async function fetchChatsUsers(socetData) {
+    console.log("== 40 == Получаем ЧАТ выбранного пользователя");
     try {
       const response = await getUsersFromRequests();
       const data = await response;
@@ -88,6 +91,7 @@ export default function ManagerChat() {
 
   //==================================
   async function fnLiOnClick(e, chatId, user) {
+    console.log("== 50 == ОНКЛИК по пользователям");
     e.preventDefault();
     // console.log('== 30 ==');
     // console.log("========== == 0 == user", user);
@@ -116,18 +120,37 @@ export default function ManagerChat() {
 
   //====================================
   function goToEndDialog() {
+    console.log("== 60 == Идем в конец и ПРОЧТЕНО");
     if (!chatOwner) return;
 
     // console.log("====== manager to end");
     if (dialog.current) {
       dialog.current.scrollTop = 99999;
     }
+    if (messages.at(-1).author !== chatOwner.user._id) return; // Если последнее message манагера то не посылаем в сокет
+    
+    // Отправка ПРОЧТЕНО
+    const notReadMess = messages
+      .filter((i) => i.author == chatOwner.user._id && !i.readAt)
+      .map((i) => i._id);
+    if (notReadMess.length < 1) return;
+
+    const params = {
+      id: chatOwner.chatId,
+      body: {
+        createdBefore: notReadMess,
+      },
+    };
+    const response = readMessage(params);
+    const bodyToSocket = { clientId: chatOwner.user._id };
+    socket.emit("managerReadMessage", bodyToSocket);
   }
 
   //====================================
   async function fetchUserRequest(chatId) {
-    console.log('Запрос чата', chatId);
-    
+    console.log("== 70 == Получаем сообщения из чата пользователя");
+    console.log("Запрос чата", chatId);
+
     const dataRequest = await findRequestById(chatId);
     // console.log("=== dataRequest ===", dataRequest);
     setMessages(dataRequest.messages);
@@ -135,6 +158,7 @@ export default function ManagerChat() {
 
   //==================================
   function fnOnMouseOver(e) {
+    // console.log("== 80 ==");
     e.preventDefault();
     const currentLi = e.target.closest(".mchat-users-cell");
     if (currentLi === seletedLi) {
@@ -146,6 +170,7 @@ export default function ManagerChat() {
 
   //==================================
   function fnOnMouseLeave(e) {
+    // console.log("== 90 ==");
     e.preventDefault();
     const currentLi = e.target.closest(".mchat-users-cell");
     if (currentLi === seletedLi) {
@@ -156,6 +181,8 @@ export default function ManagerChat() {
 
   //================================== Отправка сообщений
   async function fnSendMessage() {
+    console.log("== 100 == Посылаем сообщение менеджера");
+    if (mgrMessage.trim().length < 1) return;
     const body = { author: user._id, text: mgrMessage };
     const params = { id: { _id: chatOwner.chatId }, body };
     const response = await sendClientMessage(params);

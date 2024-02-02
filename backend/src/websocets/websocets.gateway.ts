@@ -26,9 +26,12 @@ export class WebsocetsGateway {
   
   @SubscribeMessage('clientToManager')
   handleMessageToManager(@MessageBody() body: any): any {
+    console.log('');
     console.log('clientToManager', body);
     const messageClientName = `serverToClient${body.clientId}`;
     console.log('=============', messageClientName);
+    body.func = 'clientToManager';
+    console.log('=***====', body);
     this.server.emit(messageClientName, body);
     this.server.emit('serverToManager', body);
     return 'clientToManager';
@@ -36,9 +39,12 @@ export class WebsocetsGateway {
 
   @SubscribeMessage('managerToClient')
   handleMessageToClient(@MessageBody() body: any): string {
+    console.log('');
     console.log('managerToClient', body);
     const messageClientName = `serverToClient${body.clientId}`;
     console.log('=============', messageClientName);
+    body.func = 'managerToClient';
+    console.log('=***====', body);
     this.server.emit(messageClientName, body);
     this.server.emit('serverToManager', body);
     return 'managerToClient';
@@ -46,11 +52,27 @@ export class WebsocetsGateway {
 
   @SubscribeMessage('clientReadMessage')
   clientReadMessage(@MessageBody() body: any): string {
+    console.log('');
     console.log('clientReadMessage', body);
     // const messageClientName = `serverToClient${body.clientId}`;
     console.log('===== Read message ========', body.clientId);
+    body.func = 'clientReadMessage';
+    console.log('=***====', body);
     this.server.emit('serverToManager', body);
-    return 'managerToClient';
+    return 'clientReadMessage';
+  }
+
+  
+  @SubscribeMessage('managerReadMessage')
+  managerReadMessage(@MessageBody() body: any): string {
+    console.log('');
+    console.log('managerReadMessage', body);
+    body.func = 'managerToClient';
+    console.log('=***====', body);
+    const messageClientName = `serverToClient${body.clientId}`;
+    console.log('===== Read message ========', body.clientId);
+    this.server.emit(messageClientName, body);
+    return 'managerReadMessage';
   }
 }
 

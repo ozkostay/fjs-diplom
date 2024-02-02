@@ -34,30 +34,33 @@ export default function Chat() {
 
   //==== Слушаем сообщение сервера ========
   useEffect(() => {
-    console.log("== 30 ==");
+    console.log("== 30 == SOCKET");
     if (!isChatVisible) {
       return;
     }
     const eventName = `serverToClient${user._id}`;
     console.log("333 Слушаем сообщение сервера!!!", eventName);
     socket.on(eventName, (data) => {
-      console.log("on messageToClient!!! YESSSS", data);
+      console.log("== 30-1 == SOCKET ON");
+      console.log("=YESSSSon========== ", data.clientId);
+      console.log("=YESSSSon== FUNC ======== ", data.func);
       if (data.clientId === user._id) {
         console.log("===!=== Пришло новое сообщение ");
-        setMessages(null);
-        fetchUserReq();
+        // setMessages(null); // Старые сообщения удаляем
+        fetchUserReq(); // Новые сообщения запрашиваем
       }
     });
-    goToEndDialog();
-    console.log("== 30-1 ==");
+    goToEndDialog(); // Переход в конец сообщений
+    // console.log("== 30-2 ==");
     return () => {
-      console.log("== 30-2 ==", messages);
+      console.log("== 30-3==  SOCKET OFF");
       socket.off(eventName);
     };
   }, [messages, isChatVisible]);
 
   // ======================================
   async function fetchUserReq() {
+    console.log("== 40 == Запрос диалога");
     const response = await findUserRequest(user._id);
     console.log("=!========== ", response);
     if (response.length > 0) {
@@ -70,19 +73,23 @@ export default function Chat() {
   function goToEndDialog() {
     if (dialog.current && isChatVisible && messages) {
       console.log("== 50 == Идем в конец isChatVisible=", isChatVisible);
-      dialog.current.scrollTop = 99999;
-      // отметки прочтено
-      // Находим не прочитанные менеджера и в массив
+      dialog.current.scrollTop = 99999; // Прокрутка вниз
+      if (messages.at(-1).author === user._id) return; // Если последнее message автора то не посылаем в сокет
+
+      // Отправка ПРОЧТЕНО
+      console.log("== 50-1 == Прочитал последнее от  МЕНЕГЕРА");
       const notReadMess = messages
         .filter((i) => i.author !== user._id && !i.readAt)
         .map((i) => i._id);
+      if (notReadMess.length < 1) return;
+
       const params = {
         id: currenChat,
         body: {
           createdBefore: notReadMess,
         },
       };
-      const response = readMessage(params);
+      const response = readMessage(params); // Посылаем метку ПРОЧИТАНО
       const bodyToSocket = { clientId: user._id };
       socket.emit("clientReadMessage", bodyToSocket);
     }
@@ -90,7 +97,8 @@ export default function Chat() {
 
   // ======================================
   async function fnSendMessage() {
-    console.log('== 60 ==');
+    if (myMessage.trim().length < 1) return;
+    console.log("== 60 == Посылаем текстовое сообщение");
     // console.log("Посылаем сообщение", myMessage);
     const body = { author: user._id, text: myMessage };
     const params = { id: currenChat, body };
