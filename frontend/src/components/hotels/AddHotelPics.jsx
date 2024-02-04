@@ -8,8 +8,8 @@ export default function AddHotelPics() {
   let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
-  //=====================================
 
+  //=====================================
   async function picsMetadata(file) {
     {
       const { name } = file;
@@ -41,12 +41,12 @@ export default function AddHotelPics() {
   function fnPics2Arr(e) {
     // Мах объем 10МБ
     // Мин ширина 1000пкс
-    // Макс 5000 пикс по любой из сторон
+    // Макс 5000 пикс по сумме сторон
 
     const preArray = [...hotelsPics];
     const inputArray = Array.from(e.target.files);
     const picsQuantity = preArray.length + inputArray.length;
-    if ( picsQuantity > 10) {
+    if (picsQuantity > 10) {
       alert("Не более картинок 10!!!");
       return;
     }
@@ -58,27 +58,32 @@ export default function AddHotelPics() {
         console.log(`НЕ добавляем ${i.name} Ширина меньше 1000px ${wh.width}`);
         picsMinus += 1;
       } else if (wh.width + wh.height > 5000) {
-        console.log(`НЕ добавляем ${i.name} сумма длин сторон больше 5000px ${wh.width + wh.height}`);
+        console.log(
+          `НЕ добавляем ${i.name} сумма длин сторон больше 5000px ${
+            wh.width + wh.height
+          }`
+        );
         picsMinus += 1;
       } else {
-        // console.log("Push", i.name, "WIDTH ", wh.width);
         preArray.push(i);
       }
 
-      if (preArray.length === picsQuantity - picsMinus) { //  Последний элемент dispatch-им
+      if (preArray.length === picsQuantity - picsMinus) {
+        //  Последний элемент dispatch-им
         // Сначала проверка на общий размер
         let filesSize = 0;
         preArray.forEach(async (file, index) => {
           const tempSize = file.size;
           filesSize += Number(tempSize);
           if (index === preArray.length - 1) {
-            if (Math.floor(filesSize / 1024 / 1024) > 10) { // Проверка на общийрамер файлов < 10МБ
+            if (Math.floor(filesSize / 1024 / 1024) > 10) {
+              // Проверка на общийрамер файлов < 10МБ
               console.log(`НЕ добавляем! общий размер файлов больше 10МБ`);
             } else {
               dispatch(actHotelsPics(preArray));
             }
           }
-        })
+        });
       }
     });
   }
