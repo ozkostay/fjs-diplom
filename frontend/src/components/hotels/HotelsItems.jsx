@@ -1,26 +1,23 @@
 import React from "react";
-import HotelView from "./HotelsView";
 import { useNavigate } from "react-router-dom";
 
-export default function HotelsItems({item}) {
+export default function HotelsItems({ item, index, limit }) {
   const navigate = useNavigate();
-  // const url = `${process.env.REACT_APP_BACK_URL}/${item.files.url[0]}`
+  if (index >= limit) {
+    return;
+  }
   const pics = JSON.parse(item.files);
   const picsUrl = `url(${process.env.REACT_APP_BACK_URL}${pics[0].url})`;
-  // console.log('=========================', aaa)
   const picStyle = {
     backgroundImage: picsUrl,
-    backgroundColor: '#ccc',
-    backgroundRepeat:"no-repeat",
-    backgroundSize:"cover"
-  }
+    backgroundColor: "#ccc",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  };
 
   function fnViewHotel() {
-    // HotelView();
-    const url = `/hotels/view/${item._id}`
-    // console.log('URL', url);
-    navigate( url , { state: {item} });
-
+    const url = `/hotels/view/${item._id}`;
+    navigate(url, { state: { item } });
   }
 
   return (
@@ -30,7 +27,9 @@ export default function HotelsItems({item}) {
         <div className="hotels-item-conteiner">
           <h2>{item.title}</h2>
           <div className="hotels-item-description">{item.description}</div>
-          <button className="hotels-item-btn" onClick={fnViewHotel}>Подробнее</button>
+          <button className="hotels-item-btn" onClick={fnViewHotel}>
+            Подробнее
+          </button>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import viewIcon from "../../pics/eye.png";
 import editIcon from "../../pics/pen.png";
 import deleteIcon from "../../pics/remove.png";
 
-export default function UsersItem({ item, index, hendlerIcon, offset, limit }) {
+export default function UsersItem({ item, index, hendlerIcon, limit }) {
   
   if (index >= limit) {
     return;

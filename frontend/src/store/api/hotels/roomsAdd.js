@@ -1,5 +1,5 @@
 export const roomsAdd = async (formData) => {
-  console.log("===== PARAM SAGA rooms ADD", formData, '555', formData instanceof FormData);
+  // console.log("===== PARAM SAGA rooms ADD", formData, '555', formData instanceof FormData);
   const url =
     process.env.REACT_APP_BACK_URL +
     process.env.REACT_APP_POSTFIX_ROOMS;
@@ -10,7 +10,7 @@ export const roomsAdd = async (formData) => {
   try {
     const res = await fetch(url, options);
     const data = await res.json()
-    console.log("RES", data);
+    // console.log("RES", data);
     // return data
   } catch (e) {
     console.log("ERROR UPLOAD", e.massage);

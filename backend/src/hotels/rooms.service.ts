@@ -1,13 +1,9 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Hotel, HotelDocument } from './schemas/hotels.schema';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { access, mkdir, writeFile } from 'fs/promises';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { ICreateHotelDto } from './interfaces/dto/create-hotel';
-import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
-import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
 import { Room, RoomDocument } from './schemas/rooms.schema';
 import { INewRoomBodyDto } from './interfaces/dto/new-room-body';
 import { HotelsService } from './hotels.service';
@@ -20,22 +16,17 @@ export class RoomsService {
   ) {}
 
   public async findAll(params: any): Promise<RoomDocument[]> {
-    console.log('rooms params ', params);
     const { offset, limit, hotelid } = params;
     const qOffset = Number(offset);
     const qLimit = Number(limit);
-    // const searchString = new RegExp(search, 'i');
-    // return await this.RoomModel.find({
-    //   $or: [{ name: searchString }, { email: searchString }, { contactPhone: searchString }],
-    // })
+    
     return await this.RoomModel.find({ hotel: hotelid })
       .skip(qOffset * qLimit)
       .limit(qLimit + 1)
       .exec();
-    // return this.RoomModel.find().exec();
   }
 
-  public async create(files: any[], body: INewRoomBodyDto): Promise<any> {
+  public async create(files: any[], body: INewRoomBodyDto): Promise<RoomDocument> {
       // Настройка пути
       const picsFolder = '/public/rooms';
       const folder = join(__dirname, '..', '..', picsFolder);
@@ -84,4 +75,3 @@ export class RoomsService {
       return room;
   }
 }
-

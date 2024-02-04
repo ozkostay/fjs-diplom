@@ -106,7 +106,6 @@ body {
 }
 
 .left-nav li {
-  /* margin: 0 0 20px 0; */
   height: 40px;
   font-weight: 600;
   display: flex;
@@ -136,7 +135,6 @@ a {
 .outlet-container {
   max-width: 626px;
   border-radius: 8px;
-  /* background-color: white; */
 }
 
 .users-header {
@@ -230,14 +228,6 @@ a {
   font-size: 24px;
   text-decoration: none;
 }
-
-/* .nav-item, .nav-link:visited {
-  list-style: none;
-  margin: 20px;
-  color: #04145c;
-} */
-
-
 
 .title-login {
   margin: 20px auto;
@@ -440,8 +430,6 @@ a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  /* background-color:white; */
-
 }
 
 .addhotel-pics-btn {
@@ -462,7 +450,6 @@ a {
 .hotels-main {
   width: 626px;
   background-color: #f5f6fa;
-  /* box-shadow: 0 0 5px 5px rgba(122,122,122,0.3); */
 }
 
 .hotels-header {
@@ -471,6 +458,12 @@ a {
   margin-bottom: 20px;
   border-radius: 8px;
   box-shadow: 0 0 5px 5px rgba(122,122,122,0.3);
+}
+
+.hotels-flex {
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .hotels-filter {
@@ -595,7 +588,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
 }
 
 .firstpage {
@@ -620,12 +612,9 @@ a {
 }
 
 .chat-btn {
-  /* width: 80px;
-  height: 80px; */
   position: fixed;
   bottom: 40px;
   right: 40px;  
-  /* border-radius: 35%; */
   cursor: pointer;
 }
 
@@ -678,7 +667,6 @@ a {
 }
 
 .message-wrap {
-  /* background-color: #b6b6b6; */
   display: flex;
   justify-content: flex-start;
   margin-bottom: 10px;
@@ -754,7 +742,6 @@ a {
 .mchat-header {
   padding: 10px 5px;
   display: flex;
-  /* justify-content: flex-start; */
   align-items: center;
   background-color: #9c9c9c;
   color: white;
@@ -778,12 +765,10 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  /* background-color: #ff530f; */
 }
 
 .mchat-dialog-wrap {
   width: 100%;
-  /* height: 600px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -796,7 +781,6 @@ a {
   border: 1px solid #a0a0a0;
   padding: 10px;
   overflow-x:hidden;
-
 }
 
 .mchat-dialog-send {

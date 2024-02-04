@@ -14,10 +14,9 @@ export default function Users() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     findUsers();
-    // console.log("9999999999999999999999999999999");
   }, [offset, limit, isDelete]);
 
   function findUsers() {
@@ -27,7 +26,6 @@ export default function Users() {
       limit,
       search,
     };
-    // console.log("PARAMSSSSSS", params);
     dispatch(actUsersList(params));
   }
 

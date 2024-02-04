@@ -19,7 +19,8 @@ export class ChatService {
     @InjectModel(User.name) private UserModel: Model<UserDocument>,
   ) {}
 
-  public async delallMessage(): Promise<any> {
+  //============================ Для разработки
+  public async delallMessage(): Promise<any> { 
     const returnA = await this.SupportRequestModel.deleteMany({});
     const returnB = await this.MessageModel.deleteMany({});
     return returnB;

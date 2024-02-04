@@ -5,12 +5,8 @@ import {
   Get,
   Param,
   Post,
-  Query,
-  UploadedFiles,
-  UseInterceptors,
+  Query
 } from '@nestjs/common';
-import { RoomsService } from './rooms.service';
-import { FilesInterceptor } from '@nestjs/platform-express';
 import { ReservationService } from './reservation.service';
 import { ICreateReservationDto } from './interfaces/dto/create-reservation';
 

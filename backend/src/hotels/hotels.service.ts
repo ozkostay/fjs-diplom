@@ -44,7 +44,7 @@ export class HotelsService {
     // Настройка пути
     const picsFolder = '/public/hotels';
     const folder = join(__dirname, '..', '..', picsFolder);
-    console.log(folder);
+    // console.log(folder);
     // Проверка наличия папки
     try {
       await access(folder);
