@@ -20,6 +20,7 @@ export default function reducerUsersList(state = initialState, action) {
         users: action.payload,
         loading: false,
         error: null,
+        isDelete: null
       };
     case USERS_DELETE:
       // const tempUsers = state.users.filter((i) => i._id !== action.payload);

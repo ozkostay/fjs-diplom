@@ -1,13 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function ReservationsItems({ item, deleteItem }) {
+  const { user } = useSelector((state) => state.crUser);
   const navigate = useNavigate();
-
   const pics = JSON.parse(item.roomId.images);
-  // const picsUrl = `url(${process.env.REACT_APP_BACK_URL}${pics[0].url})`;
+  
   const picsUrl = `url(${process.env.REACT_APP_BACK_URL}${pics[0].url})`;
-  // console.log('=========================', aaa)
   const picStyle = {
     backgroundImage: picsUrl,
     backgroundColor: "#ccc",
@@ -17,8 +17,8 @@ export default function ReservationsItems({ item, deleteItem }) {
   const dateStyle = {
     display: "flex",
     justifyContent: "space-between",
-    padding: '0 4px',
-    marginBottom: '10px',
+    padding: "0 4px",
+    marginBottom: "10px",
   };
 
   function fnViewRoom() {
@@ -57,9 +57,14 @@ export default function ReservationsItems({ item, deleteItem }) {
             </div>
 
             <div className="hotels-item-buttons">
-              <button className="addhotel-btn blue" onClick={fnViewRoom}>
-                Подробнее
-              </button>
+              {user?.role === "client" && (
+                <>
+                  <button className="addhotel-btn blue" onClick={fnViewRoom}>
+                    Подробнее
+                  </button>
+                </>
+              )}
+
               <button
                 className="addhotel-btn red"
                 onClick={() => deleteItem(item._id)}

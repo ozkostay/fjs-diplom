@@ -16,7 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '120s' },
+      signOptions: { expiresIn: '36000s' },  // 10 часов, в реалии нужно делать очень мало и обновлять JWT-token
     }),
   ],
   providers: [AuthService, JwtStrategy, LocalStrategy],

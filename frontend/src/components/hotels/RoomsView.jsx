@@ -16,8 +16,8 @@ export default function RoomsView(props) {
   const [dateStart, setDateStart] = useState(dateNow);
   const [dateEnd, setDateEnd] = useState(dateNow);
   const dispatch = useDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { _id, title, description, images } = location.state.item;
   const hotelState = location.state.hotelState;
   const hotelsPics = JSON.parse(images);
@@ -107,7 +107,7 @@ export default function RoomsView(props) {
           }}
         >
           {!user && (<h2>Для возможности бронирования номера необходимо войти в систему!</h2>)}
-          {user && (
+          {user && user.role === 'client' && (
             <>
               <div className="findrooms dates">
                 <div className="findrooms date">Заезд</div>

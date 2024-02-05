@@ -6,18 +6,15 @@ import {
   actRegRoomsList,
   actUserLogout,
 } from "../store/actions/actionCreators";
-// import logo from "../pics/logo.png";
-// import chat from "../pics/chat.png";
-// import headerLogo from "./img/header-logo.png";
 
 export default function Header() {
   const { user } = useSelector((state) => state.crUser);
   const { regRooms, addRegRooms } = useSelector((state) => state.regrooms);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //============================================================
+  //===================================
   useEffect(() => {
     // console.log("useEffect in HEADER");
     if (user) {
@@ -26,14 +23,15 @@ export default function Header() {
     }
   }, [user, addRegRooms]);
 
+  //===================================
   function fnLogout(event) {
     event.preventDefault();
-    console.log("Yes LOGOUT");
     dispatch(actUserLogout());
     dispatch(actRegRoomsClear());
     navigate("/");
   }
 
+  //===================================
   function fnRegRooms() {
     console.log("RegRooms", regRooms);
   }
@@ -50,15 +48,22 @@ export default function Header() {
 
         <div className="header-main">
           <div>
+            <Link className="header-nav-link" to="/">
+              Главная
+            </Link>
+          </div>
+          {/* <div>
             <button onClick={fnRegRooms}>books</button>
             <h2>{regRooms?.length}</h2>
-          </div>
+          </div> */}
+
           {user ? (
             <div className="header-user-wrap">
-              <Link className="header-nav-link" to="/reservations">
-                Бронирования
-              </Link>
-
+              {user?.role === "client" && (
+                <Link className="header-nav-link" to="/reservations">
+                  Бронирования
+                </Link>
+              )}
               <span className="header-user">{user.name}</span>
               <span className="header-nav-link" onClick={fnLogout}>
                 Выйти

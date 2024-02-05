@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddRoomPics from "./AddRoomPics";
 import { actRoomsAdd, actRoomsPics } from "../../store/actions/actionCreators";
 
-export default function AddRoom({setIsAddRoom, hotelId}) {
+export default function AddRoom({ setIsAddRoom, hotelId }) {
   const { user } = useSelector((state) => state.crUser);
   const { roomsPics } = useSelector((state) => state.rooms);
   const [title, setTitle] = useState("");
@@ -38,7 +38,7 @@ export default function AddRoom({setIsAddRoom, hotelId}) {
       return;
     }
     setSaveBtnDisabled(true);
-  },[roomsPics, title, description])
+  }, [roomsPics, title, description]);
   // удалить
 
   //===============================================================
@@ -54,18 +54,18 @@ export default function AddRoom({setIsAddRoom, hotelId}) {
     formData.append("hotelId", hotelId);
     formData.append("isAnable", true);
 
-    console.log('formData', formData);
+    console.log("formData", formData);
     dispatch(actRoomsAdd(formData));
     clearAll();
     // }
   }
-  
+
   //================================================
   function clearAll() {
     dispatch(actRoomsPics([]));
     setTitle("");
     setDescription("");
-    setIsAddRoom(false)
+    setTimeout(setIsAddRoom(false), 200);
   }
 
   //====================================================
@@ -95,10 +95,17 @@ export default function AddRoom({setIsAddRoom, hotelId}) {
           </label>
         </div>
         <div className="addhotel-btn">
-          <button ref={saveButton} className="addhotel-btn green" onClick={handlerHotelsSave} disabled={saveBtnDisabled}>
+          <button
+            ref={saveButton}
+            className="addhotel-btn green"
+            onClick={handlerHotelsSave}
+            disabled={saveBtnDisabled}
+          >
             Сохранить
           </button>
-          <button className="addhotel-btn red" onClick={clearAll}>Отменить</button>
+          <button className="addhotel-btn red" onClick={clearAll}>
+            Отменить
+          </button>
         </div>
       </div>
     </>

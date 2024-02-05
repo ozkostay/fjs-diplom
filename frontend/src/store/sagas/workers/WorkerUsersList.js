@@ -4,12 +4,12 @@ import { usersListSearch } from "../../api/users/usersListSearch";
 
 
 export default function* WorkerUsersList(action) {
-  console.log('SAGA WORKER UsersList', action);
+  // console.log('SAGA WORKER UsersList', action);
   if (!action.payload.limit) {
-    console.log('NONONO');
+    // console.log('NONONO');
     return;
   }
-  console.log('YESYESYES');
+  // console.log('YESYESYES');
   try {
     const retryCount = 1;
     const retryDelay = 1 * 1000;

@@ -14,17 +14,9 @@ export class AppController {
   }
 
   // Для теста
-  @Get('/token')
-  getToken(): string {
-    console.log('app.cont 222');
-    return this.authService.createToken({ email: 'Maria', role: 'admin' });
-  }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Post('/login')
-  // @UseGuards(AuthGuard('local'))
-  // async login(@Request() req) {
-  //   console.log('APP-CONTROLLER=== ', req.user);
-  //   return req.user;
+  // @Get('/token')
+  // getToken(): string {
+  //   console.log('app.cont 222');
+  //   return this.authService.createToken({ email: 'Maria', role: 'admin' });
   // }
 }

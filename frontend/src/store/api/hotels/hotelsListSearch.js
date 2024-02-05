@@ -4,7 +4,17 @@ export const hotelsListSearch = async (params) => {
   const url = process.env.REACT_APP_BACK_URL + 
   process.env.REACT_APP_POSTFIX_HOTELS +
   `?offset=${offset}&limit=${limit}&search=${search}`;;
-  const response = await fetch(url);
+  
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
+  const response = await fetch(url, options);
+  
   if (!response.ok) {
     console.log('ERR');
     throw new Error(response.statusText);

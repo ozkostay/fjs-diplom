@@ -14,6 +14,8 @@ import FindRooms from "./components/hotels/FindRooms";
 import RoomsView from "./components/hotels/RoomsView";
 import Reservations from "./components/hotels/Reservations";
 import ManagerChat from "./components/chats/ManagerChat";
+import MgrReservations from "./components/hotels/MgrReservations";
+import Page404 from "./components/Page404";
 
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
@@ -42,12 +44,9 @@ function App() {
           <Route path="/useredit/:id" element={<UserEdit />} />
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/managerchat" element={<ManagerChat />} />
-          {/* <Route path="/about" element={<About />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/catalog/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<Page404 />} /> */}
+          <Route path="/managerchat" element={<ManagerChat />} />
+          <Route path="/mgrresevations/:id" element={<MgrReservations />} />
+          <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
     </>

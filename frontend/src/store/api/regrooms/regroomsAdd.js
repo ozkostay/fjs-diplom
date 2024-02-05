@@ -8,6 +8,7 @@ export const regRoomsAdd = async (params) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token")
     },
     body: JSON.stringify(params),
   };

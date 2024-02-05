@@ -2,7 +2,7 @@ import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/com
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
+export class JwtManager extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
@@ -11,11 +11,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   handleRequest(err, user, info) {
     // You can throw an exception based on either "info" or "err" arguments
-    console.log('=== Ayth.Guard JWT err: ', err);
-    console.log('=== Ayth.Guard JWT USER: ', user);
-    console.log('=== Ayth.Guard JWT info: ', info);
-    // if (err || user.role !== 'DDD') {
-    if (err || !user || user?.role !== 'admin') {
+    console.log('==== JwtManaget === user', user);
+    if (err || !user || user?.role !== 'manager') {
+      console.log('==== JwtManaget ===== ERR =============');
       throw err || new UnauthorizedException();
     }
     return user;

@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { ParamIdDto } from './interfaces/ParamIdDto';
 import { SendMessageDto } from './interfaces/SendMessageDto';
 import { SupportRequestDocument } from './schemas/SupportRequest.schema';
 import { ReadMessageDto } from './interfaces/ReadMessageDTO';
+import { JwtManager } from 'src/auth/jwt.auth.manager';
+import { JwtClient } from 'src/auth/jwt.client';
 
 @Controller('api')
 export class ChatController {
@@ -31,16 +33,19 @@ export class ChatController {
     return this.chatService.readMessage(body, id);
   }
 
+  @UseGuards(JwtClient)
   @Get('client/support-requests')
   public findUserRequest(@Query() params: any): any {
     return this.chatService.findUserRequest(params);
   }
 
+  @UseGuards(JwtManager)
   @Get('manager/support-request')
   public findRequestById(@Query() params: any): any {
     return this.chatService.findRequestById(params);
   }
 
+  @UseGuards(JwtManager)
   @Get('manager/support-requests-users')
   public getUsersFromRequests(): Promise<any> {
     return this.chatService.getUsersFromRequests();

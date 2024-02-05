@@ -5,14 +5,21 @@ export const roomsListSearch = async (objParams) => {
     process.env.REACT_APP_BACK_URL +
     "/api/common/hotel-rooms/" +
     `?offset=${offset}&limit=${limit}&hotelid=${hotelId}`;
-  // console.log("SAGA API Берем номера гостиницы url=", roomsUrl);
+  
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
 
-  const response = await fetch(roomsUrl);
+  const response = await fetch(roomsUrl, options);
+  
   if (!response.ok) {
     console.log("ERR");
     throw new Error(response.statusText);
   } else {
-    // console.log("API ROOMS LIST наконец-то GOOD");
     return await response.json();
   }
 };

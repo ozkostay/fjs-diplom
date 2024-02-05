@@ -15,15 +15,6 @@ export default function HotelsView(props) {
   const [offset, setOffset] = useState(0);
   const dispatch = useDispatch();
   const location = useLocation();
-
-  // if (!location.state) {
-  //   return (
-  //     <>
-  //       <div>Страница доступна только со страницы просмотра гостиниц!!!</div>
-  //     </>
-  //   );
-  // }
-
   const { _id, title, description, files } = location.state.item;
   const hotelsPics = JSON.parse(files);
   const backendUrl = `${process.env.REACT_APP_BACK_URL}`;
@@ -80,6 +71,7 @@ export default function HotelsView(props) {
             >
               Добавить номер
             </button>
+            <h2 style={{color: 'red'}}>{isAddRoom ? 'Yes' : 'No'}</h2>
           </div>
         )}
       </div>

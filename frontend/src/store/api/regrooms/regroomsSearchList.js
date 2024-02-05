@@ -10,6 +10,7 @@ export const regRoomsSearchList = async (params) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token")
     },
   };
   try {

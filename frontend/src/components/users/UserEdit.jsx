@@ -15,7 +15,6 @@ export default function UserEdit() {
 
 
   useEffect(() => {
-    console.log("USE 1");
     const userItem = users.find((item) => item._id === id);
     if (userItem !== -1) {
       setUser(userItem);
@@ -23,7 +22,6 @@ export default function UserEdit() {
   }, []);
 
   useEffect(() => {
-    console.log("USE 2");
     if (user) {
       setName(user.name);
       setPhone(user.contactPhone);
@@ -44,7 +42,7 @@ export default function UserEdit() {
     navigate('/users');
   }
 
-  console.log("COMPONENT");
+  // console.log("COMPONENT");
   return (
     <>
       {user && (
@@ -55,11 +53,11 @@ export default function UserEdit() {
           <br />
           <form onSubmit={fnFormHandler}>
             <div className="user-view">
-              <span className="edit-fields bold bb">ID: </span>
+              <span className="edit-fields bold">ID: </span>
               {user._id}
             </div>
             <div className="user-view">
-              <span className="edit-fields bold bb">Имя: </span>
+              <span className="edit-fields bold">Имя: </span>
               <input
                 className="user-edit-input"
                 type="text"
@@ -68,11 +66,11 @@ export default function UserEdit() {
               />
             </div>
             <div className="user-view">
-              <span className="edit-fields bold bb">Email: </span>
+              <span className="edit-fields bold">Email: </span>
               {user.email}
             </div>
             <div className="user-view">
-              <span className="edit-fields bold bb">Тел.: </span>
+              <span className="edit-fields bold">Тел.: </span>
               <input
                 className="user-edit-input"
                 type="text"
@@ -81,7 +79,7 @@ export default function UserEdit() {
               />
             </div>
             <div className="user-view">
-              <span className="edit-fields bold bb">Роль.: </span>
+              <span className="edit-fields bold">Роль.: </span>
               <input
                 className="user-edit-input"
                 type="text"

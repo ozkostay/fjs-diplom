@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actHotelsList, actRegRoomsDelete } from "../../store/actions/actionCreators";
-import HotelsItems from "./HotelsItems";
+import { actRegRoomsDelete } from "../../store/actions/actionCreators";
 import ReservationsItems from "./ReservationsItems";
 
 export default function Reservations() {

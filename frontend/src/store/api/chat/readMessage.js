@@ -9,10 +9,11 @@ export const readMessage = async (params) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
     body: JSON.stringify(body),
   };
-  console.log("URL API == ", url);
+  
   try {
     const res = await fetch(url, options);
     if (!res.ok) {

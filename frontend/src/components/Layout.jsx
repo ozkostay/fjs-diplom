@@ -14,7 +14,7 @@ export default function Layout() {
     <>
       <div className="app-container">
         <Header />
-        {user && user.role === "client" && <Chat />  }
+        {user && user.role === "client" && <Chat />}
         <main className="main-container">
           <div className="left-nav">
             <ul>
@@ -23,29 +23,40 @@ export default function Layout() {
                   Все гостиницы
                 </Link>
               </li>
-              
-              {user?.role === "manager" && (<li>
-                <Link className="nav-link" to="/managerchat">
-                  <span className="link-span">Чат</span>
-                </Link>
-              </li>)}
-              
-              
-              {user?.role === "admin" ? (
+              {user && (
                 <>
-                  <li>
-                    <Link className="nav-link" to="addhotel">
-                      Добавить гостиницу
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="nav-link" to="/users">
-                      Пользователи{" "}
-                    </Link>
-                  </li>
+                  {user?.role === "manager" && (
+                    <>
+                      <li>
+                        <Link className="nav-link" to="/managerchat">
+                          <span className="link-span">Чат</span>
+                        </Link>
+                      </li>
+                    </>
+                  )}
+
+                  {user?.role === "admin" ? (
+                    <li>
+                      <Link className="nav-link" to="addhotel">
+                        Добавить гостиницу
+                      </Link>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
+
+                  {user?.role == "manager" || user?.role == "admin" ? (
+                    <>
+                      <li>
+                        <Link className="nav-link" to="/users">
+                          Пользователи{" "}
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
-              ) : (
-                ""
               )}
             </ul>
           </div>

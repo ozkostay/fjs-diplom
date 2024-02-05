@@ -15,6 +15,8 @@ export default function Users() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  
+  //==================================
   useEffect(() => {
     findUsers();
   }, [offset, limit, isDelete]);
@@ -29,39 +31,49 @@ export default function Users() {
     dispatch(actUsersList(params));
   }
 
+  //==================================
   function searchUsers() {
     setOffset(0);
     findUsers();
   }
 
+  //==================================
   function fnAddUser() {
     navigate("/signup");
   }
 
-  function hendlerIcon(event, id) {
+  //==================================
+  function hendlerIcon(event, item) {
     const action = event.target?.alt;
     switch (action) {
       case "view":
-        navigate(`/userview/${id}`);
+        navigate(`/userview/${item._id}`);
         break;
       case "edit":
-        navigate(`/useredit/${id}`);
+        navigate(`/useredit/${item._id}`);
+        break;
+      case "reserv":
+        navigate(`/mgrresevations/${item._id}`, {
+          state: { item: item },
+        });
         break;
       case "delete":
         setOffset(0);
-        dispatch(actUsersDelete(id));
+        dispatch(actUsersDelete(item._id));
         break;
       default:
         break;
     }
   }
 
+  //==================================
   function fnChangeLimit(event) {
     const numLimit = Number(event.target.value);
     setOffset(0);
     setLimit(numLimit);
   }
 
+  //==================================
   function fnSetOffset(type) {
     if (type === "incr") {
       setOffset(offset + 1);
@@ -70,6 +82,8 @@ export default function Users() {
     }
   }
 
+  
+  //===========================================
   return (
     <>
       <div className="mainpage">

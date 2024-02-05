@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { HotelsService } from './hotels.service';
@@ -16,6 +17,7 @@ import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
 import { HotelDocument } from './schemas/hotels.schema';
+import { JwtAdmin } from 'src/auth/jwt.auth.admin';
 
 @Controller('api')
 export class HotelsController {
@@ -26,20 +28,24 @@ export class HotelsController {
     return this.hotelsService.findAll(params);
   }
 
+  // @UseGuards(JwtAdmin)
   @Post('/admin/hotels/') // Убрать uploadpics
   @UseInterceptors(FilesInterceptor('files'))
-  public uploadpics(
+  public create(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() body: INewHotelBodyDto,
   ): Promise<any> {
+    console.log('hotel create');
     return this.hotelsService.create(files, body);
   }
 
+  @UseGuards(JwtAdmin)
   @Put('/admin/hotels/:id')
   public update(@Param('id') id: string, @Body() data: IUpdateHotelDto): Promise<HotelDocument> {
     return this.hotelsService.update(id, data);
   }
 
+  @UseGuards(JwtAdmin)
   @Delete('/admin/hotels/:id')
   public delete(@Param('id') id: string): Promise<HotelDocument> {
     return this.hotelsService.delete(id);

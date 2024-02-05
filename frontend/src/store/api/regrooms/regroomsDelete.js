@@ -9,6 +9,7 @@ export const regRoomsDelete = async (params) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token")
     },
   };
   try {

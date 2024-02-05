@@ -14,6 +14,7 @@ export const hotelsDelete = async (param) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
     // body: JSON.stringify(body),
   };
