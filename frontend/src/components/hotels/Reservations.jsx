@@ -15,6 +15,7 @@ export default function Reservations() {
   return (
     <>
       <div className="hotels-header"><h1>Забронировые номера:</h1></div>
+      {regRooms.length < 1 && <h2 style={{color: 'red', fontSise: '20px'}}>У Вас нет забронированных номеров</h2>}
       {regRooms &&
         regRooms.map((i) => <ReservationsItems key={i._id} item={i} deleteItem={fnDeleteResRoom} />)}
     </>

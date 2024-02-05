@@ -71,7 +71,7 @@ export default function HotelsView(props) {
             >
               Добавить номер
             </button>
-            <h2 style={{color: 'red'}}>{isAddRoom ? 'Yes' : 'No'}</h2>
+            {/* <h2 style={{color: 'red'}}>{isAddRoom ? 'Yes' : 'No'}</h2> */}
           </div>
         )}
       </div>

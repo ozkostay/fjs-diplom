@@ -35,7 +35,6 @@ export class HotelsController {
     @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() body: INewHotelBodyDto,
   ): Promise<any> {
-    console.log('hotel create');
     return this.hotelsService.create(files, body);
   }
 

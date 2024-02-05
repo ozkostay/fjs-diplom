@@ -63,6 +63,7 @@ export default function RoomsView(props) {
       dateEnd,
     };
     dispatch(actRegRoomsAdd(newRegrooms));
+    navigate('/reservations');
   }
 
   function fnEditRoom() {

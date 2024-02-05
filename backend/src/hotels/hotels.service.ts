@@ -3,7 +3,7 @@ import { Hotel, HotelDocument } from './schemas/hotels.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { access, mkdir, writeFile } from 'fs/promises';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { ICreateHotelDto } from './interfaces/dto/create-hotel';
 import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
@@ -22,13 +22,13 @@ export class HotelsService {
     const qOffset = Number(offset);
     const qLimit = Number(limit);
     const searchString = new RegExp(search === '' ? '.' : search, 'i');
-    console.log('off', qOffset,'Lim', qLimit,'search', searchString);
+    // console.log('off', qOffset,'Lim', qLimit,'search', searchString);
     // { name: searchString }
     const data = await this.HotelModel.find( {title: searchString} )
     .skip(qOffset * qLimit)
     .limit(qLimit + 1)
     .exec();
-    console.log('data', data);
+    // console.log('data', data);
     return data;
   }
 
