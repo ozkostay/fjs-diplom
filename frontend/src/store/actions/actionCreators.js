@@ -18,6 +18,7 @@ import {
   REG_ADD,
   REG_DELETE,
   REG_LOCAL_CLEAR,
+  USER_ERROR,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -32,6 +33,13 @@ export function actUserLogout() {
   // console.log('actionCreater payoad', payload)
   return { type: USER_LOGOUT, payload: {} };
 }
+export function actUserError(payload) {
+  // console.log('actionCreater payoad', payload)
+  return { type: USER_ERROR, payload: payload };
+}
+
+// ========================================
+ 
 export function actUserSignup(payload) {
   // console.log('actionCreater SIGNUP payoad', payload)
   return { type: USER_SIGNUP, payload: payload };
@@ -48,6 +56,9 @@ export function actUsersUpdate(payload) {
   // console.log('actionCreater USERS UPDATE id', payload)
   return { type: USERS_UPDATE, payload: payload };
 }
+
+// ========================================
+ 
 export function actHotelsList(payload) {
   // console.log('actionCreater HOTELSLIST payoad', payload)
   return { type: HOTELS_LIST, payload: payload };

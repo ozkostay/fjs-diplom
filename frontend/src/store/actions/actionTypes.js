@@ -4,6 +4,7 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_SIGNUP = "USER_SIGNUP";
+export const USER_ERROR = "USER_ERROR";
 export const USERS_LIST = "USERS_LIST";
 export const USERS_LIST_ERROR = "USERS_LIST_ERROR";
 export const USERS_UPDATE = "USERS_UPDATE";

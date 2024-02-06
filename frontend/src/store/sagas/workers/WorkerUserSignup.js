@@ -1,5 +1,5 @@
 import { put, retry } from "redux-saga/effects";
-import { actUserSignup, actionUserTest } from "../../actions/actionCreators";
+import { actUserError, actUserSignup, actionUserTest } from "../../actions/actionCreators";
 import { userSignup } from "../../api/users/userSignup";
 
 
@@ -18,7 +18,8 @@ export default function* WorkerUserSignup(action) {
     );
     yield put(actUserSignup(data));
   } catch (err) {
-    alert('Неверная авторизация');
-    yield put(actionUserTest(err.massage));
+    // console.log('Worker signup catch error', err);
+    // alert('Неверная авторизация');
+    yield put(actUserError(err));
   }
 }

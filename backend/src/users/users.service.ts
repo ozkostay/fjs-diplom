@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { User, UserDocument } from './schemas/user.schema';
 import { Model } from 'mongoose';
@@ -44,8 +44,15 @@ export class UsersService {
       contactPhone: data.contactPhone,
       role: data.role,
     };
-    const user = this.UserModel.create(newData);
-    return user;
+    try {
+      const user = await this.UserModel.create(newData);
+      console.log('USER SERVICE CREATEUSER user', user);
+      return user;
+    } catch (err) {
+      console.log('USER SERVICE CREATEUSER err', err);
+      throw new UnauthorizedException('Пользователь с таким E-mail уже зарегистрирован.')
+    }
+    
   }
 
   // ===========================================================

@@ -47,14 +47,10 @@ export class AuthService {
   // ===========================================================
   async register(userNew: IUserFromFrontDto) {
     const user = await this.usersService.createUser(userNew);
-    if (!user) {
-      return {
-        statusCode: 401,
-        message: 'Пользователь с таким именем уже есть!!!',
-      };
-    }
+    
     const payload = { email: user.email, id: String(user._id) };
     const { passwordHash, ...result } = user;
+    
     return {
       access_token: this.jwtService.sign(payload),
       user: result,

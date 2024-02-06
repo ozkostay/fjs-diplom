@@ -14,12 +14,10 @@ export const userSignup = async (param) => {
   };
 
   const response = await fetch(url, options);
-  
+  const data = await response.json();
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw data;
   } else {
-    const data = await response.json();
-    // console.log('SAGA signup OK!!!', data)
     return data;
   }
 };

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  actUserError,
   actUserSignup,
   actUsersList,
 } from "../../store/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
+import WinError from "../Error";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -12,23 +14,40 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("client");
-  const { user } = useSelector((state) => state.crUser);
+  const { user, userError } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const showMessage = useRef();
 
+  //====================================
+  // useEffect(() => {
+  //   // setTimeout(aaa(), 3000);
+  // },[userError]) 
+
+  //====================================
   function hendlerSubmit(event) {
     event.preventDefault();
     const body = { email, passwordHash: password, name, phone, role };
     dispatch(actUserSignup(body));
     if (!user) {
-      navigate("/signin");
+      // navigate("/signin");
     } else {
-      navigate("/users");
+      // navigate("/users");
     }
   }
 
+  //====================================
+  function aaa() {
+    const body = {
+      message: '',
+    }
+    // dispatch(actUserError(body));
+  }
+
+  //====================================
   return (
     <>
+      {userError && <WinError type={userError.type}>{userError.text}</WinError> }
       <main className="mainpage">
         <div className="home flex-col">
           <div className="cl-black">
