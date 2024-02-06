@@ -37,17 +37,17 @@ export default function Signup() {
   }
 
   //====================================
-  function aaa() {
-    const body = {
-      message: '',
-    }
-    // dispatch(actUserError(body));
+  function clearFields() {
+    setEmail('');
+    setPassword('');
+    setName('');
+    setPhone('');
   }
 
   //====================================
   return (
     <>
-      {userError && <WinError type={userError.type}>{userError.text}</WinError> }
+      {userError && <WinError type={userError.type} clearFields={clearFields}>{userError.text}</WinError> }
       <main className="mainpage">
         <div className="home flex-col">
           <div className="cl-black">

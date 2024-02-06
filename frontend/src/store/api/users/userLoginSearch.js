@@ -12,10 +12,27 @@ export const userLoginSearch = async (param) => {
     body: JSON.stringify(body),
   };
 
-  const response = await fetch(url, options);
+  //const response = await fetch(url, options);
   
+  // if (!response.ok) {
+  //   throw new Error(response.statusText);
+  // }
+  // return await response.json();
+
+  const response = await fetch(url, options);
+  const data = await response.json();
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw data;
+  } else {
+    return data;
   }
-  return await response.json();
+
+
+
+
+
+
+
+
+
 };

@@ -1,6 +1,6 @@
 import { put, retry } from "redux-saga/effects";
 import { userLoginSearch } from "../../api/users/userLoginSearch";
-import { actUserLogin, actionUserTest } from "../../actions/actionCreators";
+import { actUserError, actUserLogin, actionUserTest } from "../../actions/actionCreators";
 // import { debounce } from "redux-saga/effects";
 
 export default function* WorkerUserLoginSearch(action) {
@@ -18,7 +18,7 @@ export default function* WorkerUserLoginSearch(action) {
     );
     yield put(actUserLogin(data));
   } catch (err) {
-    alert('Неверная авторизация');
-    yield put(actionUserTest(err.massage));
+    // lert('Неверная авторизация');
+    yield put(actUserError(err));
   }
 }

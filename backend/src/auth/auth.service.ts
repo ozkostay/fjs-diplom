@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { ICreateUserDto } from 'src/users/interfaces/dto/create-user';
@@ -14,29 +14,35 @@ export class AuthService {
 
   // ===========================================================
   async validateUser(email: string, pass: string): Promise<any> {
-    console.log('auth.service.validateUser', email, pass);
-    const user = await this.usersService.findOne(email);
-    console.log('auth.service.validateUser =3===', user);
-    // Проверка хэша
-    const isMatch = await bcrypt.compare(pass, user.passwordHash);
-    if (user && isMatch) {
-      // console.log('result ================ ', );
-      return {
-        _id: user._id,
-        contactPhone: user.contactPhone,
-        mail: user.email,
-        name: user.name,
-        role: user.role,
-      };
+    // console.log('auth.service.validateUser', email, pass);
+    try {
+      const user = await this.usersService.findOne(email);
+      // console.log('USER SERVICE CREATEUSER user', user);
+      console.log('auth.service.validateUser =3===', user);
+      // Проверка хэша
+      const isMatch = await bcrypt.compare(pass, user.passwordHash);
+      if (user && isMatch) {
+        return {
+          _id: user._id,
+          contactPhone: user.contactPhone,
+          mail: user.email,
+          name: user.name,
+          role: user.role,
+        };
+      }
+    } catch (err) {
+      // console.log('AUTH SERVICE VALIDATE err', err);
+      throw new UnauthorizedException(
+        'Пользователь с таким E-mail не зарегистрирован или не верный пароль.',
+      );
     }
-    return null;
   }
 
   // ===========================================================
   async login(user: any) {
     const payload = { email: user.mail, id: String(user._id), role: user.role };
-    console.log('aut.service-login===', payload)
-    const newToken = this.jwtService.sign(payload); 
+    console.log('aut.service-login===', payload);
+    const newToken = this.jwtService.sign(payload);
     console.log('newToken=', newToken);
     return {
       access_token: newToken,
@@ -47,10 +53,10 @@ export class AuthService {
   // ===========================================================
   async register(userNew: IUserFromFrontDto) {
     const user = await this.usersService.createUser(userNew);
-    
+
     const payload = { email: user.email, id: String(user._id) };
     const { passwordHash, ...result } = user;
-    
+
     return {
       access_token: this.jwtService.sign(payload),
       user: result,

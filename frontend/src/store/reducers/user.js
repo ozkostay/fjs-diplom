@@ -6,7 +6,16 @@ import {
   USER_ERROR,
 } from "../actions/actionTypes";
 
-const userLocalStorage = JSON.parse(localStorage.getItem("user"));
+const localUser = localStorage.getItem("user");
+let userLocalStorage = null;
+// console.log('987987987', localUser);
+if (!localUser) {
+  console.log('REDUSER user undefined');
+} else {
+  userLocalStorage = JSON.parse(JSON.stringify(localUser));
+  // userLocalStorage = JSON.parse(localUser);
+}
+// const userLocalStorage = localUser !== undefined ? JSON.parse(localStorage.getItem("user")) : null;
 
 const initialState = userLocalStorage
   ? {
@@ -29,14 +38,17 @@ export default function reducerUser(state = initialState, action) {
       return { ...state };
 
     case USER_LOGIN:
-      localStorage.setItem("token", action.payload.access_token);
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      return {
-        ...state,
-        user: action.payload.user,
-        userLoading: false,
-        userError: null,
-      };
+      if (action.payload.user) {
+        localStorage.setItem("token", action.payload.access_token);
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
+        
+        return {
+          ...state,
+          user: action.payload.user,
+          userLoading: false,
+          userError: null,
+        };
+      }
 
     case USER_LOGOUT:
       //
@@ -47,29 +59,39 @@ export default function reducerUser(state = initialState, action) {
 
     case USER_SIGNUP:
       if (action.payload.access_token) {
-        alert("Усешная регистрация пользователя");
+        // alert("Усешная регистрация пользователя");
+        let userError = {
+          type: "mess",
+          text: "Усешная регистрация пользователя",
+        };
+        return {
+          ...state,
+          user: null,
+          userLoading: false,
+          userError,
+        };;
       }
-      return state;
 
     case USER_ERROR:
       console.log("reducer USER_ERROR action.payload", action.payload);
+      if (!action.payload.message) {
+        return state;
+      }
       let userError = {
-        type: action.payload.statusCode > 399 ? 'err' : 'mess',
+        type: action.payload.statusCode > 399 ? "err" : "mess",
         text: `ERROR: ${action.payload.statusCode}. ${action.payload.message}`,
       };
-      
-      if (!action.payload.message.trim()) {
-        console.log('77777', userError);
+      if (action.payload.message === 'close') {
         userError = null;
       }
-
       return {
         ...state,
         user: null,
         userLoading: false,
         userError,
       };
-    default:
+
+      default:
       // console.log("reducer USER default");
       return state;
   }

@@ -1,7 +1,7 @@
 import { actUserError } from "../store/actions/actionCreators";
 import { useDispatch } from "react-redux";
 
-export default function WinError({ children, type }) {
+export default function WinError({ children, type, clearFields }) {
   const dispatch = useDispatch();
   
   const styleMess = {
@@ -27,10 +27,11 @@ export default function WinError({ children, type }) {
   function fnClose() {
     console.log('WinError-useEffect');
     const body = {
-      message: "",
+      message: "close",
       statusCode: "",
     };
     dispatch(actUserError(body));
+    clearFields();
   }
 
   // ============================

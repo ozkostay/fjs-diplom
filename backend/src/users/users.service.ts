@@ -36,7 +36,7 @@ export class UsersService {
     const saltOrRounds = 10;
     const password = data.passwordHash;
     const hash = await bcrypt.hash(password, saltOrRounds);
-    console.log('createUser', hash);
+    // console.log('createUser', hash);
     const newData = {
       email: data.email,
       passwordHash: hash,
@@ -46,10 +46,10 @@ export class UsersService {
     };
     try {
       const user = await this.UserModel.create(newData);
-      console.log('USER SERVICE CREATEUSER user', user);
+      // console.log('USER SERVICE CREATEUSER user', user);
       return user;
     } catch (err) {
-      console.log('USER SERVICE CREATEUSER err', err);
+      // console.log('USER SERVICE CREATEUSER err', err);
       throw new UnauthorizedException('Пользователь с таким E-mail уже зарегистрирован.')
     }
     
