@@ -1,31 +1,32 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { hotelByIdSearch } from "../../store/api/hotels/hotelByIdSearch.js";
 import { useDispatch, useSelector } from "react-redux";
-import AddHotelPics from "./AddHotelPics.jsx";
-import { actHotelsPics } from "../../store/actions/actionCreators.js";
+import { actHotelsPics, actRoomsPics } from "../../store/actions/actionCreators.js";
 import { hotelsUpdate } from "../../store/api/hotels/hotelsUpdate.js";
+import { roomsByIdSearch } from "../../store/api/hotels/roomsByIdSearch.js";
+import AddRoomPics from "./AddRoomPics.jsx";
+import { roomsUpdate } from "../../store/api/hotels/roomsUpdate.js";
+// import { regRoomsSearchList } from "../../store/api/regrooms/regroomsSearchList.js";
 
 export default function EditRoom() {
   const { id } = useParams();
-  const { hotelsPics } = useSelector((state) => state.hotelsList);
+  const { roomsPics } = useSelector((state) => state.rooms);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
   const dispatch = useDispatch();
   const saveButton = useRef(null);
-  const pictures = useMemo(() => <AddHotelPics />, []);
+  const pictures = useMemo(() => <AddRoomPics />, []);
 
   //==============================
   useEffect(() => {
-    const fetchHotel = async () => {
-      const data = await hotelByIdSearch(id);
+    const fetchRoom = async () => {
+      const data = await roomsByIdSearch(id);
 
-      console.log("data", data);
       setTitle(data.title);
       setDescription(data.description);
       // Картинки
-      const arrPicsFromBack = JSON.parse(data.files);
+      const arrPicsFromBack = JSON.parse(data.images);
       const arrTemp = [];
       const backendUrl = process.env.REACT_APP_BACK_URL;
       arrPicsFromBack.forEach(async (i, index) => {
@@ -34,11 +35,12 @@ export default function EditRoom() {
         const file = new File([blob], i.name);
         arrTemp.push(file);
         if (arrPicsFromBack.length === arrTemp.length) {
-          dispatch(actHotelsPics(arrTemp));
+          console.log('123123123-123', arrTemp);
+          dispatch(actRoomsPics(arrTemp));
         }
       })
     };
-    fetchHotel();
+    fetchRoom();
   }, []);
 
   //===============================================================
@@ -46,15 +48,15 @@ export default function EditRoom() {
     // --- название мин 5 симв
     // --- описание мин 100
     if (title.length < 5) {
-      // alert("В заголовке должно быть не менее 5 символов");
+      console.log("В заголовке должно быть не менее 5 символов");
       return false;
     }
     if (description.length < 100) {
-      // alert("В описании должно быть не менее 100 символов");
+      console.log("В описании должно быть не менее 100 символов");
       return false;
     }
-    if (hotelsPics.length < 1) {
-      // alert("Должно быть не менее 1 изображения");
+    if (roomsPics.length < 1) {
+      console.log("Должно быть не менее 1 изображения");
       return false;
     }
     return true;
@@ -67,26 +69,26 @@ export default function EditRoom() {
       return;
     }
     setSaveBtnDisabled(true);
-  }, [hotelsPics, title, description]);
+  }, [roomsPics, title, description]);
 
   //===============================================================
   async function handlerHotelsSave(e) {
     e.preventDefault();
     // отсюда и до конца в САГИ
     const formData = new FormData();
-    hotelsPics.forEach((item) => {
+    roomsPics.forEach((item) => {
       formData.append("files", item);
     });
     formData.append("title", title);
     formData.append("description", description);
     // dispatch(actHotelsAdd(formData));
-    hotelsUpdate(id, formData);
+    roomsUpdate(id, formData);
     clearAll();
   }
 
   //================================================
   function clearAll() {
-    dispatch(actHotelsPics([]));
+    dispatch(actRoomsPics([]));
     setTitle("");
     setDescription("");
   }

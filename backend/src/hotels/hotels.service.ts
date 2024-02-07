@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Hotel, HotelDocument } from './schemas/hotels.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -90,12 +90,12 @@ export class HotelsService {
     return hotel;
   }
 
-  //============================================================= //Promise<HotelDocument>
+  //=======================================
   public async update(
     id: string,
     files: any[],
     body: IUpdateHotelDto,
-  ): Promise<any> {
+  ): Promise<HotelDocument> {
     const picsFolder = '/public/hotels';
     const folder = join(__dirname, '..', '..', picsFolder);
     // console.log(folder);
