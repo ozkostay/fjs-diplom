@@ -16,6 +16,7 @@ import Reservations from "./components/hotels/Reservations";
 import ManagerChat from "./components/chats/ManagerChat";
 import MgrReservations from "./components/hotels/MgrReservations";
 import Page404 from "./components/Page404";
+import EditHotel from "./components/hotels/EditHotel";
 
 // import Page404 from "./components/Page404";
 // import About from "./components/About";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/hotels/view/:id" element={<HotelsView />} />
+          <Route path="/hotels/edit/:id" element={<EditHotel />} />
           <Route path="/room" element={<FindRooms />} />
           <Route path="/rooms/view/:id" element={<RoomsView />} />
           <Route path="/addhotel" element={<AddHotel />} />

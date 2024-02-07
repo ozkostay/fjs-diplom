@@ -18,6 +18,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
 import { HotelDocument } from './schemas/hotels.schema';
 import { JwtAdmin } from 'src/auth/jwt.auth.admin';
+import { IParamId } from './interfaces/dto/param-id';
 
 @Controller('api')
 export class HotelsController {
@@ -27,6 +28,13 @@ export class HotelsController {
   @Get('/admin/hotels')
   public findAll(@Query() params: any): any {
     return this.hotelsService.findAll(params);
+  }
+
+  @UseGuards(JwtAdmin)
+  @Get('/admin/hotels/:id')
+  public findOne(@Param() { id }: IParamId): any {
+    console.log('CONTROLLER findOne', id);
+    return this.hotelsService.hotelById(id);
   }
 
   @UseGuards(JwtAdmin)
@@ -41,7 +49,10 @@ export class HotelsController {
 
   @UseGuards(JwtAdmin)
   @Put('/admin/hotels/:id')
-  public update(@Param('id') id: string, @Body() data: IUpdateHotelDto): Promise<HotelDocument> {
+  public update(
+    @Param('id') id: string,
+    @Body() data: IUpdateHotelDto,
+  ): Promise<HotelDocument> {
     return this.hotelsService.update(id, data);
   }
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import AddRoom from "./AddRoom";
 import { actRoomsList } from "../../store/actions/actionCreators";
 import RoomsItems from "./RoomsItems";
@@ -14,6 +17,7 @@ export default function HotelsView(props) {
   const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const { _id, title, description, files } = location.state.item;
   const hotelsPics = JSON.parse(files);
@@ -24,7 +28,7 @@ export default function HotelsView(props) {
       offset,
       limit,
       hotelId: _id,
-    }
+    };
     dispatch(actRoomsList(objParams));
   }, [isAddRoom]);
 
@@ -38,13 +42,17 @@ export default function HotelsView(props) {
     setUrlForModal("");
   }
 
+  function fnEditHotel() {
+    console.log("Редактируем отель");
+    navigate(`/hotels/edit/${_id}`);
+  }
+
   return (
     <>
-      
       <div className="mainpage">
         {/* <h1  className="mb20">Гостиница</h1> */}
         <div className="mb20">
-          <h1 style={{ color: "blue"}}>{title}</h1>
+          <h1 style={{ color: "blue" }}>{title}</h1>
         </div>
         <div className="addhotel-preview">
           {hotelsPics.length > 0 &&
@@ -58,13 +66,15 @@ export default function HotelsView(props) {
               />
             ))}
         </div>
-        
+
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
         </div>
         {user && user.role === "admin" && (
           <div className="addhotel-btn">
-            <button className="addhotel-btn red">Редактировать</button>
+            <button className="addhotel-btn red" onClick={fnEditHotel}>
+              Редактировать
+            </button>
             <button
               className="addhotel-btn blue"
               onClick={() => setIsAddRoom(true)}
@@ -89,8 +99,13 @@ export default function HotelsView(props) {
       )}
       {isAddRoom && <AddRoom setIsAddRoom={setIsAddRoom} hotelId={_id} />}
       {/* <h2 style={{ color: "black"}}>{title}</h2> */}
-      <h2 className="hotels-header" style={{backgroundColor: "#dfffe5"}}>Выбрать и забронировать номер:</h2>
-      {rooms.length > 0 && rooms.map((i) => <RoomsItems key={i._id} item={i} hotelState={location.state.item}/>)}
+      <h2 className="hotels-header" style={{ backgroundColor: "#dfffe5" }}>
+        Выбрать и забронировать номер:
+      </h2>
+      {rooms.length > 0 &&
+        rooms.map((i) => (
+          <RoomsItems key={i._id} item={i} hotelState={location.state.item} />
+        ))}
     </>
   );
 }

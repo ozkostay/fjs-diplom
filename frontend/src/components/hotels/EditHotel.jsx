@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { hotelsListSearch } from "../../store/api/hotels/hotelsListSearch";
+import { hotelByIdSearch } from "../../store/api/hotels/hotelByIdSearch.js";
 import { useDispatch, useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
-import {
-  actHotelsAdd,
-  actHotelsPics,
-} from "../../store/actions/actionCreators";
+import { actHotelsPics } from "../../store/actions/actionCreators";
 
-export default function AddHotel() {
-  // const { user } = useSelector((state) => state.crUser);
+export default function EditHotel() {
+  const { id } = useParams();
   const { hotelsPics } = useSelector((state) => state.hotelsList);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,6 +15,31 @@ export default function AddHotel() {
   const dispatch = useDispatch();
   const saveButton = useRef(null);
   const pictures = useMemo(() => <AddHotelPics />, []);
+
+  //==============================
+  useEffect(() => {
+    const fetchHotel = async () => {
+      const data = await hotelByIdSearch(id);
+
+      console.log("data", data);
+      setTitle(data.title);
+      setDescription(data.description);
+      // Картинки
+      const arrPicsFromBack = JSON.parse(data.files);
+      const arrTemp = [];
+      const backendUrl = process.env.REACT_APP_BACK_URL;
+      arrPicsFromBack.forEach(async (i, index) => {
+        const response = await fetch(backendUrl + i.url);
+        const blob = await response.blob();
+        const file = new File([blob], i.name);
+        arrTemp.push(file);
+        if (arrPicsFromBack.length === arrTemp.length) {
+          dispatch(actHotelsPics(arrTemp));
+        }
+      })
+    };
+    fetchHotel();
+  }, []);
 
   //===============================================================
   function validate() {
@@ -50,13 +75,12 @@ export default function AddHotel() {
     // отсюда и до конца в САГИ
     const formData = new FormData();
     hotelsPics.forEach((item) => {
-      // console.log('item pics after', item);
       formData.append("files", item);
     });
     formData.append("title", title);
     formData.append("description", description);
-    dispatch(actHotelsAdd(formData));
-    clearAll()
+    // dispatch(actHotelsAdd(formData));
+    clearAll();
   }
 
   //================================================
@@ -66,7 +90,6 @@ export default function AddHotel() {
     setDescription("");
   }
 
-  //====================================================
   return (
     <>
       <div className="mainpage">

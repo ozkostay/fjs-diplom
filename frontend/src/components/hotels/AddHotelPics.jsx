@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actHotelsPics } from "../../store/actions/actionCreators";
 import EXIF from "exif-js";
@@ -8,6 +8,10 @@ export default function AddHotelPics() {
   let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('hotelsPics');
+  },[hotelsPics])
 
   //=====================================
   async function picsMetadata(file) {
@@ -80,6 +84,7 @@ export default function AddHotelPics() {
               // Проверка на общийрамер файлов < 10МБ
               console.log(`НЕ добавляем! общий размер файлов больше 10МБ`);
             } else {
+              
               dispatch(actHotelsPics(preArray));
             }
           }

@@ -16,7 +16,7 @@ export class HotelsService {
   ) {}
 
   //=============================================================
-  public async findAll(params): Promise<HotelDocument[]> {
+  public async findAll(params: any): Promise<HotelDocument[]> {
     console.log('serv params', params);
     const { offset, limit, search } = params;
     const qOffset = Number(offset);
@@ -32,7 +32,9 @@ export class HotelsService {
     return data;
   }
 
+  //=============================================================
   public hotelById(id: string): Promise<HotelDocument> {
+    console.log('SERVISE findOne', id);
     return this.HotelModel.findById(id).exec();
   }
 

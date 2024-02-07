@@ -37,7 +37,7 @@ export default function reducerHotelsList(state = initialState, action) {
       };
       case HOTELS_PICS:
       //const tempHOTELS = state.hotels.filter((i) => i._id !== action.payload);
-      // console.log('HOTES-PICS action.payload', action.payload);
+      console.log('HOTES-PICS reduser action.payload', action.payload);
       return {
         ...state,
         hotelsPics: action.payload,
