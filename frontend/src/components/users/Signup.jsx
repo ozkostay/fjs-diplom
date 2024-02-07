@@ -19,10 +19,13 @@ export default function Signup() {
   const navigate = useNavigate();
   // const showMessage = useRef();
 
-  //====================================
-  // useEffect(() => {
-  //   // setTimeout(aaa(), 3000);
-  // },[userError]) 
+  // ====================================
+  useEffect(() => {
+    if (userError && userError.type !== 'err') {
+      clearFields();
+    }
+    // setTimeout(aaa(), 3000);
+  },[userError]) 
 
   //====================================
   function hendlerSubmit(event) {

@@ -1,21 +1,50 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { hotelByIdSearch } from "../../store/api/hotels/hotelByIdSearch.js";
 import { useDispatch, useSelector } from "react-redux";
-import AddRoomPics from "./AddRoomPics";
-import { actRoomsAdd, actRoomsPics } from "../../store/actions/actionCreators";
+import AddHotelPics from "./AddHotelPics.jsx";
+import { actHotelsPics } from "../../store/actions/actionCreators.js";
+import { hotelsUpdate } from "../../store/api/hotels/hotelsUpdate.js";
 
-export default function AddRoom({ setIsAddRoom, hotelId }) {
-  const { user } = useSelector((state) => state.crUser);
-  const { roomsPics } = useSelector((state) => state.rooms);
+export default function EditRoom() {
+  const { id } = useParams();
+  const { hotelsPics } = useSelector((state) => state.hotelsList);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
-
   const dispatch = useDispatch();
   const saveButton = useRef(null);
-  const pictures = useMemo(() => <AddRoomPics />, []);
+  const pictures = useMemo(() => <AddHotelPics />, []);
+
+  //==============================
+  useEffect(() => {
+    const fetchHotel = async () => {
+      const data = await hotelByIdSearch(id);
+
+      console.log("data", data);
+      setTitle(data.title);
+      setDescription(data.description);
+      // Картинки
+      const arrPicsFromBack = JSON.parse(data.files);
+      const arrTemp = [];
+      const backendUrl = process.env.REACT_APP_BACK_URL;
+      arrPicsFromBack.forEach(async (i, index) => {
+        const response = await fetch(backendUrl + i.url);
+        const blob = await response.blob();
+        const file = new File([blob], i.name);
+        arrTemp.push(file);
+        if (arrPicsFromBack.length === arrTemp.length) {
+          dispatch(actHotelsPics(arrTemp));
+        }
+      })
+    };
+    fetchHotel();
+  }, []);
 
   //===============================================================
   function validate() {
+    // --- название мин 5 симв
+    // --- описание мин 100
     if (title.length < 5) {
       // alert("В заголовке должно быть не менее 5 символов");
       return false;
@@ -24,7 +53,7 @@ export default function AddRoom({ setIsAddRoom, hotelId }) {
       // alert("В описании должно быть не менее 100 символов");
       return false;
     }
-    if (roomsPics.length < 1) {
+    if (hotelsPics.length < 1) {
       // alert("Должно быть не менее 1 изображения");
       return false;
     }
@@ -38,44 +67,36 @@ export default function AddRoom({ setIsAddRoom, hotelId }) {
       return;
     }
     setSaveBtnDisabled(true);
-  }, [roomsPics, title, description]);
-  // удалить
+  }, [hotelsPics, title, description]);
 
   //===============================================================
   async function handlerHotelsSave(e) {
     e.preventDefault();
-    //По умолчанию formData создается с праметром multipart/form-data
+    // отсюда и до конца в САГИ
     const formData = new FormData();
-    roomsPics.forEach((item) => {
+    hotelsPics.forEach((item) => {
       formData.append("files", item);
     });
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("hotelId", hotelId);
-    formData.append("isAnable", true);
-
-    console.log("formData", formData);
-    dispatch(actRoomsAdd(formData));
+    // dispatch(actHotelsAdd(formData));
+    hotelsUpdate(id, formData);
     clearAll();
-    // }
   }
 
   //================================================
   function clearAll() {
-    dispatch(actRoomsPics([]));
+    dispatch(actHotelsPics([]));
     setTitle("");
     setDescription("");
-    const timeoutId = setTimeout(setIsAddRoom(false), 200);
-    return clearTimeout(timeoutId);
   }
 
-  //====================================================
   return (
     <>
       <div className="mainpage">
         {pictures}
         <div>
-          <span className="addhotel-span">Название номера</span>
+          <span className="addhotel-span">Название отеля</span>
           <input
             className="addhotel-title"
             type="text"
@@ -86,7 +107,7 @@ export default function AddRoom({ setIsAddRoom, hotelId }) {
         </div>
         <div>
           <label>
-            <span className="addhotel-span">Описание номера</span>
+            <span className="addhotel-span">Описание отеля</span>
             <textarea
               className="addhotel-desc"
               placeholder="не менее 100 символов"

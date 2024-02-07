@@ -23,20 +23,19 @@ export default function Users() {
     localStorage.removeItem('reservations');
     console.log("112");
     if (user && trueRols.includes(user.role)) {
-      console.log('trueRols', user);
+      // console.log('trueRols', user);
       setAllowedShown(true);
     } else {
-      console.log('НЕ trueRols');
+      // console.log('НЕ trueRols');
     }
   }, []);
 
   //==================================
   useEffect(() => {
     if (allowedShown) {
-      
       findUsers();
     }
-  }, [offset, limit, isDelete]);
+  }, [offset, limit, isDelete, allowedShown]);
 
   //==================================
   function findUsers() {

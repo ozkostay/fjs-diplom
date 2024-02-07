@@ -34,6 +34,7 @@ export class AuthController {
   @UseGuards(JwtAdminManager)
   @Get('/admin/users')
   findAll(@Query() params: any) {
+    console.log('@Get /admin/users'), params;
     return this.userService.findAll(params);
   }
 

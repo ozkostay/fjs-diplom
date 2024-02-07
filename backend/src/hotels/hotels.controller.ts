@@ -49,11 +49,13 @@ export class HotelsController {
 
   @UseGuards(JwtAdmin)
   @Put('/admin/hotels/:id')
+  @UseInterceptors(FilesInterceptor('files'))
   public update(
     @Param('id') id: string,
-    @Body() data: IUpdateHotelDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Body() body: IUpdateHotelDto,
   ): Promise<HotelDocument> {
-    return this.hotelsService.update(id, data);
+    return this.hotelsService.update(id, files, body);
   }
 
   @UseGuards(JwtAdmin)

@@ -144,6 +144,7 @@ export default function AddHotelPics() {
           type="file"
           className="addhotel-input-file"
           multiple
+          accept="image/*"
           onChange={fnPics2Arr}
         />
         <div className="addhotel-preview">

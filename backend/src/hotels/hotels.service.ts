@@ -24,10 +24,10 @@ export class HotelsService {
     const searchString = new RegExp(search === '' ? '.' : search, 'i');
     // console.log('off', qOffset,'Lim', qLimit,'search', searchString);
     // { name: searchString }
-    const data = await this.HotelModel.find( {title: searchString} )
-    .skip(qOffset * qLimit)
-    .limit(qLimit + 1)
-    .exec();
+    const data = await this.HotelModel.find({ title: searchString })
+      .skip(qOffset * qLimit)
+      .limit(qLimit + 1)
+      .exec();
     // console.log('data', data);
     return data;
   }
@@ -67,7 +67,7 @@ export class HotelsService {
           );
           return;
         }
-        const newFileName = `${uuidv4()}.${fileExtension}`;
+        const newFileName = `onserv-${uuidv4()}.${fileExtension}`;
         try {
           await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
         } catch (error) {
@@ -90,9 +90,64 @@ export class HotelsService {
     return hotel;
   }
 
-  //=============================================================
-  public update(id: string, data: IUpdateHotelDto): Promise<HotelDocument> {
-    return this.HotelModel.findOneAndUpdate({ _id: id }, data);
+  //============================================================= //Promise<HotelDocument>
+  public async update(
+    id: string,
+    files: any[],
+    body: IUpdateHotelDto,
+  ): Promise<any> {
+    const picsFolder = '/public/hotels';
+    const folder = join(__dirname, '..', '..', picsFolder);
+    // console.log(folder);
+    // Проверка наличия папки
+    try {
+      await access(folder);
+    } catch (e) {
+      await mkdir(folder, { recursive: true });
+    }
+    // Подготовка массива с файлами
+    const resWriteFIles = await Promise.all(
+      files.map(async (file) => {
+        const fileExtension = file.originalname.split('.')[1];
+        const fileName = file.originalname.split('.')[0];
+        let newFileName: string;
+        if (fileName.slice(0, 6) === 'onserv') {
+          newFileName = file.originalname;
+        } else {
+          // Проверка файла на соответствие
+          if (
+            !file.mimetype.includes('image') ||
+            !['png', 'jpg', 'jpeg', 'webp'].includes(fileExtension)
+          ) {
+            console.log(
+              `Файл${file.originalname} не я вляется изображением или имеет не допустимый формат`,
+            );
+            return;
+          }
+
+          // Запись файла на сервер
+          newFileName = `onserv-${uuidv4()}.${fileExtension}`;
+          try {
+            await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
+          } catch (error) {
+            console.log('ERROR WRITE files', error.message);
+          }
+        }
+        
+        return {
+          url: `${picsFolder}/${newFileName}`,
+          name: newFileName,
+        };
+      }),
+    );
+    const newHotel = {
+      title: body.title,
+      description: body.description,
+      updatedAt: new Date(),
+      files: JSON.stringify(resWriteFIles),
+    };
+
+    return this.HotelModel.findOneAndUpdate({ _id: id }, newHotel);
   }
 
   //=============================================================

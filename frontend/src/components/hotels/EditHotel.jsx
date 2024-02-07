@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { hotelsListSearch } from "../../store/api/hotels/hotelsListSearch";
 import { hotelByIdSearch } from "../../store/api/hotels/hotelByIdSearch.js";
 import { useDispatch, useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
 import { actHotelsPics } from "../../store/actions/actionCreators";
+import { hotelsUpdate } from "../../store/api/hotels/hotelsUpdate.js";
 
 export default function EditHotel() {
   const { id } = useParams();
@@ -80,6 +80,7 @@ export default function EditHotel() {
     formData.append("title", title);
     formData.append("description", description);
     // dispatch(actHotelsAdd(formData));
+    hotelsUpdate(id, formData);
     clearAll();
   }
 

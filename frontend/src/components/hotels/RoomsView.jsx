@@ -63,7 +63,7 @@ export default function RoomsView(props) {
       dateEnd,
     };
     dispatch(actRegRoomsAdd(newRegrooms));
-    navigate('/reservations');
+    navigate("/reservations");
   }
 
   function fnEditRoom() {
@@ -98,18 +98,30 @@ export default function RoomsView(props) {
         <div className="mb20">
           <span style={{ color: "#8a92a6" }}>{description}</span>
         </div>
-
-        <div
-          className="hotels-item-wrap"
-          style={{
-            display: "block",
-            marginTop: "60px",
-            backgroundColor: "#fcfee2",
-          }}
-        >
-          {!user && (<h2>Для возможности бронирования номера необходимо войти в систему!</h2>)}
-          {user && user.role === 'client' && (
-            <>
+        {!user && (
+          <div
+            className="hotels-item-wrap"
+            style={{
+              display: "block",
+              marginTop: "60px",
+              backgroundColor: "#fcfee2",
+            }}
+          >
+            <h2>
+              Для возможности бронирования номера необходимо войти в систему!
+            </h2>
+          </div>
+        )}
+        {user && user.role === "client" && (
+          <>
+            <div
+              className="hotels-item-wrap"
+              style={{
+                display: "block",
+                marginTop: "60px",
+                backgroundColor: "#fcfee2",
+              }}
+            >
               <div className="findrooms dates">
                 <div className="findrooms date">Заезд</div>
                 <div className="findrooms date">Выезд</div>
@@ -140,9 +152,9 @@ export default function RoomsView(props) {
                   </button>
                 )}
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
       {isModal && (
         <div className="modal-wrap">

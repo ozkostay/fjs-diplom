@@ -50,7 +50,7 @@ export class RoomsService {
             );
             return;
           }
-          const newFileName = `${uuidv4()}.${fileExtension}`;
+          const newFileName = `onserv-${uuidv4()}.${fileExtension}`;
           try {
             await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
           } catch (error) {
