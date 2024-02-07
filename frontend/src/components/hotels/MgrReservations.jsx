@@ -8,14 +8,12 @@ import {
 import ReservationsItems from "./ReservationsItems";
 import { useEffect } from "react";
 
-
 export default function MgrReservations() {
   let { id } = useParams();
   const location = useLocation();
   const { name, email } = location.state.item;
   const { regRooms, addRegRooms } = useSelector((state) => state.regrooms);
   const dispatch = useDispatch();
-
 
   // Получаем брони пользователя
   //===================================
@@ -28,7 +26,6 @@ export default function MgrReservations() {
     console.log("Delete id=", id);
     dispatch(actMgrRegRoomsDelete(id));
   }
-
 
   //===================================
   return (
@@ -44,7 +41,11 @@ export default function MgrReservations() {
         </h3>
       </div>
 
-      {regRooms && regRooms.length < 1 && <div style={{color: 'red', fontSize: '20px'}}>У данного пользователя номера на забронированны</div>}
+      {regRooms && regRooms.length < 1 && (
+        <div style={{ color: "red", fontSize: "20px" }}>
+          У данного пользователя номера не забронированны
+        </div>
+      )}
 
       {Array.isArray(regRooms) &&
         regRooms.map((i) => (

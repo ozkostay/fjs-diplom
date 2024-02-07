@@ -1,5 +1,5 @@
 export const regRoomsDelete = async (params) => {
-  console.log("===== PARAM SAGA reservation Delete", params);
+  console.log("===== API PARAM regRoomsDelete Delete", params);
   const url =
     process.env.REACT_APP_BACK_URL +
     process.env.REACT_APP_POSTFIX_RESERVATION +

@@ -1,8 +1,10 @@
 import React from "react";
 import HotelView from "./HotelsView";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function RoomsItems({ item, hotelState }) {
+  const { user } = useSelector((state) => state.crUser);
   const navigate = useNavigate();
   const pics = JSON.parse(item.images);
   const picsUrl = `url(${process.env.REACT_APP_BACK_URL}${pics[0].url})`;
@@ -36,14 +38,16 @@ export default function RoomsItems({ item, hotelState }) {
         <div className="hotels-item-conteiner">
           <h2>{item.title}</h2>
           <div className="hotels-item-description">{item.description}</div>
-          <div style={{ display: 'flex' }}>
-            <button
-              className="addhotel-btn red"
-              onClick={fnEditRoom}
-              style={{ marginRight: "20px" }}
-            >
-              Редактировать
-            </button>
+          <div style={{ display: "flex" }}>
+            {user && user.role === "admin" && (
+              <button
+                className="addhotel-btn red"
+                onClick={fnEditRoom}
+                style={{ marginRight: "20px" }}
+              >
+                Редактировать
+              </button>
+            )}
             <button className="addhotel-btn blue" onClick={fnViewRoom}>
               Подробнее
             </button>

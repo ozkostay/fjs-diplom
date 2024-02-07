@@ -453,6 +453,7 @@ a {
 }
 
 .hotels-header {
+  width: 595px;
   background-color: rgb(255, 255, 255);
   padding: 15px;
   margin-bottom: 20px;
@@ -619,6 +620,7 @@ a {
 }
 
 .chat-window {
+  z-index: 100;
   width: 300px;
   height: 500px;
   position: fixed;
