@@ -6,17 +6,19 @@ import { SupportRequestDocument } from './schemas/SupportRequest.schema';
 import { ReadMessageDto } from './interfaces/ReadMessageDTO';
 import { JwtManager } from 'src/auth/jwt.auth.manager';
 import { JwtClient } from 'src/auth/jwt.client';
+import { JwtClientManager } from 'src/auth/jwtClientManager';
 
 @Controller('api')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @Get('admin/deletemessage') // Для разработки
-  public delallMessage(): any {
-    console.log('============ Удаляем все сообщения');
-    return this.chatService.delallMessage();
-  }
+  // @Get('admin/deletemessage') // Для разработки
+  // public delallMessage(): any {
+  //   console.log('============ Удаляем все сообщения');
+  //   return this.chatService.delallMessage();
+  // }
 
+  @UseGuards(JwtClientManager)
   @Post('common/support-requests/:id/messages') // добавить сообщение
   public addMessage(
     @Param() { id }: ParamIdDto,
@@ -25,6 +27,7 @@ export class ChatController {
     return this.chatService.addMessage(body, id);
   }
 
+  @UseGuards(JwtClientManager)
   @Post('common/support-requests/:id/messages/read') // Прочитать сообщение
   public readMessage(
     @Param() { id }: ParamIdDto,
@@ -33,6 +36,7 @@ export class ChatController {
     return this.chatService.readMessage(body, id);
   }
 
+  
   @UseGuards(JwtClient)
   @Get('client/support-requests')
   public findUserRequest(@Query() params: any): any {

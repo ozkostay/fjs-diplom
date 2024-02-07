@@ -23,13 +23,14 @@ import { JwtAdmin } from 'src/auth/jwt.auth.admin';
 export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
+  // @UseGuards(JwtAdmin)
   @Get('/admin/hotels')
   public findAll(@Query() params: any): any {
     return this.hotelsService.findAll(params);
   }
 
-  // @UseGuards(JwtAdmin)
-  @Post('/admin/hotels/') // Убрать uploadpics
+  @UseGuards(JwtAdmin)
+  @Post('/admin/hotels/')
   @UseInterceptors(FilesInterceptor('files'))
   public create(
     @UploadedFiles() files: Array<Express.Multer.File>,

@@ -1,5 +1,6 @@
 import {
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -17,9 +18,10 @@ export class JwtAdminManager extends AuthGuard('jwt') {
     // You can throw an exception based on either "info" or "err" arguments
     console.log('==== JwtAdminManager === user', user);
     const roles = ['admin', 'manager'];
-    if (err || !user || !roles.includes(user.role)) {
-      console.log('==== JwtAdminManager ===== ERR =============');
-      throw err || new UnauthorizedException();
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не авторизован.')
+    } else if (user && !roles.includes(user.role)) {
+      throw new ForbiddenException('Пользователю запрещено выполнять этот запросю')
     }
     return user;
   }

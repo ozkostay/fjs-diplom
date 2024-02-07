@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import {
+  actMgrRegRoomsDelete,
+  actMgrRegRoomsList,
   actRegRoomsDelete,
-  actRegRoomsList,
 } from "../../store/actions/actionCreators";
 import ReservationsItems from "./ReservationsItems";
 import { useEffect } from "react";
@@ -12,20 +13,20 @@ export default function MgrReservations() {
   let { id } = useParams();
   const location = useLocation();
   const { name, email } = location.state.item;
-  const { regRooms } = useSelector((state) => state.regrooms);
+  const { regRooms, addRegRooms } = useSelector((state) => state.regrooms);
   const dispatch = useDispatch();
 
 
   // Получаем брони пользователя
   //===================================
   useEffect(() => {
-    dispatch(actRegRoomsList(id));
-  }, [regRooms]);
+    dispatch(actMgrRegRoomsList(id));
+  }, [addRegRooms]);
 
   //===================================
   function fnDeleteResRoom(id) {
     console.log("Delete id=", id);
-    dispatch(actRegRoomsDelete(id));
+    dispatch(actMgrRegRoomsDelete(id));
   }
 
 
@@ -43,9 +44,9 @@ export default function MgrReservations() {
         </h3>
       </div>
 
-      {regRooms.length < 1 && <div style={{color: 'red', fontSize: '20px'}}>У данного пользователя номера на забронированны</div>}
+      {regRooms && regRooms.length < 1 && <div style={{color: 'red', fontSize: '20px'}}>У данного пользователя номера на забронированны</div>}
 
-      {regRooms &&
+      {Array.isArray(regRooms) &&
         regRooms.map((i) => (
           <ReservationsItems
             key={i._id}

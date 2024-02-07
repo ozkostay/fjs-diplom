@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { User, UserDocument } from './schemas/user.schema';
 import { Model } from 'mongoose';
@@ -50,7 +50,7 @@ export class UsersService {
       return user;
     } catch (err) {
       // console.log('USER SERVICE CREATEUSER err', err);
-      throw new UnauthorizedException('Пользователь с таким E-mail уже зарегистрирован.')
+      throw new BadRequestException('Пользователь с таким E-mail уже зарегистрирован.')
     }
     
   }

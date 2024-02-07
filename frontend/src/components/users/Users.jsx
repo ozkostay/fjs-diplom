@@ -9,18 +9,36 @@ import UsersItem from "./UsersItem";
 
 export default function Users() {
   const { users, isDelete } = useSelector((state) => state.usersList);
+  const { user } = useSelector((state) => state.crUser);
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState("");
+  const [allowedShown, setAllowedShown] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const trueRols = ["admin", "manager"];
 
-  
+  // ==================================
+  useEffect(() => {
+    localStorage.removeItem('reservations');
+    console.log("112");
+    if (user && trueRols.includes(user.role)) {
+      console.log('trueRols', user);
+      setAllowedShown(true);
+    } else {
+      console.log('НЕ trueRols');
+    }
+  }, []);
+
   //==================================
   useEffect(() => {
-    findUsers();
+    if (allowedShown) {
+      
+      findUsers();
+    }
   }, [offset, limit, isDelete]);
 
+  //==================================
   function findUsers() {
     const preOffset = offset;
     const params = {
@@ -82,79 +100,87 @@ export default function Users() {
     }
   }
 
-  
   //===========================================
   return (
     <>
-      <div className="mainpage">
-        <div className="users-header">
-          <button onClick={fnAddUser} type="submit" className="form-button">
-            Добавить
-          </button>
-          <div>
-            <span className="span-limit">Показывать по</span>
-            <select value={limit} onChange={fnChangeLimit}>
-              <option value="3">3</option>
-              <option value="6">6</option>
-              <option value="12">12</option>
-            </select>
-          </div>
-        </div>
-        <div className="user-search-wrap">
-          <input
-            className="users-search"
-            placeholder="Введите Имя, телефон или email"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button className="form-button" onClick={searchUsers}>
-            Найти
-          </button>
-        </div>
-
-        {users ? (
-          <>
-            <table className="users-table">
-              <tbody>
-                <tr className="" key="0">
-                  <th className="users-table-th users-table-npp">ID</th>
-                  <th className="users-table-th users-table-name">name</th>
-                  <th className="users-table-th users-table-mail">email</th>
-                  <th className="users-table-th users-table-buttons"></th>
-                </tr>
-                {users.map((item, index) => (
-                  <UsersItem
-                    limit={limit}
-                    key={item._id}
-                    index={index}
-                    item={item}
-                    hendlerIcon={hendlerIcon}
-                  />
-                ))}
-              </tbody>
-            </table>
-            <div className="paging">
-              <button
-                className="paging-button"
-                onClick={() => fnSetOffset("decr")}
-                disabled={offset < 1 ? true : false}
-              >
-                <span className="paging-arrows">&lt;</span>
+      {!allowedShown && <div>Страница не доступна</div>}
+      {/* {!trueRols.includes(user?.role) && <div>Страница не доступна</div>} */}
+      {allowedShown && (
+        <div className="mainpage">
+          <div className="users-header">
+            {user.role === "admin" && (
+              <button onClick={fnAddUser} type="submit" className="form-button">
+                Добавить
               </button>
-              <span className="paging-span">{offset + 1}</span>
-              <button
-                className="paging-button"
-                onClick={() => fnSetOffset("incr")}
-                disabled={users.length <= limit ? true : false}
-              >
-                <span className="paging-arrows">&gt;</span>
-              </button>
+            )}
+            {user.role === "manager" && (
+              <div></div>
+            )}
+            <div>
+              <span className="span-limit">Показывать по</span>
+              <select value={limit} onChange={fnChangeLimit}>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="12">12</option>
+              </select>
             </div>
-          </>
-        ) : (
-          ""
-        )}
-      </div>
+          </div>
+          <div className="user-search-wrap">
+            <input
+              className="users-search"
+              placeholder="Введите Имя, телефон или email"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button className="form-button" onClick={searchUsers}>
+              Найти
+            </button>
+          </div>
+
+          {users ? (
+            <>
+              <table className="users-table">
+                <tbody>
+                  <tr className="" key="0">
+                    <th className="users-table-th users-table-npp">ID</th>
+                    <th className="users-table-th users-table-name">name</th>
+                    <th className="users-table-th users-table-mail">email</th>
+                    <th className="users-table-th users-table-buttons"></th>
+                  </tr>
+                  {users.map((item, index) => (
+                    <UsersItem
+                      limit={limit}
+                      key={item._id}
+                      index={index}
+                      item={item}
+                      hendlerIcon={hendlerIcon}
+                    />
+                  ))}
+                </tbody>
+              </table>
+              <div className="paging">
+                <button
+                  className="paging-button"
+                  onClick={() => fnSetOffset("decr")}
+                  disabled={offset < 1 ? true : false}
+                >
+                  <span className="paging-arrows">&lt;</span>
+                </button>
+                <span className="paging-span">{offset + 1}</span>
+                <button
+                  className="paging-button"
+                  onClick={() => fnSetOffset("incr")}
+                  disabled={users.length <= limit ? true : false}
+                >
+                  <span className="paging-arrows">&gt;</span>
+                </button>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
     </>
   );
 }

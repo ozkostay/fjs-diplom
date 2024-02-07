@@ -21,7 +21,7 @@ export default function* WorkerRegRoomsList(action) {
     // console.log('Worker HotelLIST 222', data);
     yield put(actRegRoomsList(data));
   } catch (err) {
-    alert('Ошибка запроса RegRooms List');
+    // alert('Ошибка запроса RegRooms List');
     yield put(actionUserTest(err.massage));
   }
 }

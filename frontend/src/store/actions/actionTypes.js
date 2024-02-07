@@ -26,3 +26,5 @@ export const REG_LIST_ERROR = "REG_LIST_ERROR";
 export const REG_DELETE = "REG_DELETE";
 export const REG_LOCAL_CLEAR = "REG_LOCAL_CLEAR";
 
+export const MGR_REG_LIST = "MGR_REG_LIST";
+export const MGR_REG_DELETE = "MGR_REG_DELETE";

@@ -27,11 +27,11 @@ export default function reducerRooms(state = initialState, action) {
         error: null,
       };
     case ROOMS_DELETE:
-      const tempHOTELS = state.hotels.filter((i) => i._id !== action.payload);
+      const tempRooms = state.hotels.filter((i) => i._id !== action.payload);
       // console.log('action.payload', action.payload);
       return {
         ...state,
-        rooms: tempHOTELS,
+        rooms: tempRooms,
         loading: false,
         error: null,
       };

@@ -19,6 +19,8 @@ import {
   REG_DELETE,
   REG_LOCAL_CLEAR,
   USER_ERROR,
+  MGR_REG_LIST,
+  MGR_REG_DELETE,
 } from "./actionTypes";
 
 export function actionUserTest(user) {
@@ -109,6 +111,17 @@ export function actRegRoomsClear(id) {
   // console.log('actionCreater REG_DELETE id', id)
   return { type: REG_LOCAL_CLEAR, payload: id };
 }
+
+export function actMgrRegRoomsList(payload) {
+  console.log('actionCreater ====  MGR_REG_LIST payload', payload)
+  return { type: MGR_REG_LIST, payload: payload };
+}
+export function actMgrRegRoomsDelete(id) {
+  console.log('actionCreater REG_DELETE id', id)
+  return { type: MGR_REG_DELETE, payload: id };
+}
+
+
 
 // ===========================
 // export function hitsRequest(param) {

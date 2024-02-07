@@ -17,7 +17,7 @@ export default function Header() {
   //===================================
   useEffect(() => {
     // console.log("useEffect in HEADER");
-    if (user) {
+    if (user && user.role === 'client') {
       // console.log("useEffect in HEADER 2  ");
       dispatch(actRegRoomsList(user._id));
     }

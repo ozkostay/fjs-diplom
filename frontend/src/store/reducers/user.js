@@ -10,9 +10,9 @@ const localUser = localStorage.getItem("user");
 let userLocalStorage = null;
 // console.log('987987987', localUser);
 if (!localUser) {
-  console.log('REDUSER user undefined');
+  console.log('REDUSER user undefined', userLocalStorage);
 } else {
-  userLocalStorage = JSON.parse(JSON.stringify(localUser));
+  userLocalStorage = JSON.parse(localUser);
   // userLocalStorage = JSON.parse(localUser);
 }
 // const userLocalStorage = localUser !== undefined ? JSON.parse(localStorage.getItem("user")) : null;
