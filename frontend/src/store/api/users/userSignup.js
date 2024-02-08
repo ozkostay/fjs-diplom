@@ -2,9 +2,11 @@ export const userSignup = async (param) => {
   // console.log('===== PARAM SAGA SIGNUP', param );
   const url =
     process.env.REACT_APP_BACK_URL + process.env.REACT_APP_POSTFIX_SIGNUP;
+
+  console.log('=== URL SIGNUP ===', url);
   const { email, passwordHash, name, phone, role } = param;
   const body = { email, passwordHash, name, contactPhone: phone, role };
-  
+
   const options = {
     method: "POST",
     headers: {

@@ -29,7 +29,15 @@ export default function EditHotel() {
       const arrTemp = [];
       const backendUrl = process.env.REACT_APP_BACK_URL;
       arrPicsFromBack.forEach(async (i, index) => {
-        const response = await fetch(backendUrl + i.url);
+        const options = {
+          method: "GET",
+          headers: {
+            "Access-Control-Allaow-Origin": "*",
+            // "Content-Type": "application/json;charset=utf-8",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        };
+        const response = await fetch(backendUrl + i.url, options);
         const blob = await response.blob();
         const file = new File([blob], i.name);
         arrTemp.push(file);

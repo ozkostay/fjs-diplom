@@ -8,6 +8,7 @@ export const hotelsListSearch = async (params) => {
   const options = {
     method: "GET",
     headers: {
+      "Access-Control-Allaow-Origin": "*",
       "Content-Type": "application/json;charset=utf-8",
       Authorization: "Bearer " + localStorage.getItem("token"),
     },

@@ -7,6 +7,7 @@ export const hotelsUpdate = async (id, formData) => {
     method: "PUT",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "Access-Control-Allaow-Origin": "*",
     },
     body: formData,
   };

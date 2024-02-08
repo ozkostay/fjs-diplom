@@ -9,6 +9,10 @@ import { HotelsModule } from './hotels/hotels.module';
 import { ChatModule } from './chat/chat.module';
 import { WebsocetsGateway } from './websocets/websocets.gateway';
 
+console.log('==============================================');
+console.log('process.env.MONGO_CONNECTION', process.env.MONGO_CONNECTION);
+console.log('==============================================');
+
 @Module({
   imports: [
     UsersModule,
