@@ -64,9 +64,11 @@ export default function reducerUser(state = initialState, action) {
           type: "mess",
           text: "Усешная регистрация пользователя",
         };
+        const user = localStorage.getItem("user");
+        console.log('REDUSER USER ', user);
         return {
           ...state,
-          user: null,
+          // user: user ? user : null,
           userLoading: false,
           userError,
         };;
@@ -86,7 +88,7 @@ export default function reducerUser(state = initialState, action) {
       }
       return {
         ...state,
-        user: null,
+        // user: null,
         userLoading: false,
         userError,
       };

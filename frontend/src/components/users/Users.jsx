@@ -107,12 +107,12 @@ export default function Users() {
       {allowedShown && (
         <div className="mainpage">
           <div className="users-header">
-            {user.role === "admin" && (
+            {user && user.role === "admin" && (
               <button onClick={fnAddUser} type="submit" className="form-button">
                 Добавить
               </button>
             )}
-            {user.role === "manager" && (
+            {user && user.role === "manager" && (
               <div></div>
             )}
             <div>
@@ -146,7 +146,7 @@ export default function Users() {
                     <th className="users-table-th users-table-mail">email</th>
                     <th className="users-table-th users-table-buttons"></th>
                   </tr>
-                  {users.map((item, index) => (
+                  {users && users.map((item, index) => (
                     <UsersItem
                       limit={limit}
                       key={item._id}

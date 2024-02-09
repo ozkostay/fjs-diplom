@@ -45,6 +45,7 @@ export default function Signup() {
     setPassword('');
     setName('');
     setPhone('');
+    setRole('');
   }
 
   //====================================
