@@ -9,7 +9,7 @@
   nest, mongodb
   React, Redux, Redux-Saga
 
-  Корень приложенияЖ fjs-diplom
+  Корень приложения: fjs-diplom
   Внутри  2раздела:
     backend
     frobtend
@@ -17,22 +17,22 @@
 -----
 
 ### Запуск приложения:
-  Вариант 1 (основной): В корне запустить "docker compose up"/
+  #### Вариант 1 (основной):
+  В корне запустить "docker compose up"/
   Итог:
     localhost:3000 - fromtend
     localhost:4000 - backend
     localhost:27017 - mongodb
 
-  Вариант 2 : 
-    0. docker run -d -p 27017:27017 mongodb/mongodb-community-server
-
-    1. В каталоге /backend/src переименовать файл ".env-example" в ".env"
-    2. Внутри строки раскоментировать
-    3. Запустить из /backend/ "npm run start"
+  #### Вариант 2 : 
+    1. docker run -d -p 27017:27017 mongodb/mongodb-community-server
+    2. В каталоге /backend/src переименовать файл ".env-example" в ".env"
+    3. Внутри строки раскоментировать
+    4. Запустить из /backend/ "npm run start"
     
-    4. В каталоге /frontend/src переименовать файл ".env-example" в ".env"
-    5. Внутри строки раскоментировать
-    6. Запустить из /frontend/ "npm run start" 
+    5. В каталоге /frontend/src переименовать файл ".env-example" в ".env"
+    6. Внутри строки раскоментировать
+    7. Запустить из /frontend/ "npm run start" 
     Итог:
       localhost:3000 - fromtend
       localhost:4000 - backend
