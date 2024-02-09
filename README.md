@@ -6,6 +6,7 @@
 #### Техзадание: https://github.com/netology-code/fjs-diplom/blob/main/README.md#12-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B8%D1%86%D1%8B
 
 ### Стэк приложения:
+  
   nest, mongodb
   React, Redux, Redux-Saga
 
@@ -17,12 +18,14 @@
 -----
 
 ### Запуск приложения:
+  
   #### Вариант 1 (основной):
+  
   В корне запустить "docker compose up"/
   Итог:
-    localhost:3000 - fromtend
-    localhost:4000 - backend
-    localhost:27017 - mongodb
+  - localhost:3000 - fromtend
+  - localhost:4000 - backend
+  - localhost:27017 - mongodb
 
   #### Вариант 2 : 
     1. docker run -d -p 27017:27017 mongodb/mongodb-community-server
