@@ -25,7 +25,7 @@
   
   #### Вариант 1 (основной):
   
-  В корне запустить "docker compose up"/
+  В корне запустить **docker compose up**
   
   ##### Итог:
   - localhost:3000 - fromtend
@@ -36,12 +36,12 @@
 
   - docker run -d -p 27017:27017 mongodb/mongodb-community-server
   - В каталоге /backend/src переименовать файл ".env-example" в ".env"
-  - Внутри строки раскоментировать
-  - Запустить из /backend/ "npm run start"
+  - Внутри строки раскомментировать
+  - Запустить из /backend **npm run start**
   
   - В каталоге /frontend/src переименовать файл ".env-example" в ".env"
-  - Внутри строки раскоментировать
-  - Запустить из /frontend/ "npm run start" 
+  - Внутри строки раскомментировать
+  - Запустить из /frontend **npm run start** 
   
   ##### Итог:
 
