@@ -6,22 +6,15 @@ export const roomsListSearch = async (objParams) => {
   newParams.append("limit", limit);
   newParams.append("hotelid", hotelId);
 
-
-  process.env.REACT_APP_BACK_URL +
-  "/api/common/hotel-rooms/" +
-  `?offset=${offset}&limit=${limit}&hotelid=${hotelId}`;
-
-
-
-
+  process.env.REACT_APP_BACK_URL + "/api/common/hotel-rooms/" + `?${newParams}`;
 
   const roomsUrl =
     process.env.REACT_APP_BACK_URL +
     "/api/common/hotel-rooms/" +
     `?${newParams}`;
 
-    console.log(roomsUrl);
-  
+  console.log(roomsUrl);
+
   const options = {
     method: "GET",
     headers: {
@@ -31,7 +24,7 @@ export const roomsListSearch = async (objParams) => {
   };
 
   const response = await fetch(roomsUrl, options);
-  
+
   if (!response.ok) {
     console.log("ERR");
     throw new Error(response.statusText);

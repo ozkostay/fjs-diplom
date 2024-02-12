@@ -2,10 +2,15 @@ export const usersListSearch = async (params) => {
   // console.log("SAGA API USER LIST", params);
   const { offset, limit, search } = params;
 
+  const newParams = new URLSearchParams({});
+  newParams.append("offset", offset);
+  newParams.append("limit", limit);
+  newParams.append("search", search);
+
   const url =
     process.env.REACT_APP_BACK_URL +
     process.env.REACT_APP_POSTFIX_USERS +
-    `?offset=${offset}&limit=${limit}&search=${search}`;
+    `?${newParams}`;
 
   const options = {
     method: "GET",
