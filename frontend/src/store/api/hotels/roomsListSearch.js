@@ -6,7 +6,8 @@ export const roomsListSearch = async (objParams) => {
   newParams.append("limit", limit);
   newParams.append("hotelid", hotelId);
 
-  process.env.REACT_APP_BACK_URL + "/api/common/hotel-rooms/" + `?${newParams}`;
+  // process.env.REACT_APP_BACK_URL + "/api/common/hotel-rooms/" + `?${newParams}`;
+  
 
   const roomsUrl =
     process.env.REACT_APP_BACK_URL +
@@ -14,7 +15,7 @@ export const roomsListSearch = async (objParams) => {
     `?${newParams}`;
 
   console.log(roomsUrl);
-
+  
   const options = {
     method: "GET",
     headers: {
