@@ -1,8 +1,10 @@
 export const findRequestById = async (params) => {
   // console.log(" === getUsersFromRequests ");
+  const newParams = new URLSearchParams({ id: params })
+
   const url =
     process.env.REACT_APP_BACK_URL +
-    `/api/manager/support-request/?id=${params}`;
+    `/api/manager/support-request/?${newParams}`;
 
   const options = {
     method: "GET",
