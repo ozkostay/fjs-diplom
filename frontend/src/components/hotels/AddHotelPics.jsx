@@ -1,17 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actHotelsPics } from "../../store/actions/actionCreators";
+import {
+  actHotelsPics,
+  actUserError,
+} from "../../store/actions/actionCreators";
 import EXIF from "exif-js";
+import WinError from "../Error";
 
 export default function AddHotelPics() {
   const { hotelsPics } = useSelector((state) => state.hotelsList);
+  const { user, userError } = useSelector((state) => state.crUser);
   let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('hotelsPics');
-  },[hotelsPics])
+    console.log("hotelsPics");
+  }, [hotelsPics]);
 
   //=====================================
   async function picsMetadata(file) {
@@ -55,13 +60,20 @@ export default function AddHotelPics() {
       return;
     }
     let picsMinus = 0;
+    let errMessage = "";
+    const br = document.createElement("br");
 
     inputArray.forEach(async (i, index) => {
       const wh = await picsMetadata(i);
+      
       if (wh.width < 1000) {
+        errMessage += `===== НЕ добавляем ${i.name} Ширина меньше 1000px ${wh.width}`;
         console.log(`НЕ добавляем ${i.name} Ширина меньше 1000px ${wh.width}`);
         picsMinus += 1;
       } else if (wh.width + wh.height > 5000) {
+        errMessage += `===== НЕ добавляем ${i.name} сумма длин сторон больше 5000px ${
+          wh.width + wh.height
+        }`;
         console.log(
           `НЕ добавляем ${i.name} сумма длин сторон больше 5000px ${
             wh.width + wh.height
@@ -82,9 +94,15 @@ export default function AddHotelPics() {
           if (index === preArray.length - 1) {
             if (Math.floor(filesSize / 1024 / 1024) > 10) {
               // Проверка на общийрамер файлов < 10МБ
+              errMessage += `===== НЕ добавляем! общий размер файлов больше 10МБ`;
               console.log(`НЕ добавляем! общий размер файлов больше 10МБ`);
             } else {
-              
+              dispatch(
+                actUserError({
+                  statusCode: 0,
+                  message: errMessage,
+                })
+              );
               dispatch(actHotelsPics(preArray));
             }
           }
@@ -138,6 +156,11 @@ export default function AddHotelPics() {
   //=====================================
   return (
     <>
+      {userError && (
+        <WinError type={userError.type} clearFields={() => {}}>
+          {userError.text}
+        </WinError>
+      )}
       <div>
         <input
           ref={inputFile}

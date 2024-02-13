@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actRoomsPics } from "../../store/actions/actionCreators";
+import { actRoomsPics, actUserError } from "../../store/actions/actionCreators";
+import WinError from "../Error";
 
 export default function AddRoomPics() {
   const { roomsPics } = useSelector((state) => state.rooms);
+  const { user, userError } = useSelector((state) => state.crUser);
   let idxFrom = null;
   const inputFile = useRef(null);
   const dispatch = useDispatch();
-  
+
   //=====================================
   async function picsMetadata(file) {
     {
@@ -35,7 +37,7 @@ export default function AddRoomPics() {
       return { width, height, fileSize: file.size, fileExtension, localUrl };
     }
   }
-  
+
   //=====================================
   function fnPics2Arr(e) {
     // Мах объем 10МБ
@@ -50,13 +52,18 @@ export default function AddRoomPics() {
       return;
     }
     let picsMinus = 0;
+    let errMessage = "";
 
     inputArray.forEach(async (i, index) => {
       const wh = await picsMetadata(i);
       if (wh.width < 1000) {
+        errMessage += `===== НЕ добавляем ${i.name} Ширина меньше 1000px ${wh.width}`;
         console.log(`НЕ добавляем ${i.name} Ширина меньше 1000px ${wh.width}`);
         picsMinus += 1;
       } else if (wh.width + wh.height > 5000) {
+        errMessage += `===== НЕ добавляем ${
+          i.name
+        } сумма длин сторон больше 5000px ${wh.width + wh.height}`;
         console.log(
           `НЕ добавляем ${i.name} сумма длин сторон больше 5000px ${
             wh.width + wh.height
@@ -77,8 +84,15 @@ export default function AddRoomPics() {
           if (index === preArray.length - 1) {
             if (Math.floor(filesSize / 1024 / 1024) > 10) {
               // Проверка на общийрамер файлов < 10МБ
+              errMessage += `===== НЕ добавляем! общий размер файлов больше 10МБ`;
               console.log(`НЕ добавляем! общий размер файлов больше 10МБ`);
             } else {
+              dispatch(
+                actUserError({
+                  statusCode: 0,
+                  message: errMessage,
+                })
+              );
               dispatch(actRoomsPics(preArray));
             }
           }
@@ -126,6 +140,11 @@ export default function AddRoomPics() {
   //=====================================
   return (
     <>
+      {userError && (
+        <WinError type={userError.type} clearFields={() => {}}>
+          {userError.text}
+        </WinError>
+      )}
       <div>
         <input
           ref={inputFile}
