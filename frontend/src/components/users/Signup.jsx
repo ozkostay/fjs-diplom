@@ -13,6 +13,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [emailStyle, setEmailStyle] = useState({});
   const [role, setRole] = useState("client");
   const { user, userError } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
@@ -21,11 +22,11 @@ export default function Signup() {
 
   // ====================================
   useEffect(() => {
-    if (userError && userError.type !== 'err') {
+    if (userError && userError.type !== "err") {
       clearFields();
     }
     // setTimeout(aaa(), 3000);
-  },[userError]) 
+  }, [userError]);
 
   //====================================
   function hendlerSubmit(event) {
@@ -41,17 +42,37 @@ export default function Signup() {
 
   //====================================
   function clearFields() {
-    setEmail('');
-    setPassword('');
-    setName('');
-    setPhone('');
-    setRole('');
+    setEmail("");
+    setPassword("");
+    setName("");
+    setPhone("");
+    setRole("");
   }
 
+  //==========================================
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  //====================================
+  function checkEmail(e) {
+    if (!isValidEmail(e.target.value)) {
+      // setError('Email is invalid');
+      setEmailStyle({ border: "2px solid red", outline: "none" });
+    } else {
+      // setError(null);
+      setEmailStyle({ border: "2px solid green", outline: "none" });
+    }
+
+    setEmail(e.target.value);
+  }
   //====================================
   return (
     <>
-      {userError && <WinError type={userError.type} clearFields={clearFields}>{userError.text}</WinError> }
+      {userError && (
+        <WinError type={userError.type} clearFields={clearFields}>
+          {userError.text}
+        </WinError>
+      )}
       <main className="mainpage">
         <div className="home flex-col">
           <div className="cl-black">
@@ -63,8 +84,9 @@ export default function Signup() {
               <input
                 className="login-input"
                 type="email"
+                style={emailStyle}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => checkEmail(e)}
               />
             </div>
             <div>
@@ -116,7 +138,6 @@ export default function Signup() {
               style={{ width: "250px" }}
               onClick={hendlerSubmit}
               type="submit"
-              
             >
               Зарегистрироваться
             </button>

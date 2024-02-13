@@ -7,6 +7,7 @@ import WinError from "../Error";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailStyle, setEmailStyle] = useState({});
   const { user, userError } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,8 +27,25 @@ export default function Login() {
 
   //====================================
   function clearFields() {
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
+  }
+
+  //==========================================
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  //====================================
+  function checkEmail(e) {
+    if (!isValidEmail(e.target.value)) {
+      // setError('Email is invalid');
+      setEmailStyle({ border: "2px solid red", outline: "none" });
+    } else {
+      // setError(null);
+      setEmailStyle({ border: "2px solid green", outline: "none" });
+    }
+
+    setEmail(e.target.value);
   }
 
   //====================================
@@ -48,9 +66,10 @@ export default function Login() {
               <span className="input-span">email</span>
               <input
                 className="login-input"
+                style={emailStyle}
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => checkEmail(e)}
               />
             </div>
             <div>
