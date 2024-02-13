@@ -49,7 +49,7 @@ export class UsersService {
       // console.log('USER SERVICE CREATEUSER user', user);
       return user;
     } catch (err) {
-      // console.log('USER SERVICE CREATEUSER err', err);
+      console.log('USER SERVICE CREATEUSER err', err);
       throw new BadRequestException('Пользователь с таким E-mail уже зарегистрирован.')
     }
     
