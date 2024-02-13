@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actUserLogin } from "../../store/actions/actionCreators";
+import { actUserError, actUserLogin } from "../../store/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
 import WinError from "../Error";
 
@@ -22,6 +22,14 @@ export default function Login() {
   //====================================
   function hendlerSubmit(event) {
     event.preventDefault();
+    if (!isValidEmail(email)) {
+      console.error('Неверный email!!!');
+      dispatch(actUserError({
+        statusCode: 400,
+        message: 'Не верный формат E-mail'
+      }));
+      return;
+    }
     dispatch(actUserLogin({ email, password }));
   }
 

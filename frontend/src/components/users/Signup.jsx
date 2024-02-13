@@ -17,7 +17,7 @@ export default function Signup() {
   const [role, setRole] = useState("client");
   const { user, userError } = useSelector((state) => state.crUser);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const showMessage = useRef();
 
   // ====================================
@@ -32,12 +32,21 @@ export default function Signup() {
   function hendlerSubmit(event) {
     event.preventDefault();
     const body = { email, passwordHash: password, name, phone, role };
-    dispatch(actUserSignup(body));
-    if (!user) {
-      // navigate("/signin");
-    } else {
-      // navigate("/users");
+    if (!isValidEmail(email)) {
+      console.error('Неверный email!!!');
+      dispatch(actUserError({
+        statusCode: 400,
+        message: 'Не верный формат E-mail'
+      }));
+      return;
     }
+    
+    dispatch(actUserSignup(body));
+    // if (!user) {
+    //   // navigate("/signin");
+    // } else {
+    //   // navigate("/users");
+    // }
   }
 
   //====================================
