@@ -1,19 +1,16 @@
-# Дипломная работа Fullstack JS
+# Проект desktop приложения Fullstack JS
 ### автор Ожуг Константин
 
 ## Приложение: "Cайт-агрегатор просмотра и бронирования гостиниц"
-
-#### Техзадание: [github.com](https://github.com/netology-code/fjs-diplom/blob/main/README.md#12-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B8%D1%86%D1%8B)
-
 
 #### Стэк приложения:
   
   - **Node.js, Nest.jx, MongoDB, WebSocket**
   - **React, Redux, React Router, Redux-Saga**
 
-  Клонируем проект: **"git clone https://github.com/ozkostay/fjs-diplom.git"**
+  Клонируем проект: **"git clone https://github.com/ozkostay/fjs-booking.git"**
 
-  Корень приложения: **fjs-diplom**
+  Корень приложения: **fjs-booking**
   
   Внутри 2 раздела:
   - переходим в **/backend** выполняем **npm i**
